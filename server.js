@@ -8,18 +8,19 @@ let db;
 // Set database path based on environment
 const dbPath = process.env.NODE_ENV === 'production' ? '/tmp/cs_match_tracker.db' : 'cs_match_tracker.db';
 
-// In production, prioritize sqlite3 to avoid build issues
+// Always use sqlite3 in production (Railway)
 if (process.env.NODE_ENV === 'production') {
   try {
     console.log('🔌 Production environment detected, using sqlite3...');
     sqlite3 = require('sqlite3').verbose();
     isUsingSqlite3 = true;
+    console.log('✅ Successfully loaded sqlite3 for production');
   } catch (err) {
     console.error('❌ Failed to load sqlite3:', err.message);
     process.exit(1);
   }
 } else {
-  // In development, try better-sqlite3 first
+  // In development, try better-sqlite3 first (which is an optional dependency)
   try {
     Database = require('better-sqlite3');
     console.log('✅ Using better-sqlite3');
