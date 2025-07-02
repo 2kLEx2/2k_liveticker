@@ -2,7 +2,20 @@
 
 const puppeteerExtra = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-const Database = require('better-sqlite3');
+const path = require('path');
+
+// Determine which SQLite library to use based on environment
+let Database;
+const isProduction = process.env.NODE_ENV === 'production';
+
+if (isProduction) {
+  console.log('🔌 Production environment detected, using sqlite3...');
+  const sqlite3 = require('sqlite3');
+  Database = sqlite3.Database;
+} else {
+  console.log('🔌 Development environment detected, using better-sqlite3...');
+  Database = require('better-sqlite3');
+}
 
 // Use puppeteer-extra with StealthPlugin
 const puppeteer = puppeteerExtra.default;
@@ -43,7 +56,54 @@ process.on('SIGTERM', () => {
 
 console.log('🚀 Scraper started');
 
-const db = new Database('cs_match_tracker.db');
+// Set up database connection based on environment
+const dbPath = isProduction ? '/tmp/cs_match_tracker.db' : 'cs_match_tracker.db';
+console.log(`💾 Using database at: ${dbPath}`);
+
+let db;
+if (isProduction) {
+  db = new Database(dbPath);
+  // For sqlite3 in production, we need to promisify and prepare methods
+  db.prepare = function(sql) {
+    const stmt = this.prepare(sql, function(err) {
+      if (err) throw err;
+    });
+    
+    // Add .all() method to statement
+    stmt.all = function(params) {
+      return new Promise((resolve, reject) => {
+        stmt.all(params, function(err, rows) {
+          if (err) reject(err);
+          else resolve(rows);
+        });
+      });
+    };
+    
+    // Add .get() method to statement
+    stmt.get = function(params) {
+      return new Promise((resolve, reject) => {
+        stmt.get(params, function(err, row) {
+          if (err) reject(err);
+          else resolve(row);
+        });
+      });
+    };
+    
+    // Add .run() method to statement
+    stmt.run = function(params) {
+      return new Promise((resolve, reject) => {
+        stmt.run(params, function(err) {
+          if (err) reject(err);
+          else resolve(this);
+        });
+      });
+    };
+    
+    return stmt;
+  };
+} else {
+  db = new Database(dbPath);
+}
 const LIVE_CHECK_INTERVAL = 30000;
 const NONLIVE_ROTATE_DELAY = 5000;
 const LIVE_SCRAPE_INTERVAL = 5000;
@@ -61,8 +121,28 @@ async function launchBrowser() {
   return browser;
 }
 
-function getAllMatches() {
-  return db.prepare(`SELECT match_id, match_url FROM matches WHERE is_finished = 0`).all();
+async function getAllMatches() {
+  try {
+    if (isProduction) {
+      // In production with sqlite3
+      return new Promise((resolve, reject) => {
+        db.all(`SELECT match_id, match_url FROM matches WHERE is_finished = 0`, (err, rows) => {
+          if (err) {
+            console.error('❌ Database error in getAllMatches:', err.message);
+            resolve([]); // Return empty array on error to prevent crashes
+          } else {
+            resolve(rows || []);
+          }
+        });
+      });
+    } else {
+      // In development with better-sqlite3
+      return db.prepare(`SELECT match_id, match_url FROM matches WHERE is_finished = 0`).all() || [];
+    }
+  } catch (err) {
+    console.error('❌ Error in getAllMatches:', err.message);
+    return []; // Return empty array on error to prevent crashes
+  }
 }
 
 async function isLiveMatch(page) {
@@ -382,27 +462,31 @@ if (topTeam) {
 }
 
 async function monitorQueue() {
-  const matches = getAllMatches();
+  try {
+    const matches = await getAllMatches();
+    
+    for (const { match_id, match_url } of matches) {
+      if (activeScrapers.has(match_id)) continue;
 
-  for (const { match_id, match_url } of matches) {
-    if (activeScrapers.has(match_id)) continue;
+      const page = await (await launchBrowser()).newPage();
+      try {
+        await page.goto(match_url, { waitUntil: 'networkidle2', timeout: 60000 });
+        const data = await isLiveMatch(page);
+        await page.close();
 
-    const page = await (await launchBrowser()).newPage();
-    try {
-      await page.goto(match_url, { waitUntil: 'networkidle2', timeout: 60000 });
-      const data = await isLiveMatch(page);
-      await page.close();
-
-      if (data) {
-        scrapeLiveMatch(match_id, match_url);
-      } else {
-        console.log(`🔍 Match ${match_id} not live yet. Keep searching...`);
-        await new Promise(res => setTimeout(res, NONLIVE_ROTATE_DELAY));
+        if (data) {
+          scrapeLiveMatch(match_id, match_url);
+        } else {
+          console.log(`🔍 Match ${match_id} not live yet. Keep searching...`);
+          await new Promise(res => setTimeout(res, NONLIVE_ROTATE_DELAY));
+        }
+      } catch (err) {
+        console.warn(`❌ Error checking match ${match_id}: ${err.message}`);
+        await page.close();
       }
-    } catch (err) {
-      console.warn(`❌ Error checking match ${match_id}: ${err.message}`);
-      await page.close();
     }
+  } catch (err) {
+    console.error('❌ Error in monitorQueue:', err.message);
   }
 
   setTimeout(monitorQueue, LIVE_CHECK_INTERVAL);
