@@ -674,8 +674,6 @@ app.post('/api/stop-scraper', (req, res) => {
   res.json({ success: true, message: 'Scraper stopped' });
 });
 
-const fs = require('fs');
-
 function findLogo(teamName) {
   const row = db.prepare(`
     SELECT logo_filename FROM team_logos WHERE team_name = ?
