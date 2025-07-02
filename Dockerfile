@@ -40,8 +40,8 @@ COPY public ./public
 # Expose port
 EXPOSE 3000
 
-# Create a startup script to initialize the database and start the server
-RUN echo '#!/bin/sh\nnode create_cs_match_tracker_db.js\nexec node server.js' > /app/startup.sh && \
+# Create a startup script that ensures database initialization completes before server starts
+RUN echo '#!/bin/sh\necho "Initializing database..."\nnode create_cs_match_tracker_db.js\nif [ $? -ne 0 ]; then\n  echo "Database initialization failed"\n  exit 1\nfi\necho "Database initialized successfully, starting server..."\nexec node server.js' > /app/startup.sh && \
     chmod +x /app/startup.sh
 
 # Start the app with the startup script

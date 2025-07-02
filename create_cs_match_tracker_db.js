@@ -72,54 +72,138 @@ CREATE TABLE IF NOT EXISTS admin_users (
 );
 `;
 
-// Try to use better-sqlite3 first, fall back to sqlite3 if not available
-try {
-  const Database = require('better-sqlite3');
-  console.log('✅ Using better-sqlite3 for database initialization');
-  const db = new Database(dbPath);
+// In production, always use sqlite3
+if (process.env.NODE_ENV === 'production') {
+  console.log('🔌 Production environment detected, using sqlite3...');
+  const sqlite3 = require('sqlite3').verbose();
+  const db = new sqlite3.Database(dbPath);
   
-  // Enable foreign key constraints
-  db.exec('PRAGMA foreign_keys = ON;');
+  // Use promises for better control flow
+  const runAsync = (query) => {
+    return new Promise((resolve, reject) => {
+      db.run(query, function(err) {
+        if (err) reject(err);
+        else resolve(this);
+      });
+    });
+  };
   
-  // Create tables
-  db.exec(createTablesSql);
+  const allAsync = (query) => {
+    return new Promise((resolve, reject) => {
+      db.all(query, [], function(err, rows) {
+        if (err) reject(err);
+        else resolve(rows);
+      });
+    });
+  };
   
-  // List tables for verification
-  const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
-  console.log("✅ Tables created:", tables.map(t => t.name).join(', '));
-  
-  db.close();
-} catch (err) {
-  console.log(`⚠️ better-sqlite3 not available: ${err.message}`);
-  console.log('🔄 Falling back to sqlite3...');
-  
+  // Run all operations in sequence
+  runAsync('PRAGMA foreign_keys = ON;')
+    .then(() => {
+      console.log('🔧 Creating tables...');
+      // Split SQL into separate statements and execute them one by one
+      const statements = createTablesSql.split(';')
+        .map(stmt => stmt.trim())
+        .filter(stmt => stmt.length > 0);
+      
+      return statements.reduce((promise, statement) => {
+        return promise.then(() => runAsync(statement + ';'));
+      }, Promise.resolve());
+    })
+    .then(() => allAsync("SELECT name FROM sqlite_master WHERE type='table'"))
+    .then(tables => {
+      console.log("✅ Tables created:", tables.map(t => t.name).join(', '));
+      
+      // Create default admin user if it doesn't exist
+      return runAsync("INSERT OR IGNORE INTO admin_users (username, password) VALUES ('admin', '$2b$10$Ht0vFtWZQNd5eyh1ajVSre5ZxYXKrIMHTpkQQvUrmwe3hm3P78iOW')");
+    })
+    .then(() => {
+      console.log("✅ Default admin user created or verified");
+      db.close();
+      console.log("✅ Database initialization completed successfully");
+    })
+    .catch(err => {
+      console.error('❌ Database initialization error:', err);
+      db.close();
+      process.exit(1);
+    });
+} else {
+  // In development, try better-sqlite3 first
   try {
+    const Database = require('better-sqlite3');
+    console.log('✅ Using better-sqlite3 for database initialization');
+    const db = new Database(dbPath);
+    
+    // Enable foreign key constraints
+    db.exec('PRAGMA foreign_keys = ON;');
+    
+    // Create tables
+    db.exec(createTablesSql);
+    
+    // Create default admin user if it doesn't exist
+    db.exec("INSERT OR IGNORE INTO admin_users (username, password) VALUES ('admin', '$2b$10$Ht0vFtWZQNd5eyh1ajVSre5ZxYXKrIMHTpkQQvUrmwe3hm3P78iOW')");
+    
+    // List tables for verification
+    const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
+    console.log("✅ Tables created:", tables.map(t => t.name).join(', '));
+    
+    db.close();
+  } catch (err) {
+    console.log(`⚠️ better-sqlite3 not available: ${err.message}`);
+    console.log('🔄 Falling back to sqlite3...');
+    
+    // Use the same sqlite3 code as production
     const sqlite3 = require('sqlite3').verbose();
     const db = new sqlite3.Database(dbPath);
     
-    // Enable foreign key constraints
-    db.run('PRAGMA foreign_keys = ON;');
-    
-    // Create tables
-    db.exec(createTablesSql, (err) => {
-      if (err) {
-        console.error('❌ Error creating tables:', err.message);
-        process.exit(1);
-      }
-      
-      // List tables for verification
-      db.all("SELECT name FROM sqlite_master WHERE type='table'", [], (err, tables) => {
-        if (err) {
-          console.error('❌ Error listing tables:', err.message);
-        } else {
-          console.log("✅ Tables created:", tables.map(t => t.name).join(', '));
-        }
-        
-        db.close();
+    // Use promises for better control flow
+    const runAsync = (query) => {
+      return new Promise((resolve, reject) => {
+        db.run(query, function(err) {
+          if (err) reject(err);
+          else resolve(this);
+        });
       });
-    });
-  } catch (err) {
-    console.error('❌ Failed to initialize database:', err.message);
-    process.exit(1);
+    };
+    
+    const allAsync = (query) => {
+      return new Promise((resolve, reject) => {
+        db.all(query, [], function(err, rows) {
+          if (err) reject(err);
+          else resolve(rows);
+        });
+      });
+    };
+    
+    // Run all operations in sequence
+    runAsync('PRAGMA foreign_keys = ON;')
+      .then(() => {
+        console.log('🔧 Creating tables...');
+        // Split SQL into separate statements and execute them one by one
+        const statements = createTablesSql.split(';')
+          .map(stmt => stmt.trim())
+          .filter(stmt => stmt.length > 0);
+        
+        return statements.reduce((promise, statement) => {
+          return promise.then(() => runAsync(statement + ';'));
+        }, Promise.resolve());
+      })
+      .then(() => allAsync("SELECT name FROM sqlite_master WHERE type='table'"))
+      .then(tables => {
+        console.log("✅ Tables created:", tables.map(t => t.name).join(', '));
+        
+        // Create default admin user if it doesn't exist
+        return runAsync("INSERT OR IGNORE INTO admin_users (username, password) VALUES ('admin', '$2b$10$Ht0vFtWZQNd5eyh1ajVSre5ZxYXKrIMHTpkQQvUrmwe3hm3P78iOW')");
+      })
+      .then(() => {
+        console.log("✅ Default admin user created or verified");
+        db.close();
+        console.log("✅ Database initialization completed successfully");
+      })
+      .catch(err => {
+        console.error('❌ Database initialization error:', err);
+        db.close();
+        process.exit(1);
+      });
   }
 }
