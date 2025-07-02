@@ -1,0 +1,1 @@
+-- Migration: Create win_state table\nCREATE TABLE IF NOT EXISTS win_state (\n  match_id TEXT PRIMARY KEY,\n  map_win BOOLEAN,\n  match_win BOOLEAN,\n  winning_team TEXT,\n  winning_score TEXT,\n  map_counts TEXT,\n  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP\n);

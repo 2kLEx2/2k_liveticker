@@ -1,0 +1,1907 @@
+[2025-06-30T17:56:37.439Z] [INFO] ✅ Match 2383372 successfully added to database and queue: {"team1_name":"SELVA","team2_name":"Bounty Hunters","match_format":"BO3","team1_logo":"https://www.hltv.org/dynamic-svg/teamplaceholder?letter=S","team2_logo":"https://img-cdn.hltv.org/teamlogo/g7RKwi-4djUsoVHYlRbp6q.png?ixlib=java-2.1.0&w=100&s=049927452a02927703cd1df297c12470","match_id":"2383372","match_url":"https://www.hltv.org/matches/2383372/selva-vs-bounty-hunters-thunderpick-world-championship-2025-south-america-series-1","winner":null,"is_finished":0}
+[2025-06-30T17:56:37.806Z] [INFO] ✅ Logo saved for Bounty Hunters: bounty_hunters.png
+[2025-06-30T17:56:41.756Z] [INFO] 🤖 Twitch bot started
+[2025-06-30T17:56:41.756Z] [INFO] 🚀 Live scraper started
+[2025-06-30T17:56:41.928Z] [INFO] 🚀 Scraper started
+[2025-06-30T17:56:45.319Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T17:57:23.827Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T17:58:02.023Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T17:58:40.392Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T17:59:18.619Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T17:59:56.784Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T18:00:35.569Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T18:01:14.155Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T18:01:52.521Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T18:02:30.740Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T18:03:08.979Z] [INFO] 🔍 Match 2383372 not live yet. Keep searching...
+[2025-06-30T18:03:47.224Z] [INFO] ✅ Found live match: 2383372
+[2025-06-30T18:03:50.330Z] [INFO] 📊 [2383372] CT 0 : 0 Terrorist
+[2025-06-30T18:05:10.502Z] [INFO] 📊 [2383372] Bounty Hunters 0 : 0 SELVA
+[2025-06-30T18:07:20.787Z] [INFO] 📊 [2383372] CT 0 : 0 Terrorist
+[2025-06-30T18:07:25.804Z] [INFO] 📊 [2383372] Bounty Hunters 0 : 0 SELVA
+[2025-06-30T18:09:41.112Z] [INFO] 📊 [2383372] Bounty Hunters 0 : 1 SELVA
+[2025-06-30T18:10:51.277Z] [INFO] 📊 [2383372] Bounty Hunters 0 : 2 SELVA
+[2025-06-30T18:11:46.391Z] [INFO] 📊 [2383372] Bounty Hunters 1 : 2 SELVA
+[2025-06-30T18:14:01.738Z] [INFO] 📊 [2383372] Bounty Hunters 2 : 2 SELVA
+[2025-06-30T18:15:01.888Z] [INFO] 📊 [2383372] Bounty Hunters 2 : 3 SELVA
+[2025-06-30T18:17:02.171Z] [INFO] 📊 [2383372] Bounty Hunters 3 : 3 SELVA
+[2025-06-30T18:19:27.512Z] [INFO] 📊 [2383372] Bounty Hunters 3 : 4 SELVA
+[2025-06-30T18:20:42.675Z] [INFO] 📊 [2383372] Bounty Hunters 4 : 4 SELVA
+[2025-06-30T18:23:02.987Z] [INFO] 📊 [2383372] Bounty Hunters 4 : 5 SELVA
+[2025-06-30T18:25:13.290Z] [INFO] 📊 [2383372] Bounty Hunters 5 : 5 SELVA
+[2025-06-30T18:26:43.476Z] [INFO] 📊 [2383372] Bounty Hunters 5 : 6 SELVA
+[2025-06-30T18:28:08.644Z] [INFO] 📊 [2383372] Bounty Hunters 6 : 6 SELVA
+[2025-06-30T18:29:03.756Z] [INFO] 📊 [2383372] SELVA 6 : 6 Bounty Hunters
+[2025-06-30T18:30:54.019Z] [INFO] 📊 [2383372] SELVA 7 : 6 Bounty Hunters
+[2025-06-30T18:36:09.737Z] [INFO] 📊 [2383372] SELVA 7 : 7 Bounty Hunters
+[2025-06-30T18:38:45.066Z] [INFO] 📊 [2383372] SELVA 8 : 7 Bounty Hunters
+[2025-06-30T18:40:40.369Z] [INFO] 📊 [2383372] SELVA 9 : 7 Bounty Hunters
+[2025-06-30T18:42:50.641Z] [INFO] 📊 [2383372] SELVA 10 : 7 Bounty Hunters
+[2025-06-30T18:44:30.910Z] [INFO] 📊 [2383372] SELVA 10 : 8 Bounty Hunters
+[2025-06-30T18:46:46.254Z] [INFO] 📊 [2383372] SELVA 11 : 8 Bounty Hunters
+[2025-06-30T18:48:41.537Z] [INFO] 📊 [2383372] SELVA 11 : 9 Bounty Hunters
+[2025-06-30T18:50:26.781Z] [INFO] 📊 [2383372] SELVA 11 : 10 Bounty Hunters
+[2025-06-30T18:53:17.206Z] [INFO] 📊 [2383372] SELVA 11 : 11 Bounty Hunters
+[2025-06-30T18:56:07.825Z] [INFO] [TwitchBot] Logged in as | 2k_live_ticker
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-06-30T18:57:27.792Z] [INFO] 📊 [2383372] SELVA 11 : 12 Bounty Hunters
+[2025-06-30T19:00:08.193Z] [INFO] 📊 [2383372] SELVA 11 : 13 Bounty Hunters
+[2025-06-30T19:00:08.197Z] [INFO] 🏆 [2383372] Bounty Hunters wins map 1 (11:13)
+[2025-06-30T19:00:08.203Z] [INFO] [2383372] Waiting for score reset to start map 2
+[2025-06-30T19:03:12.056Z] [INFO] [2383372] Detected map 2 started
+[2025-06-30T19:03:17.069Z] [INFO] 📊 [2383372] Bounty Hunters 0 : 0 SELVA
+[2025-06-30T19:04:47.256Z] [INFO] 📊 [2383372] CT 0 : 0 Terrorist
+[2025-06-30T19:06:57.564Z] [INFO] 📊 [2383372] SELVA 0 : 0 Bounty Hunters
+[2025-06-30T19:11:23.168Z] [INFO] 📊 [2383372] CT 0 : 0 Terrorist
+[2025-06-30T19:11:53.234Z] [INFO] 📊 [2383372] SELVA 0 : 0 Bounty Hunters
+[2025-06-30T19:17:54.103Z] [INFO] 📊 [2383372] CT 0 : 0 Terrorist
+[2025-06-30T19:17:59.125Z] [INFO] 📊 [2383372] SELVA 0 : 0 Bounty Hunters
+[2025-06-30T19:18:59.272Z] [INFO] 📊 [2383372] SELVA 0 : 1 Bounty Hunters
+[2025-06-30T19:21:19.581Z] [INFO] 📊 [2383372] SELVA 1 : 1 Bounty Hunters
+[2025-06-30T19:22:18.957Z] [INFO] [TwitchBot] [WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-06-30T19:23:19.834Z] [INFO] 📊 [2383372] SELVA 2 : 1 Bounty Hunters
+[2025-06-30T19:24:14.966Z] [INFO] 📊 [2383372] SELVA 3 : 1 Bounty Hunters
+[2025-06-30T19:26:40.336Z] [INFO] 📊 [2383372] SELVA 3 : 2 Bounty Hunters
+[2025-06-30T19:29:00.680Z] [INFO] 📊 [2383372] SELVA 3 : 3 Bounty Hunters
+[2025-06-30T19:31:46.072Z] [INFO] 📊 [2383372] SELVA 3 : 4 Bounty Hunters
+[2025-06-30T19:33:36.329Z] [INFO] 📊 [2383372] SELVA 4 : 4 Bounty Hunters
+[2025-06-30T19:35:11.537Z] [INFO] 📊 [2383372] SELVA 4 : 5 Bounty Hunters
+[2025-06-30T19:39:12.158Z] [INFO] 📊 [2383372] SELVA 4 : 6 Bounty Hunters
+[2025-06-30T19:40:42.354Z] [INFO] 📊 [2383372] SELVA 4 : 7 Bounty Hunters
+[2025-06-30T19:43:22.727Z] [INFO] 📊 [2383372] SELVA 4 : 8 Bounty Hunters
+[2025-06-30T19:44:27.878Z] [INFO] 📊 [2383372] Bounty Hunters 8 : 4 SELVA
+[2025-06-30T19:46:43.180Z] [INFO] 📊 [2383372] Bounty Hunters 9 : 4 SELVA
+[2025-06-30T19:48:13.408Z] [INFO] 📊 [2383372] Bounty Hunters 10 : 4 SELVA
+[2025-06-30T19:48:30.305Z] [INFO] [TwitchBot] [WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-06-30T19:49:13.572Z] [INFO] 📊 [2383372] Bounty Hunters 11 : 4 SELVA
+[2025-06-30T19:51:08.890Z] [INFO] 📊 [2383372] Bounty Hunters 12 : 4 SELVA
+[2025-06-30T19:52:24.091Z] [INFO] 📊 [2383372] Bounty Hunters 13 : 4 SELVA
+[2025-06-30T19:52:24.094Z] [INFO] 🏆 [2383372] Bounty Hunters wins map 2 (13:4)
+[2025-06-30T19:52:24.103Z] [INFO] 🏆 [2383372] BO3 match finished. Winner: Bounty Hunters (map win)
+[2025-06-30T19:52:26.111Z] [INFO] 🎯 [2383372] BO3 match finished. Winner: Bounty Hunters (match win)
+[2025-06-30T19:52:46.141Z] [INFO] 🕒 [2383372] Scraper cleanup after match win (20s delay)
+[2025-06-30T19:53:26.177Z] [INFO] 🗑️ Deleted match_id 2383372 from queue ID 91 and matches table.
+[2025-06-30T19:53:26.186Z] [INFO] 🗑️ [2383372] Deleted from match_queue via API after match win (60s delay)
+[2025-06-30T20:56:52.933Z] [INFO] [TwitchBot] exited with code 3221225786
+[2025-06-30T20:56:57.948Z] [INFO] 🛑 Live scraper exited with code 3221225786
+[2025-07-01T07:00:53.569Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T07:00:53.570Z] [INFO] Server running on port 3000
+[2025-07-01T07:01:49.629Z] [INFO] ✅ Match 9999921 successfully added to database and queue: {"team1_name":"dindi","team2_name":"kuku","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/giKWRtCUgQzLqqfLUgwPvv.png?ixlib=java-2.1.0&w=100&s=1aeef64bf7a1e82fce1e815e5a9d6c2b","team2_logo":"https://img-cdn.hltv.org/teamlogo/s1nvkP0GnHTlIHagb0vOOB.png?ixlib=java-2.1.0&w=100&s=09d26cb17a7889d9e3b466b650750224","match_id":"9999921","match_url":"http://127.0.0.1:5501/matches/9999921/test-vs-fake.html","winner":null,"is_finished":0}
+[2025-07-01T07:01:50.070Z] [INFO] ✅ Logo saved for dindi: dindi.png
+[2025-07-01T07:01:50.143Z] [INFO] ✅ Logo saved for kuku: kuku.png
+[2025-07-01T07:02:24.455Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T07:02:24.456Z] [INFO] 🚀 Live scraper started
+[2025-07-01T07:02:24.612Z] [INFO] 🚀 Scraper started
+[2025-07-01T07:02:25.810Z] [INFO] ✅ Found live match: 9999921
+[2025-07-01T07:02:26.839Z] [INFO] 📊 [9999921] kuku 1 : 0 dindi
+[2025-07-01T07:03:21.932Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-01T07:03:21.935Z] [INFO] 🏆 [9999921] kuku wins map 1 (13:0)
+[2025-07-01T07:03:21.940Z] [INFO] [9999921] Waiting for score reset to start map 2
+[2025-07-01T07:03:36.989Z] [INFO] [9999921] Detected map 2 started
+[2025-07-01T07:03:42.000Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T07:03:52.029Z] [INFO] 📊 [9999921] kuku 1 : 0 dindi
+[2025-07-01T07:04:07.061Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-01T07:04:07.064Z] [INFO] 🏆 [9999921] kuku wins map 2 (13:0)
+[2025-07-01T07:04:07.072Z] [INFO] 🏆 [9999921] BO3 match finished. Winner: kuku (map win)
+[2025-07-01T07:04:09.086Z] [INFO] 🎯 [9999921] BO3 match finished. Winner: kuku (match win)
+[2025-07-01T07:04:29.106Z] [INFO] 🕒 [9999921] Scraper cleanup after match win (20s delay)
+[2025-07-01T07:05:09.137Z] [INFO] 🗑️ Deleted match_id 9999921 from queue ID 92 and matches table.
+[2025-07-01T07:05:09.140Z] [INFO] 🗑️ [9999921] Deleted from match_queue via API after match win (60s delay)
+[2025-07-01T07:09:33.065Z] [ERROR] Uncaught Exception: {"code":"EADDRINUSE","errno":-4091,"syscall":"listen","address":"::","port":3000}
+[2025-07-01T07:09:33.068Z] [INFO] Server running on port 3000
+[2025-07-01T07:09:48.859Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T07:09:48.861Z] [INFO] Server running on port 3000
+[2025-07-01T07:09:56.551Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T07:09:56.553Z] [INFO] Server running on port 3000
+[2025-07-01T07:16:04.139Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T07:16:04.141Z] [INFO] Server running on port 3000
+[2025-07-01T07:16:46.972Z] [INFO] ✅ Match 9999921 successfully added to database and queue: {"team1_name":"dindi","team2_name":"kuku","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/giKWRtCUgQzLqqfLUgwPvv.png?ixlib=java-2.1.0&w=100&s=1aeef64bf7a1e82fce1e815e5a9d6c2b","team2_logo":"https://img-cdn.hltv.org/teamlogo/s1nvkP0GnHTlIHagb0vOOB.png?ixlib=java-2.1.0&w=100&s=09d26cb17a7889d9e3b466b650750224","match_id":"9999921","match_url":"http://127.0.0.1:5501/matches/9999921/test-vs-fake.html","winner":null,"is_finished":0}
+[2025-07-01T07:16:47.268Z] [INFO] ⏭ Logo already exists for dindi
+[2025-07-01T07:16:47.268Z] [INFO] ⏭ Logo already exists for kuku
+[2025-07-01T07:16:49.622Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T07:16:49.622Z] [INFO] 🚀 Live scraper started
+[2025-07-01T07:16:49.775Z] [INFO] 🚀 Scraper started
+[2025-07-01T07:16:50.978Z] [INFO] ✅ Found live match: 9999921
+[2025-07-01T07:16:51.999Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T07:17:12.015Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-01T07:17:12.019Z] [INFO] 🏆 [9999921] kuku wins map 1 (13:0)
+[2025-07-01T07:17:12.025Z] [INFO] [9999921] Waiting for score reset to start map 2
+[2025-07-01T07:17:24.057Z] [INFO] [9999921] Detected map 2 started
+[2025-07-01T07:17:29.066Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T07:17:44.099Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-01T07:17:44.103Z] [INFO] 🏆 [9999921] kuku wins map 2 (13:0)
+[2025-07-01T07:17:44.111Z] [INFO] 🏆 [9999921] BO3 match finished. Winner: kuku (map win)
+[2025-07-01T07:17:46.123Z] [INFO] 🎯 [9999921] BO3 match finished. Winner: kuku (match win)
+[2025-07-01T07:18:06.141Z] [INFO] 🕒 [9999921] Scraper cleanup after match win (20s delay)
+[2025-07-01T07:18:46.165Z] [INFO] 🗑️ Deleted match_id 9999921 from queue ID 93 and matches table.
+[2025-07-01T07:18:46.169Z] [INFO] 🗑️ [9999921] Deleted from match_queue via API after match win (60s delay)
+[2025-07-01T07:22:32.669Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T07:22:32.670Z] [INFO] Server running on port 3000
+[2025-07-01T07:23:03.254Z] [INFO] ✅ Match 9999921 successfully added to database and queue: {"team1_name":"dindi","team2_name":"kuku","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/giKWRtCUgQzLqqfLUgwPvv.png?ixlib=java-2.1.0&w=100&s=1aeef64bf7a1e82fce1e815e5a9d6c2b","team2_logo":"https://img-cdn.hltv.org/teamlogo/s1nvkP0GnHTlIHagb0vOOB.png?ixlib=java-2.1.0&w=100&s=09d26cb17a7889d9e3b466b650750224","match_id":"9999921","match_url":"http://127.0.0.1:5501/matches/9999921/test-vs-fake.html","winner":null,"is_finished":0}
+[2025-07-01T07:23:03.572Z] [INFO] ⏭ Logo already exists for dindi
+[2025-07-01T07:23:03.572Z] [INFO] ⏭ Logo already exists for kuku
+[2025-07-01T07:23:08.494Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T07:23:08.495Z] [INFO] 🚀 Live scraper started
+[2025-07-01T07:23:08.654Z] [INFO] 🚀 Scraper started
+[2025-07-01T07:23:09.873Z] [INFO] ✅ Found live match: 9999921
+[2025-07-01T07:23:10.889Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T07:23:25.908Z] [INFO] 📊 [9999921] kuku 1 : 0 dindi
+[2025-07-01T07:23:40.937Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-01T07:23:40.941Z] [INFO] 🏆 [9999921] kuku wins map 1 (13:0)
+[2025-07-01T07:23:40.946Z] [INFO] [9999921] Waiting for score reset to start map 2
+[2025-07-01T07:23:52.989Z] [INFO] [9999921] Detected map 2 started
+[2025-07-01T07:23:58.000Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T07:24:08.018Z] [INFO] 📊 [9999921] kuku 1 : 0 dindi
+[2025-07-01T07:24:23.046Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-01T07:24:23.060Z] [INFO] 🏆 [9999921] kuku wins map 2 (13:0)
+🏆 [9999921] BO3 match finished. Winner: kuku (map win)
+[2025-07-01T07:24:25.069Z] [INFO] 🎯 [9999921] BO3 match finished. Winner: kuku (match win)
+[2025-07-01T07:24:45.080Z] [INFO] 🕒 [9999921] Scraper cleanup after match win (20s delay)
+[2025-07-01T07:25:25.105Z] [INFO] 🗑️ Deleted match_id 9999921 from queue ID 94 and matches table.
+[2025-07-01T07:25:25.108Z] [INFO] 🗑️ [9999921] Deleted from match_queue via API after match win (60s delay)
+[2025-07-01T07:32:13.061Z] [INFO] ✅ Match 9999921 successfully added to database and queue: {"team1_name":"dindi","team2_name":"kuku","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/giKWRtCUgQzLqqfLUgwPvv.png?ixlib=java-2.1.0&w=100&s=1aeef64bf7a1e82fce1e815e5a9d6c2b","team2_logo":"https://img-cdn.hltv.org/teamlogo/s1nvkP0GnHTlIHagb0vOOB.png?ixlib=java-2.1.0&w=100&s=09d26cb17a7889d9e3b466b650750224","match_id":"9999921","match_url":"http://127.0.0.1:5501/matches/9999921/test-vs-fake.html","winner":null,"is_finished":0}
+[2025-07-01T07:32:13.283Z] [INFO] ⏭ Logo already exists for dindi
+[2025-07-01T07:32:13.284Z] [INFO] ⏭ Logo already exists for kuku
+[2025-07-01T07:32:41.076Z] [INFO] ✅ Found live match: 9999921
+[2025-07-01T07:32:42.108Z] [INFO] 📊 [9999921] kuku 1 : 0 dindi
+[2025-07-01T07:32:47.125Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T07:33:02.160Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-01T07:33:02.175Z] [INFO] 🏆 [9999921] kuku wins map 1 (13:0)
+ [9999921] Waiting for score reset to start map 2
+[2025-07-01T07:33:17.221Z] [INFO] [9999921] Detected map 2 started
+[2025-07-01T07:33:22.232Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T07:33:47.272Z] [INFO] 📊 [9999921] kuku 0 : 13 dindi
+[2025-07-01T07:33:47.276Z] [INFO] 🏆 [9999921] dindi wins map 2 (0:13)
+[2025-07-01T07:33:47.281Z] [INFO] [9999921] Waiting for score reset to start map 3
+[2025-07-01T07:34:05.365Z] [INFO] [9999921] Detected map 3 started
+[2025-07-01T07:34:10.379Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T07:34:25.404Z] [INFO] 📊 [9999921] kuku 0 : 13 dindi
+[2025-07-01T07:34:25.407Z] [INFO] 🏆 [9999921] dindi wins map 3 (0:13)
+[2025-07-01T07:34:25.416Z] [INFO] 🏆 [9999921] BO3 match finished. Winner: dindi (map win)
+[2025-07-01T07:34:27.429Z] [INFO] 🎯 [9999921] BO3 match finished. Winner: dindi (match win)
+[2025-07-01T07:34:47.447Z] [INFO] 🕒 [9999921] Scraper cleanup after match win (20s delay)
+[2025-07-01T07:35:27.458Z] [INFO] 🗑️ Deleted match_id 9999921 from queue ID 95 and matches table.
+[2025-07-01T07:35:27.460Z] [INFO] 🗑️ [9999921] Deleted from match_queue via API after match win (60s delay)
+[2025-07-01T08:20:56.933Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T08:20:56.935Z] [INFO] Server running on port 3000
+[2025-07-01T08:22:55.151Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T08:22:55.152Z] [INFO] Server running on port 3000
+[2025-07-01T08:23:50.666Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T08:23:50.667Z] [INFO] Server running on port 3000
+[2025-07-01T08:24:50.804Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T08:24:50.805Z] [INFO] Server running on port 3000
+[2025-07-01T08:26:31.719Z] [INFO] ✅ Match 9999921 successfully added to database and queue: {"team1_name":"dindi","team2_name":"kuku","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/giKWRtCUgQzLqqfLUgwPvv.png?ixlib=java-2.1.0&w=100&s=1aeef64bf7a1e82fce1e815e5a9d6c2b","team2_logo":"https://img-cdn.hltv.org/teamlogo/s1nvkP0GnHTlIHagb0vOOB.png?ixlib=java-2.1.0&w=100&s=09d26cb17a7889d9e3b466b650750224","match_id":"9999921","match_url":"http://127.0.0.1:5501/matches/9999921/test-vs-fake.html","winner":null,"is_finished":0}
+[2025-07-01T08:26:32.039Z] [INFO] ⏭ Logo already exists for dindi
+[2025-07-01T08:26:32.039Z] [INFO] ⏭ Logo already exists for kuku
+[2025-07-01T08:26:46.645Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T08:26:46.646Z] [INFO] 🚀 Live scraper started
+[2025-07-01T08:26:46.806Z] [INFO] 🚀 Scraper started
+[2025-07-01T08:26:48.016Z] [INFO] ✅ Found live match: 9999921
+[2025-07-01T08:26:49.033Z] [INFO] 📊 [9999921] kuku 0 : 13 dindi
+[2025-07-01T08:26:49.037Z] [INFO] 🏆 [9999921] dindi wins map 1 (0:13)
+[2025-07-01T08:26:49.042Z] [INFO] [9999921] Waiting for score reset to start map 2
+[2025-07-01T08:27:01.083Z] [INFO] [9999921] Detected map 2 started
+[2025-07-01T08:27:06.086Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-01T08:29:43.177Z] [INFO] ✅ Match 2383396 successfully added to database and queue: {"team1_name":"ROSY","team2_name":"HEROIC Academy","match_format":"BO3","team1_logo":"https://www.hltv.org/dynamic-svg/teamplaceholder?letter=R","team2_logo":"https://img-cdn.hltv.org/teamlogo/p-dHwSqwe_QYpES6Y3Qrj0.svg?ixlib=java-2.1.0&s=21075a8ce9a3aca28da018cb8cf72792","match_id":"2383396","match_url":"https://www.hltv.org/matches/2383396/rosy-vs-heroic-academy-exort-the-proving-grounds-season-2","winner":null,"is_finished":0}
+[2025-07-01T08:29:43.513Z] [INFO] ✅ Logo saved for HEROIC Academy: heroic_academy.svg
+[2025-07-01T08:29:52.370Z] [INFO] ✅ Found live match: 2383396
+[2025-07-01T08:29:55.555Z] [INFO] 📊 [2383396] ROSY 4 : 3 HEROIC Academy
+[2025-07-01T08:31:00.709Z] [INFO] 📊 [2383396] ROSY 5 : 3 HEROIC Academy
+[2025-07-01T08:32:05.854Z] [INFO] 📊 [2383396] ROSY 6 : 3 HEROIC Academy
+[2025-07-01T08:32:43.493Z] [INFO] 📥 Reorder request: ID=97, direction=up
+[2025-07-01T08:32:43.494Z] [INFO] 🔍 Current row: ID=97, priority=2
+[2025-07-01T08:32:43.494Z] [INFO] 🔁 Swapping with neighbor: ID=96, priority=1
+[2025-07-01T08:32:43.496Z] [INFO] ✅ Reordered match ID 97 up, priorities swapped
+[2025-07-01T08:32:58.702Z] [INFO] 📥 Reorder request: ID=96, direction=up
+[2025-07-01T08:32:58.703Z] [INFO] 🔍 Current row: ID=96, priority=2
+[2025-07-01T08:32:58.704Z] [INFO] 🔁 Swapping with neighbor: ID=97, priority=1
+[2025-07-01T08:32:58.706Z] [INFO] ✅ Reordered match ID 96 up, priorities swapped
+[2025-07-01T08:33:11.790Z] [INFO] 📊 [9999921] kuku 1 : 0 dindi
+[2025-07-01T08:33:15.869Z] [INFO] 📥 Reorder request: ID=97, direction=up
+[2025-07-01T08:33:15.870Z] [INFO] 🔍 Current row: ID=97, priority=2
+[2025-07-01T08:33:15.870Z] [INFO] 🔁 Swapping with neighbor: ID=96, priority=1
+[2025-07-01T08:33:15.872Z] [INFO] ✅ Reordered match ID 97 up, priorities swapped
+[2025-07-01T08:34:51.252Z] [INFO] 📊 [2383396] ROSY 7 : 3 HEROIC Academy
+[2025-07-01T08:37:42.983Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T08:37:42.984Z] [INFO] Server running on port 3000
+[2025-07-01T09:31:35.697Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T09:31:35.699Z] [INFO] 🚀 Live scraper started
+[2025-07-01T09:31:35.866Z] [INFO] 🚀 Scraper started
+[2025-07-01T09:31:37.112Z] [INFO] ✅ Found live match: 9999921
+[2025-07-01T09:31:37.781Z] [INFO] 📊 [9999921] kuku 1 : 0 dindi
+[2025-07-01T09:31:40.178Z] [INFO] ✅ Found live match: 2383396
+[2025-07-01T09:31:42.721Z] [INFO] 📊 [2383396] ROSY 6 : 6 HEROIC Academy
+[2025-07-01T09:31:52.749Z] [INFO] 📊 [2383396] HEROIC Academy 6 : 6 ROSY
+[2025-07-01T09:32:57.918Z] [INFO] 📊 [2383396] HEROIC Academy 7 : 6 ROSY
+[2025-07-01T09:36:33.420Z] [INFO] 📊 [2383396] HEROIC Academy 8 : 6 ROSY
+[2025-07-01T11:53:26.071Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T11:53:26.072Z] [INFO] Server running on port 3000
+[2025-07-01T11:53:32.142Z] [INFO] 🗑️ Deleted match_id 2383396 from queue ID 97 and matches table.
+[2025-07-01T11:53:32.952Z] [INFO] 🗑️ Deleted match_id 9999921 from queue ID 96 and matches table.
+[2025-07-01T11:53:42.847Z] [INFO] ✅ Match 2383397 successfully added to database and queue: {"team1_name":"modeame","team2_name":"NOVAQ","match_format":"BO3","team1_logo":"https://www.hltv.org/dynamic-svg/teamplaceholder?letter=m","team2_logo":"https://img-cdn.hltv.org/teamlogo/ex06IkeUFuqX30u_SJLSgX.png?ixlib=java-2.1.0&w=100&s=c73aef21d30960e11c66383e0e47ba9c","match_id":"2383397","match_url":"https://www.hltv.org/matches/2383397/modeame-vs-novaq-exort-the-proving-grounds-season-2","winner":null,"is_finished":0}
+[2025-07-01T11:53:43.284Z] [INFO] ✅ Logo saved for NOVAQ: novaq.png
+[2025-07-01T11:54:09.274Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T11:54:09.274Z] [INFO] 🚀 Live scraper started
+[2025-07-01T11:54:09.432Z] [INFO] 🚀 Scraper started
+[2025-07-01T11:54:12.540Z] [INFO] ✅ Found live match: 2383397
+[2025-07-01T11:54:14.703Z] [INFO] 📊 [2383397] modeame 0 : 3 NOVAQ
+[2025-07-01T11:54:59.797Z] [INFO] 📊 [2383397] modeame 0 : 4 NOVAQ
+[2025-07-01T11:59:40.393Z] [INFO] 📊 [2383397] modeame 1 : 4 NOVAQ
+[2025-07-01T12:01:45.664Z] [INFO] 📊 [2383397] modeame 2 : 4 NOVAQ
+[2025-07-01T12:04:06.007Z] [INFO] 📊 [2383397] modeame 3 : 4 NOVAQ
+[2025-07-01T12:06:31.374Z] [INFO] 📊 [2383397] modeame 3 : 5 NOVAQ
+[2025-07-01T12:07:56.593Z] [INFO] 📊 [2383397] modeame 3 : 6 NOVAQ
+[2025-07-01T12:11:37.090Z] [INFO] 📊 [2383397] modeame 3 : 7 NOVAQ
+[2025-07-01T12:12:57.268Z] [INFO] 📊 [2383397] modeame 3 : 8 NOVAQ
+[2025-07-01T12:15:02.556Z] [INFO] 📊 [2383397] modeame 3 : 9 NOVAQ
+[2025-07-01T12:15:13.240Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T12:15:13.241Z] [INFO] Server running on port 3000
+[2025-07-01T12:15:22.226Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T12:15:22.227Z] [INFO] 🚀 Live scraper started
+[2025-07-01T12:15:22.379Z] [INFO] 🚀 Scraper started
+[2025-07-01T12:15:25.446Z] [INFO] ✅ Found live match: 2383397
+[2025-07-01T12:15:27.568Z] [INFO] 📊 [2383397] NOVAQ 9 : 3 modeame
+[2025-07-01T12:20:18.281Z] [INFO] 📊 [2383397] NOVAQ 10 : 3 modeame
+[2025-07-01T12:22:18.560Z] [INFO] 📊 [2383397] NOVAQ 11 : 3 modeame
+[2025-07-01T12:24:03.790Z] [INFO] 📊 [2383397] NOVAQ 12 : 3 modeame
+[2025-07-01T12:25:18.992Z] [INFO] 📊 [2383397] NOVAQ 13 : 3 modeame
+[2025-07-01T12:25:18.995Z] [INFO] 🏆 [2383397] NOVAQ wins map 1 (13:3)
+[2025-07-01T12:25:19.000Z] [INFO] [2383397] Waiting for score reset to start map 2
+[2025-07-01T12:28:40.745Z] [INFO] [2383397] Detected map 2 started
+[2025-07-01T12:28:45.756Z] [INFO] 📊 [2383397] modeame 0 : 0 NOVAQ
+[2025-07-01T12:41:38.473Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T12:41:38.474Z] [INFO] Server running on port 3000
+[2025-07-01T12:41:50.812Z] [ERROR] ❌ Login error: no such table: admin_users
+[2025-07-01T12:42:56.620Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T12:42:56.621Z] [INFO] Server running on port 3000
+[2025-07-01T12:45:19.091Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-01T12:45:19.092Z] [INFO] Server running on port 3000
+[2025-07-01T13:14:23.597Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T13:14:23.598Z] [INFO] 🚀 Live scraper started
+[2025-07-01T13:14:23.771Z] [INFO] 🚀 Scraper started
+[2025-07-01T13:14:26.784Z] [INFO] ✅ Found live match: 2383397
+[2025-07-01T13:14:28.992Z] [INFO] 📊 [2383397] NOVAQ 10 : 7 modeame
+[2025-07-01T13:14:49.058Z] [INFO] 📊 [2383397] NOVAQ 11 : 7 modeame
+[2025-07-01T13:15:49.224Z] [INFO] 📊 [2383397] NOVAQ 12 : 7 modeame
+[2025-07-01T13:17:44.493Z] [INFO] 📊 [2383397] NOVAQ 13 : 7 modeame
+[2025-07-01T13:17:44.496Z] [INFO] 🏆 [2383397] NOVAQ wins map 1 (13:7)
+[2025-07-01T13:17:44.500Z] [INFO] [2383397] Waiting for score reset to start map 2
+[2025-07-01T13:23:36.437Z] [INFO] 🗑️ Deleted match_id 2383397 from queue ID 98 and matches table.
+[2025-07-01T13:23:47.993Z] [INFO] ✅ Match 2383374 successfully added to database and queue: {"team1_name":"ODDIK","team2_name":"RED Canids","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/OyrfDgfALykW3zHDRh5Pnc.png?ixlib=java-2.1.0&w=100&s=f2c7882104c256aa31d3d2d3db54a047","team2_logo":"https://img-cdn.hltv.org/teamlogo/Lyr7VJ-litGOwnRBu_8K5q.png?ixlib=java-2.1.0&w=100&s=f01854d9dcfcd0eba43fa2cb41818bbc","match_id":"2383374","match_url":"https://www.hltv.org/matches/2383374/oddik-vs-red-canids-thunderpick-world-championship-2025-south-america-series-1","winner":null,"is_finished":0}
+[2025-07-01T13:23:48.387Z] [INFO] ✅ Logo saved for ODDIK: oddik.png
+[2025-07-01T13:23:48.439Z] [INFO] ✅ Logo saved for RED Canids: red_canids.png
+[2025-07-01T13:24:00.121Z] [INFO] ✅ Found live match: 2383374
+[2025-07-01T13:24:02.960Z] [INFO] 📊 [2383374] ODDIK 0 : 5 RED Canids
+[2025-07-01T13:25:58.228Z] [INFO] 📊 [2383374] ODDIK 0 : 6 RED Canids
+[2025-07-01T13:29:23.690Z] [INFO] 📊 [2383374] ODDIK 1 : 6 RED Canids
+[2025-07-01T13:30:38.883Z] [INFO] 📊 [2383374] ODDIK 2 : 6 RED Canids
+[2025-07-01T13:32:59.193Z] [INFO] 📊 [2383374] ODDIK 3 : 6 RED Canids
+[2025-07-01T13:34:19.385Z] [INFO] 📊 [2383374] ODDIK 4 : 6 RED Canids
+[2025-07-01T13:36:14.644Z] [INFO] 📊 [2383374] ODDIK 5 : 6 RED Canids
+[2025-07-01T13:38:09.951Z] [INFO] 📊 [2383374] ODDIK 6 : 6 RED Canids
+[2025-07-01T13:39:30.128Z] [INFO] 📊 [2383374] RED Canids 6 : 6 ODDIK
+[2025-07-01T13:41:00.353Z] [INFO] 📊 [2383374] RED Canids 6 : 7 ODDIK
+[2025-07-01T13:43:05.639Z] [INFO] 📊 [2383374] RED Canids 6 : 8 ODDIK
+[2025-07-01T13:44:15.820Z] [INFO] 📊 [2383374] RED Canids 6 : 9 ODDIK
+[2025-07-01T13:46:36.146Z] [INFO] 📊 [2383374] RED Canids 7 : 9 ODDIK
+[2025-07-01T13:48:01.349Z] [INFO] 📊 [2383374] RED Canids 8 : 9 ODDIK
+[2025-07-01T13:51:06.734Z] [INFO] 📊 [2383374] RED Canids 9 : 9 ODDIK
+[2025-07-01T13:52:01.875Z] [INFO] 📊 [2383374] RED Canids 10 : 9 ODDIK
+[2025-07-01T13:54:17.150Z] [INFO] 📊 [2383374] RED Canids 10 : 10 ODDIK
+[2025-07-01T13:56:12.389Z] [INFO] 📊 [2383374] RED Canids 11 : 10 ODDIK
+[2025-07-01T13:57:57.621Z] [INFO] 📊 [2383374] RED Canids 11 : 11 ODDIK
+[2025-07-01T14:00:07.875Z] [INFO] 📊 [2383374] RED Canids 11 : 12 ODDIK
+[2025-07-01T14:01:58.084Z] [INFO] 📊 [2383374] RED Canids 11 : 13 ODDIK
+[2025-07-01T14:01:58.088Z] [INFO] 🏆 [2383374] ODDIK wins map 1 (11:13)
+[2025-07-01T14:01:58.092Z] [INFO] [2383374] Waiting for score reset to start map 2
+[2025-07-01T14:05:56.076Z] [INFO] [2383374] Detected map 2 started
+[2025-07-01T14:06:01.095Z] [INFO] 📊 [2383374] RED Canids 0 : 0 ODDIK
+[2025-07-01T14:06:58.478Z] [INFO] [TwitchBot] Logged in as | 2k_live_ticker
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-07-01T14:19:42.887Z] [INFO] 📊 [2383374] RED Canids 0 : 1 ODDIK
+[2025-07-01T14:21:43.176Z] [INFO] 📊 [2383374] RED Canids 1 : 1 ODDIK
+[2025-07-01T14:24:23.531Z] [INFO] 📊 [2383374] RED Canids 1 : 2 ODDIK
+[2025-07-01T14:26:43.864Z] [INFO] 📊 [2383374] RED Canids 1 : 3 ODDIK
+[2025-07-01T14:27:59.043Z] [INFO] 📊 [2383374] RED Canids 1 : 4 ODDIK
+[2025-07-01T14:29:39.261Z] [INFO] 📊 [2383374] RED Canids 1 : 5 ODDIK
+[2025-07-01T14:31:24.521Z] [INFO] 📊 [2383374] RED Canids 1 : 6 ODDIK
+[2025-07-01T14:33:09.662Z] [INFO] [TwitchBot] [WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-07-01T14:34:09.935Z] [INFO] 📊 [2383374] RED Canids 1 : 7 ODDIK
+[2025-07-01T14:36:45.275Z] [INFO] 📊 [2383374] RED Canids 1 : 8 ODDIK
+[2025-07-01T14:38:15.446Z] [INFO] 📊 [2383374] RED Canids 1 : 9 ODDIK
+[2025-07-01T14:40:25.726Z] [INFO] 📊 [2383374] RED Canids 1 : 10 ODDIK
+[2025-07-01T14:42:46.083Z] [INFO] 📊 [2383374] RED Canids 2 : 10 ODDIK
+[2025-07-01T14:44:56.382Z] [INFO] 📊 [2383374] ODDIK 10 : 2 RED Canids
+[2025-07-01T14:47:31.738Z] [INFO] 📊 [2383374] ODDIK 10 : 3 RED Canids
+[2025-07-01T14:49:26.994Z] [INFO] 📊 [2383374] ODDIK 10 : 4 RED Canids
+[2025-07-01T14:52:07.334Z] [INFO] 📊 [2383374] ODDIK 10 : 5 RED Canids
+[2025-07-01T14:54:27.623Z] [INFO] 📊 [2383374] ODDIK 10 : 6 RED Canids
+[2025-07-01T14:56:37.956Z] [INFO] 📊 [2383374] ODDIK 10 : 7 RED Canids
+[2025-07-01T14:58:08.153Z] [INFO] 📊 [2383374] ODDIK 11 : 7 RED Canids
+[2025-07-01T14:59:20.968Z] [INFO] [TwitchBot] [WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-07-01T15:00:13.430Z] [INFO] 📊 [2383374] ODDIK 12 : 7 RED Canids
+[2025-07-01T15:01:38.638Z] [INFO] 📊 [2383374] ODDIK 12 : 8 RED Canids
+[2025-07-01T15:04:29.069Z] [INFO] 📊 [2383374] ODDIK 12 : 9 RED Canids
+[2025-07-01T15:06:29.336Z] [INFO] 📊 [2383374] ODDIK 12 : 10 RED Canids
+[2025-07-01T15:09:04.663Z] [INFO] 📊 [2383374] ODDIK 12 : 11 RED Canids
+[2025-07-01T15:10:59.955Z] [INFO] 📊 [2383374] ODDIK 13 : 11 RED Canids
+[2025-07-01T15:10:59.959Z] [INFO] 🏆 [2383374] ODDIK wins map 2 (13:11)
+[2025-07-01T15:10:59.965Z] [INFO] 🏆 [2383374] BO3 match finished. Winner: ODDIK (map win)
+[2025-07-01T15:11:01.974Z] [INFO] 🎯 [2383374] BO3 match finished. Winner: ODDIK (match win)
+[2025-07-01T15:11:22.001Z] [INFO] 🕒 [2383374] Scraper cleanup after match win (20s delay)
+[2025-07-01T15:12:02.037Z] [ERROR] ❌ [2383374] API DELETE request failed with status 401
+[2025-07-01T15:24:50.901Z] [INFO] 🗑️ Deleted match_id 2383374 from queue ID 99 and matches table.
+[2025-07-01T15:24:54.299Z] [INFO] 🛑 Live scraper stopped
+[2025-07-01T15:24:54.300Z] [INFO] 🤖 Twitch bot stopped
+[2025-07-01T15:24:54.309Z] [INFO] [TwitchBot] exited with code null
+[2025-07-01T15:24:54.309Z] [INFO] 🛑 Live scraper exited with code null
+[2025-07-01T15:25:02.266Z] [INFO] ✅ Match 2383358 successfully added to database and queue: {"team1_name":"AMKAL","team2_name":"NXT","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/KNl9ZeR2afmpj3-J0fSilz.png?ixlib=java-2.1.0&w=100&s=399a9944ff509b53c9b8c676fae4a596","team2_logo":"https://img-cdn.hltv.org/teamlogo/GSUTgrDm6Q6g4BI3cM0J3I.png?ixlib=java-2.1.0&w=100&s=8d7f493ec39ec47c89e38047cc2fcfee","match_id":"2383358","match_url":"https://www.hltv.org/matches/2383358/amkal-vs-nxt-winline-insight-season-7","winner":null,"is_finished":0}
+[2025-07-01T15:25:02.633Z] [INFO] ✅ Logo saved for AMKAL: amkal.png
+[2025-07-01T15:25:02.694Z] [INFO] ✅ Logo saved for NXT: nxt.png
+[2025-07-01T15:25:11.675Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T15:25:11.675Z] [INFO] 🚀 Live scraper started
+[2025-07-01T15:25:11.831Z] [INFO] 🚀 Scraper started
+[2025-07-01T15:25:14.808Z] [INFO] 🔍 Match 2383358 not live yet. Keep searching...
+[2025-07-01T15:25:52.956Z] [INFO] ✅ Found live match: 2383358
+[2025-07-01T15:25:55.826Z] [INFO] 📊 [2383358] NXT 1 : 0 AMKAL
+[2025-07-01T15:27:01.010Z] [INFO] 📊 [2383358] NXT 1 : 1 AMKAL
+[2025-07-01T15:29:06.309Z] [INFO] 📊 [2383358] NXT 2 : 1 AMKAL
+[2025-07-01T15:30:11.427Z] [INFO] 📊 [2383358] NXT 3 : 1 AMKAL
+[2025-07-01T15:31:41.638Z] [INFO] 📊 [2383358] NXT 4 : 1 AMKAL
+[2025-07-01T15:33:11.870Z] [INFO] 📊 [2383358] NXT 4 : 2 AMKAL
+[2025-07-01T15:34:47.067Z] [INFO] 📊 [2383358] NXT 5 : 2 AMKAL
+[2025-07-01T15:35:52.217Z] [INFO] 📊 [2383358] NXT 6 : 2 AMKAL
+[2025-07-01T15:37:27.439Z] [INFO] 📊 [2383358] NXT 7 : 2 AMKAL
+[2025-07-01T15:40:02.789Z] [INFO] 📊 [2383358] NXT 8 : 2 AMKAL
+[2025-07-01T15:42:18.082Z] [INFO] 📊 [2383358] NXT 9 : 2 AMKAL
+[2025-07-01T15:43:38.246Z] [INFO] 📊 [2383358] NXT 10 : 2 AMKAL
+[2025-07-01T15:43:48.275Z] [INFO] 📊 [2383358] AMKAL 2 : 10 NXT
+[2025-07-01T15:45:08.450Z] [INFO] 📊 [2383358] AMKAL 3 : 10 NXT
+[2025-07-01T15:46:38.688Z] [INFO] 📊 [2383358] AMKAL 4 : 10 NXT
+[2025-07-01T15:47:48.857Z] [INFO] 📊 [2383358] AMKAL 5 : 10 NXT
+[2025-07-01T15:50:24.193Z] [INFO] 📊 [2383358] AMKAL 5 : 11 NXT
+[2025-07-01T15:53:24.615Z] [INFO] 📊 [2383358] AMKAL 6 : 11 NXT
+[2025-07-01T15:54:44.825Z] [INFO] 📊 [2383358] AMKAL 7 : 11 NXT
+[2025-07-01T15:56:35.142Z] [INFO] 📊 [2383358] AMKAL 8 : 11 NXT
+[2025-07-01T15:58:05.386Z] [INFO] 📊 [2383358] AMKAL 9 : 11 NXT
+[2025-07-01T15:59:55.694Z] [INFO] 📊 [2383358] AMKAL 10 : 11 NXT
+[2025-07-01T16:02:06.018Z] [INFO] 📊 [2383358] AMKAL 10 : 12 NXT
+[2025-07-01T16:03:46.213Z] [INFO] 📊 [2383358] AMKAL 10 : 13 NXT
+[2025-07-01T16:03:46.217Z] [INFO] 🏆 [2383358] NXT wins map 1 (10:13)
+[2025-07-01T16:03:46.221Z] [INFO] [2383358] Waiting for score reset to start map 2
+[2025-07-01T16:16:48.316Z] [INFO] 🗑️ Deleted match_id 2383358 from queue ID 100 and matches table.
+[2025-07-01T16:16:58.638Z] [INFO] ✅ Match 2383375 successfully added to database and queue: {"team1_name":"Imperial","team2_name":"Bounty Hunters","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/WF5P55R5fxcmhoew6vHZQr.png?ixlib=java-2.1.0&w=100&s=69a1bfb54d6350db4a0b18ff87a96dcc","team2_logo":"https://img-cdn.hltv.org/teamlogo/g7RKwi-4djUsoVHYlRbp6q.png?ixlib=java-2.1.0&w=100&s=049927452a02927703cd1df297c12470","match_id":"2383375","match_url":"https://www.hltv.org/matches/2383375/imperial-vs-bounty-hunters-thunderpick-world-championship-2025-south-america-series-1","winner":null,"is_finished":0}
+[2025-07-01T16:16:59.004Z] [INFO] ✅ Logo saved for Imperial: imperial.png
+[2025-07-01T16:16:59.006Z] [INFO] ⏭ Logo already exists for Bounty Hunters
+[2025-07-01T16:17:25.079Z] [INFO] 🛑 Live scraper stopped
+[2025-07-01T16:17:25.079Z] [INFO] 🤖 Twitch bot stopped
+[2025-07-01T16:17:25.087Z] [INFO] [TwitchBot] exited with code null
+[2025-07-01T16:17:25.088Z] [INFO] 🛑 Live scraper exited with code null
+[2025-07-01T16:17:26.577Z] [INFO] 🤖 Twitch bot started
+[2025-07-01T16:17:26.577Z] [INFO] 🚀 Live scraper started
+[2025-07-01T16:17:26.759Z] [INFO] 🚀 Scraper started
+[2025-07-01T16:17:29.716Z] [INFO] ✅ Found live match: 2383375
+[2025-07-01T16:17:32.234Z] [INFO] 📊 [2383375] Imperial 4 : 0 Bounty Hunters
+[2025-07-01T16:19:17.451Z] [INFO] 📊 [2383375] Imperial 5 : 0 Bounty Hunters
+[2025-07-01T16:21:07.712Z] [INFO] 📊 [2383375] Imperial 5 : 1 Bounty Hunters
+[2025-07-01T16:22:57.986Z] [INFO] 📊 [2383375] Imperial 5 : 2 Bounty Hunters
+[2025-07-01T16:25:33.346Z] [INFO] 📊 [2383375] Imperial 5 : 3 Bounty Hunters
+[2025-07-01T16:26:53.524Z] [INFO] 📊 [2383375] Imperial 6 : 3 Bounty Hunters
+[2025-07-01T16:29:13.830Z] [INFO] 📊 [2383375] Imperial 7 : 3 Bounty Hunters
+[2025-07-01T16:31:09.140Z] [INFO] 📊 [2383375] Imperial 8 : 3 Bounty Hunters
+[2025-07-01T16:32:54.395Z] [INFO] 📊 [2383375] Imperial 8 : 4 Bounty Hunters
+[2025-07-01T16:34:04.552Z] [INFO] 📊 [2383375] Bounty Hunters 4 : 8 Imperial
+[2025-07-01T16:36:04.808Z] [INFO] 📊 [2383375] Bounty Hunters 5 : 8 Imperial
+[2025-07-01T16:36:59.965Z] [INFO] 📊 [2383375] Bounty Hunters 6 : 8 Imperial
+[2025-07-01T16:39:25.313Z] [INFO] 📊 [2383375] Bounty Hunters 6 : 9 Imperial
+[2025-07-01T16:41:00.543Z] [INFO] 📊 [2383375] Bounty Hunters 7 : 9 Imperial
+[2025-07-01T16:42:15.718Z] [INFO] 📊 [2383375] Bounty Hunters 8 : 9 Imperial
+[2025-07-01T16:44:10.970Z] [INFO] 📊 [2383375] Bounty Hunters 9 : 9 Imperial
+[2025-07-01T16:46:26.265Z] [INFO] 📊 [2383375] Bounty Hunters 10 : 9 Imperial
+[2025-07-01T16:49:26.703Z] [INFO] 📊 [2383375] Bounty Hunters 11 : 9 Imperial
+[2025-07-01T16:51:16.973Z] [INFO] 📊 [2383375] Bounty Hunters 12 : 9 Imperial
+[2025-07-01T16:52:42.177Z] [INFO] 📊 [2383375] Bounty Hunters 12 : 10 Imperial
+[2025-07-01T16:54:37.425Z] [INFO] 📊 [2383375] Bounty Hunters 12 : 11 Imperial
+[2025-07-01T16:57:37.895Z] [INFO] 📊 [2383375] Bounty Hunters 12 : 12 Imperial
+[2025-07-01T16:57:37.896Z] [INFO] 🔁 [2383375] Overtime tied score detected (12:12) — OT1
+[2025-07-01T17:00:23.254Z] [INFO] 📊 [2383375] Bounty Hunters 12 : 13 Imperial
+[2025-07-01T17:02:38.571Z] [INFO] 📊 [2383375] Bounty Hunters 12 : 14 Imperial
+[2025-07-01T17:04:43.871Z] [INFO] 📊 [2383375] Bounty Hunters 12 : 15 Imperial
+[2025-07-01T17:05:49.030Z] [INFO] 📊 [2383375] Imperial 15 : 12 Bounty Hunters
+[2025-07-01T17:07:09.198Z] [INFO] 📊 [2383375] Imperial 16 : 12 Bounty Hunters
+[2025-07-01T17:07:09.202Z] [INFO] 🏆 [2383375] Imperial wins map 1 (16:12)
+[2025-07-01T17:07:09.206Z] [INFO] [2383375] Waiting for score reset to start map 2
+[2025-07-01T17:09:51.631Z] [INFO] [TwitchBot] Logged in as | 2k_live_ticker
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-07-01T17:10:09.962Z] [INFO] [2383375] Detected map 2 started
+[2025-07-01T17:10:14.969Z] [INFO] 📊 [2383375] Imperial 0 : 0 Bounty Hunters
+[2025-07-01T17:15:50.806Z] [INFO] 📊 [2383375] Bounty Hunters 0 : 0 Imperial
+[2025-07-01T17:26:47.197Z] [INFO] 📊 [2383375] CT 0 : 0 Terrorist
+[2025-07-01T17:26:52.210Z] [INFO] 📊 [2383375] Bounty Hunters 0 : 0 Imperial
+[2025-07-01T17:28:27.454Z] [INFO] 📊 [2383375] Bounty Hunters 0 : 1 Imperial
+[2025-07-01T17:29:27.587Z] [INFO] 📊 [2383375] Bounty Hunters 0 : 2 Imperial
+[2025-07-01T17:31:07.835Z] [INFO] 📊 [2383375] Bounty Hunters 0 : 3 Imperial
+[2025-07-01T17:33:08.197Z] [INFO] 📊 [2383375] Bounty Hunters 1 : 3 Imperial
+[2025-07-01T17:36:03.099Z] [INFO] [TwitchBot] [WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-07-01T17:36:08.663Z] [INFO] 📊 [2383375] Bounty Hunters 1 : 4 Imperial
+[2025-07-01T17:39:29.096Z] [INFO] 📊 [2383375] Bounty Hunters 1 : 5 Imperial
+[2025-07-01T17:41:14.357Z] [INFO] 📊 [2383375] Bounty Hunters 2 : 5 Imperial
+[2025-07-01T17:44:49.900Z] [INFO] 📊 [2383375] Bounty Hunters 2 : 6 Imperial
+[2025-07-01T17:47:25.236Z] [INFO] 📊 [2383375] Bounty Hunters 3 : 6 Imperial
+[2025-07-01T17:49:15.521Z] [INFO] 📊 [2383375] Bounty Hunters 3 : 7 Imperial
+[2025-07-01T17:51:35.885Z] [INFO] 📊 [2383375] Bounty Hunters 4 : 7 Imperial
+[2025-07-01T17:53:11.087Z] [INFO] 📊 [2383375] Bounty Hunters 5 : 7 Imperial
+[2025-07-01T17:54:31.289Z] [INFO] 📊 [2383375] Imperial 7 : 5 Bounty Hunters
+[2025-07-01T17:55:56.482Z] [INFO] 📊 [2383375] Imperial 8 : 5 Bounty Hunters
+[2025-07-01T17:57:11.677Z] [INFO] 📊 [2383375] Imperial 9 : 5 Bounty Hunters
+[2025-07-01T17:59:11.985Z] [INFO] 📊 [2383375] Imperial 9 : 6 Bounty Hunters
+[2025-07-01T18:01:42.331Z] [INFO] 📊 [2383375] Imperial 9 : 7 Bounty Hunters
+[2025-07-01T18:02:14.515Z] [INFO] [TwitchBot] [WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+[WIN DEBUG] winTeam=None winType=None winLine=None
+
+[2025-07-01T18:03:57.652Z] [INFO] 📊 [2383375] Imperial 9 : 8 Bounty Hunters
+[2025-07-01T18:05:52.944Z] [INFO] 📊 [2383375] Imperial 9 : 9 Bounty Hunters
+[2025-07-01T18:08:13.269Z] [INFO] 📊 [2383375] Imperial 9 : 10 Bounty Hunters
+[2025-07-01T18:10:08.585Z] [INFO] 📊 [2383375] Imperial 9 : 11 Bounty Hunters
+[2025-07-01T18:13:08.951Z] [INFO] 📊 [2383375] Imperial 10 : 11 Bounty Hunters
+[2025-07-01T18:14:24.103Z] [INFO] 📊 [2383375] Imperial 11 : 11 Bounty Hunters
+[2025-07-01T18:16:14.338Z] [INFO] 📊 [2383375] Imperial 12 : 11 Bounty Hunters
+[2025-07-01T18:17:39.534Z] [INFO] 📊 [2383375] Imperial 13 : 11 Bounty Hunters
+[2025-07-01T18:17:39.537Z] [INFO] 🏆 [2383375] Imperial wins map 2 (13:11)
+[2025-07-01T18:17:39.543Z] [INFO] 🏆 [2383375] BO3 match finished. Winner: Imperial (map win)
+[2025-07-01T18:17:41.553Z] [INFO] 🎯 [2383375] BO3 match finished. Winner: Imperial (match win)
+[2025-07-01T18:18:01.571Z] [INFO] 🕒 [2383375] Scraper cleanup after match win (20s delay)
+[2025-07-01T18:18:41.598Z] [ERROR] ❌ [2383375] API DELETE request failed with status 401
+[2025-07-01T20:53:00.988Z] [INFO] [TwitchBot] exited with code 3221225786
+[2025-07-01T20:53:06.006Z] [INFO] 🛑 Live scraper exited with code 3221225786
+[2025-07-02T07:34:31.822Z] [INFO] 🚀 Server running at http://localhost:3000/admin
+[2025-07-02T07:34:31.823Z] [INFO] Server running on port 3000
+[2025-07-02T07:39:44.668Z] [INFO] 🗑️ Deleted match_id 2383375 from queue ID 101 and matches table.
+[2025-07-02T07:40:08.411Z] [INFO] ✅ Match 9999921 successfully added to database and queue: {"team1_name":"dindi","team2_name":"kuku","match_format":"BO3","team1_logo":"https://img-cdn.hltv.org/teamlogo/giKWRtCUgQzLqqfLUgwPvv.png?ixlib=java-2.1.0&w=100&s=1aeef64bf7a1e82fce1e815e5a9d6c2b","team2_logo":"https://img-cdn.hltv.org/teamlogo/s1nvkP0GnHTlIHagb0vOOB.png?ixlib=java-2.1.0&w=100&s=09d26cb17a7889d9e3b466b650750224","match_id":"9999921","match_url":"http://127.0.0.1:5501/matches/9999921/test-vs-fake.html","winner":null,"is_finished":0}
+[2025-07-02T07:40:08.736Z] [INFO] ⏭ Logo already exists for dindi
+[2025-07-02T07:40:08.736Z] [INFO] ⏭ Logo already exists for kuku
+[2025-07-02T07:40:11.827Z] [INFO] 🤖 Twitch bot started
+[2025-07-02T07:40:11.828Z] [INFO] 🚀 Live scraper started
+[2025-07-02T07:40:11.979Z] [INFO] 🚀 Scraper started
+[2025-07-02T07:40:13.221Z] [INFO] ✅ Found live match: 9999921
+[2025-07-02T07:40:14.248Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-02T07:41:34.386Z] [INFO] 📊 [9999921] kuku 1 : 0 dindi
+[2025-07-02T07:41:49.417Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-02T07:41:49.421Z] [INFO] 🏆 [9999921] kuku wins map 1 (13:0)
+[2025-07-02T07:41:49.426Z] [INFO] [9999921] Waiting for score reset to start map 2
+[2025-07-02T07:42:07.471Z] [INFO] [9999921] Detected map 2 started
+[2025-07-02T07:42:12.482Z] [INFO] 📊 [9999921] kuku 0 : 0 dindi
+[2025-07-02T07:42:27.506Z] [INFO] 📊 [9999921] kuku 13 : 0 dindi
+[2025-07-02T07:42:27.509Z] [INFO] 🏆 [9999921] kuku wins map 2 (13:0)
+[2025-07-02T07:42:27.517Z] [INFO] 🏆 [9999921] BO3 match finished. Winner: kuku (map win)
+[2025-07-02T07:42:29.535Z] [INFO] 🎯 [9999921] BO3 match finished. Winner: kuku (match win)
+[2025-07-02T07:42:49.560Z] [INFO] 🕒 [9999921] Scraper cleanup after match win (20s delay)
+[2025-07-02T07:43:29.591Z] [ERROR] ❌ [9999921] API DELETE request failed with status 401

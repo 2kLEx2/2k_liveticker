@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS Match Tracker Admin Panel</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(to bottom right, #121212, #1e1e1e);
+    color: #eaeaea;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2 {
+    color: #facc15;
+    margin-bottom: 50px;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 32px;
+    background: rgba(40, 40, 40, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+  }
+
+  section {
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #333;
+  }
+
+  section:last-child {
+    border-bottom: none;
+  }
+
+  label {
+    font-weight: 600;
+    margin: 10px 0 6px;
+    display: block;
+  }
+
+  input, select, button, textarea {
+    font-size: 1rem;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background: #1a1a1a;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #facc15;
+    outline: none;
+    box-shadow: 0 0 0 2px #facc1533;
+  }
+
+  button {
+    cursor: pointer;
+    background: #facc15;
+    color: #1a1a1a;
+    font-weight: 700;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    transition: background 0.2s ease-in-out;
+  }
+
+  button:hover {
+    background: #fbbf24;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 0.95rem;
+  }
+
+  th, td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #444;
+    text-align: left;
+  }
+
+  th {
+    background: #1c1c1c;
+    color: #facc15;
+  }
+
+  .actions button {
+    margin-right: 6px;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  .status-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+
+  .status-not_started { background: #888; }
+  .status-running { background: #22c55e; }
+  .status-finished { background: #3b82f6; }
+  .status-queued { background: #facc15; }
+
+  .flex {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  #logBox {
+    background: #101010;
+    padding: 14px;
+    height: 320px;
+    overflow: auto;
+    border: 1px solid #333;
+    font-family: monospace;
+    border-radius: 8px;
+    margin-top: 12px;
+  }
+
+  iframe {
+    border-radius: 8px;
+    box-shadow: 0 0 8px #00000088;
+  }
+
+  @media (max-width: 600px) {
+    .flex {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    input[type="url"] {
+      width: 100% !important;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h1>CS Match Tracker – Admin Panel</h1>
+      <button onclick="logout()" style="background-color: #f44336; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer;">Logout</button>
+    </div>
+
+    <!-- 1. Add Match via HLTV URL -->
+    <section id="add-match">
+      <h2>1. Add Match</h2>
+      <form id="addMatchForm" class="flex">
+        <label for="hltvUrl" class="nowrap">HLTV Match URL:</label>
+        <input type="url" id="hltvUrl" name="hltvUrl" required placeholder="https://www.hltv.org/matches/..." style="width:340px;">
+        <button type="submit">Add Match</button>
+      </form>
+      <div id="addMatchStatus"></div>
+    </section>
+
+    <!-- 2. Match Queue Manager -->
+    <section id="queue-manager">
+      <h2>2. Match Queue Manager</h2>
+      <table id="queueTable">
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Match ID</th>
+            <th>Teams</th>
+            <th>Format</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Rows inserted dynamically -->
+        </tbody>
+      </table>
+    </section>
+
+
+    <!-- 5. App Control Panel -->
+    <section id="app-control">
+      <h2>5. App Control Panel</h2>
+      <div class="flex">
+        <button id="startApp">Start</button>
+        <button id="stopApp">Stop</button>
+        <button id="restartApp">Restart</button>
+        <span id="appStatus">Status: <span class="status-dot status-not_started"></span>App stopped</span>
+      </div>
+    </section>
+
+
+      <!-- 6. Server Logs -->
+    <section id="server-logs">
+      <h2>6. Server Logs</h2>
+      <div id="logBox" style="background:#111; padding:12px; height:300px; overflow:auto; border:1px solid #333; font-family:monospace; white-space:pre-wrap;"></div>
+    </section>
+    <button onclick="fetchServerLog()">Refresh Logs</button>
+    <button onclick="clearServerLog()">Clear Logs</button>
+
+    <!-- 7. Display Preview -->
+    <section id="display-preview" style="margin-top: 2rem; display: flex; flex-direction: column; align-items: center;">
+      <h2>7. Overlay Preview</h2>
+      <div style="aspect-ratio: 43/13; width: 430px; height: 130px; display: flex; align-items: center; justify-content: center; background: #000; border: 1px solid #ccc; border-radius: 1px;">
+        <iframe src="/display" style="width:100%; height:100%; border:none; overflow: hidden;" sandbox="allow-scripts allow-same-origin"></iframe>
+
+      </div>
+
+
+  </div> 
+  <script>
+    // Authentication check
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      window.location.href = 'login.html';
+      throw new Error('Authentication required');
+    }
+    
+    // Set up authorization header for all fetch requests
+    const originalFetch = window.fetch;
+    window.fetch = function(url, options = {}) {
+      // Only add auth header for our own API endpoints
+      if (url.toString().includes('/api/')) {
+        options = options || {};
+        options.headers = options.headers || {};
+        
+        // Always get the most current token
+        const currentToken = localStorage.getItem('adminToken');
+        if (!currentToken) {
+          console.error('No authentication token found');
+          window.location.href = 'login.html';
+          throw new Error('Authentication required');
+        }
+        
+        options.headers['Authorization'] = `Bearer ${currentToken}`;
+      }
+      return originalFetch(url, options)
+        .then(response => {
+          // If we get a 401 or 403, redirect to login
+          if (response.status === 401 || response.status === 403) {
+            console.error('Authentication error:', response.status);
+            localStorage.removeItem('adminToken');
+            alert('Your session has expired. Please log in again.');
+            window.location.href = 'login.html';
+            throw new Error('Authentication failed');
+          }
+          return response;
+        });
+    };
+    
+    // Verify token on page load
+    fetch('/api/auth/verify')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Invalid token');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (!data.valid) {
+          throw new Error('Invalid token');
+        }
+        // Optional: Display username somewhere
+        console.log('Logged in as:', data.user.username);
+      })
+      .catch(error => {
+        console.error('Auth error:', error);
+        localStorage.removeItem('adminToken');
+        window.location.href = 'login.html';
+      });
+    
+    // Logout function
+    function logout() {
+      localStorage.removeItem('adminToken');
+      window.location.href = 'login.html';
+    }
+    
+    // --- Fetch and render match queue ---
+    async function fetchAndRenderQueue() {
+      const tbody = document.querySelector('#queueTable tbody');
+      tbody.innerHTML = '<tr><td colspan="6">Loading...</td></tr>';
+      try {
+        const res = await fetch('/api/match-queue');
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Unknown error');
+        if (data.queue.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6">No matches in queue.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = '';
+        for (const row of data.queue) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${row.priority}</td>
+            <td>${row.match_id}</td>
+            <td>${row.team1_name} vs ${row.team2_name}</td>
+            <td>${row.match_format}</td>
+            <td class="status-cell" data-match-id="${row.match_id}">${row.status}</td>
+            <td class="actions">
+              <button class="reorder-up" data-id="${row.id}" title="Move Up">⬆️</button>
+              <button class="reorder-down" data-id="${row.id}" title="Move Down">⬇️</button>
+              <button class="remove-btn" data-id="${row.id}">Remove</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        }
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="6" style="color:red;">Failed to load queue: ${err.message}</td></tr>`;
+      }
+    }
+  
+    // Call after page load
+    fetchAndRenderQueue();
+
+    // Only refresh status cells every 5 seconds
+    setInterval(refreshStatusFields, 5000);
+
+    async function refreshStatusFields() {
+      try {
+        const res = await fetch('/api/match-queue');
+        const data = await res.json();
+        if (!data.success) return;
+        for (const row of data.queue) {
+          const statusCell = document.querySelector(`.status-cell[data-match-id="${row.match_id}"]`);
+          if (statusCell && statusCell.textContent !== row.status) {
+            statusCell.textContent = row.status;
+          }
+        }
+      } catch (err) {
+        // Optionally handle errors
+      }
+    }
+  
+    // Add Match form handler
+    document.getElementById('addMatchForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const urlInput = document.getElementById('hltvUrl');
+      const statusDiv = document.getElementById('addMatchStatus');
+      const button = this.querySelector('button[type="submit"]');
+      statusDiv.textContent = '';
+      button.disabled = true;
+  
+      try {
+        const res = await fetch('http://localhost:3000/api/add-match', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ hltvUrl: urlInput.value })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          statusDiv.style.color = 'lime';
+          statusDiv.textContent = 'Match added!';
+          urlInput.value = '';
+          fetchAndRenderQueue(); // Refresh queue after add
+        } else {
+          statusDiv.style.color = 'orange';
+          statusDiv.textContent = data.error || 'Error adding match.';
+        }
+      } catch (err) {
+        statusDiv.style.color = 'red';
+        statusDiv.textContent = 'Request failed.';
+      }
+  
+      button.disabled = false;
+    });
+  
+    // Remove/reorder match from queue (event delegation)
+    document.querySelector('#queueTable').addEventListener('click', async function(e) {
+      const id = e.target.getAttribute('data-id');
+      if (!id) return;
+  
+      if (e.target.classList.contains('remove-btn')) {
+        e.target.disabled = true;
+        e.target.textContent = 'Removing...';
+        try {
+          const res = await fetch(`/api/match-queue/${id}`, { method: 'DELETE' });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            fetchAndRenderQueue();
+          } else {
+            alert(data.error || 'Failed to remove match from queue.');
+            e.target.disabled = false;
+            e.target.textContent = 'Remove';
+          }
+        } catch (err) {
+          alert('Request failed.');
+          e.target.disabled = false;
+          e.target.textContent = 'Remove';
+        }
+  
+      } else if (e.target.classList.contains('reorder-up') || e.target.classList.contains('reorder-down')) {
+        const direction = e.target.classList.contains('reorder-up') ? 'up' : 'down';
+        e.target.disabled = true;
+        try {
+          const res = await fetch(`/api/match-queue/${id}/reorder`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ direction })
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            fetchAndRenderQueue();
+          } else {
+            alert(data.error || 'Failed to reorder match.');
+          }
+        } catch (err) {
+          alert('Request failed.');
+        } finally {
+          e.target.disabled = false;
+        }
+      }
+    });
+
+    document.getElementById('startApp').addEventListener('click', async () => {
+      const status = document.getElementById('appStatus');
+      try {
+        const res = await fetch('/api/start-scraper', { method: 'POST' });
+        const data = await res.json();
+        if (res.ok) {
+          status.innerHTML = `<span class="status-dot status-running"></span>Scraper running`;
+        } else {
+          alert(data.error || 'Failed to start scraper');
+        }
+      } catch (err) {
+        alert('Request failed.');
+      }
+    });
+
+    document.getElementById('stopApp').addEventListener('click', async () => {
+      const status = document.getElementById('appStatus');
+      try {
+        const res = await fetch('/api/stop-scraper', { method: 'POST' });
+        const data = await res.json();
+        if (res.ok) {
+          status.innerHTML = `<span class="status-dot status-not_started"></span>App stopped`;
+        } else {
+          alert(data.error || 'Failed to stop scraper');
+        }
+      } catch (err) {
+        alert('Request failed.');
+      }
+    });
+
+    const logBox = document.getElementById('logBox');
+
+    async function fetchServerLog() {
+      try {
+        const res = await fetch('/api/server-log');
+        const data = await res.json();
+        if (res.ok && data.success) {
+          logBox.textContent = data.log;
+          logBox.scrollTop = logBox.scrollHeight; // Auto scroll to bottom
+        } else {
+          logBox.textContent = 'Failed to load log.';
+        }
+      } catch (err) {
+        logBox.textContent = 'Error fetching log.';
+      }
+    }
+
+    // Fetch initially
+    fetchServerLog();
+
+    // Fetch log every 5 seconds
+    setInterval(fetchServerLog, 1000);
+
+  async function clearServerLog() {
+    if (!confirm('Clear the server log?')) return;
+    try {
+      const res = await fetch('/api/server-log', { method: 'DELETE' });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        logBox.textContent = '';
+      } else {
+        alert('Failed to clear log.');
+      }
+    } catch (err) {
+      alert('Error clearing log.');
+    }
+  }
+
+
+
+  </script>
+</body>
+</html>

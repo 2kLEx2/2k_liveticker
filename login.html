@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Bebas Neue', sans-serif;
+      background-color: #1a1a1a;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #f4f4f4;
+    }
+    .login-container {
+      background-color: #2a2a2a;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      width: 350px;
+      border: 1px solid #444;
+    }
+    h1 {
+      text-align: center;
+      color: #f4f4f4;
+      letter-spacing: 1px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      box-sizing: border-box;
+      background-color: #333;
+      color: #f4f4f4;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 1px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error-message {
+      color: red;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Admin Login</h1>
+    <div id="login-form">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="button" id="login-button">Login</button>
+      <div class="error-message" id="error-message"></div>
+    </div>
+  </div>
+
+  <script>
+    // Check if already authenticated
+    document.addEventListener('DOMContentLoaded', function() {
+      const token = localStorage.getItem('adminToken');
+      if (token) {
+        // Verify token validity with server
+        fetch('/api/auth/verify', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            window.location.href = 'admin.html';
+          } else {
+            // Token is invalid, clear it
+            localStorage.removeItem('adminToken');
+          }
+        })
+        .catch(error => {
+          console.error('Error verifying token:', error);
+          localStorage.removeItem('adminToken');
+        });
+      }
+    });
+    
+    document.getElementById('login-button').addEventListener('click', function() {
+      login();
+    });
+    
+    // Handle Enter key in username field
+    document.getElementById('username').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        document.getElementById('password').focus();
+      }
+    });
+    
+    // Handle Enter key in password field
+    document.getElementById('password').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        login();
+      }
+    });
+    
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorElement = document.getElementById('error-message');
+      
+      if (!username || !password) {
+        errorElement.textContent = 'Username and password are required';
+        return;
+      }
+      
+      // Clear previous error
+      errorElement.textContent = '';
+      
+      // Disable login button and show loading state
+      const loginButton = document.getElementById('login-button');
+      const originalText = loginButton.textContent;
+      loginButton.disabled = true;
+      loginButton.textContent = 'Logging in...';
+      
+      // Send login request to server
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.token) {
+          // Store token and redirect
+          localStorage.setItem('adminToken', data.token);
+          window.location.href = 'admin.html';
+        } else {
+          // Show error
+          errorElement.textContent = data.error || 'Login failed';
+          loginButton.disabled = false;
+          loginButton.textContent = originalText;
+        }
+      })
+      .catch(error => {
+        console.error('Login error:', error);
+        errorElement.textContent = 'Network error. Please try again.';
+        loginButton.disabled = false;
+        loginButton.textContent = originalText;
+      });
+    }
+  </script>
+</body>
+</html>

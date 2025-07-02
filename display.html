@@ -1,0 +1,551 @@
+<!-- Updated display.html with dynamic widget variants -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Match Score Widget</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=430, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Bebas Neue', sans-serif;
+    }
+    
+    /* Debug styles */
+    #debug-panel {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      z-index: 9999;
+      background: rgba(0,0,0,0.7);
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+    }
+
+    #widget {
+      position: fixed;
+      top: 130px;
+      right: -100%;
+      width: 425px;
+      height: 130px;
+      background: rgba(32, 32, 32, 0.917);
+      border-radius: 10px 0 0 10px;
+      color: white;
+      overflow: hidden;
+      transition: right 1.2s ease-in-out; /* Slower transition */
+      z-index: 999;
+      stroke: white;
+      text-shadow: 2px 2px 4px #000000b7;
+    }
+
+    #widget.show {
+      right: 0;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+    }
+
+    .center-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .map-info {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    .divider {
+      width: 124px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #d9d9d9, transparent);
+      margin-bottom: 2px;
+      filter: drop-shadow(4px 4px 10px rgba(255, 255, 255, 0.829));
+    }
+
+    .score {
+      display: flex;
+      align-items: center;
+      font-size: 36px;
+      font-weight: 400;
+      gap: 10px;
+      letter-spacing: 1px;
+    }
+
+    .score-left, .score-right {
+      width: 40px;
+      text-align: center;
+    }
+
+    .score-divider {
+      width: 20px;
+      text-align: center;
+      
+      
+    }
+
+    .map-count-wrapper {
+      display: flex;
+      gap: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .map-count {
+      font-size: 24px;
+      font-weight: 400;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .team {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-logo {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+    }
+
+    .team-name {
+      font-size: 18px;
+      font-weight: 400;
+      margin-top: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    .variant-win {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 15px;
+      background: rgba(32, 32, 32, 0.917);
+      border-radius: 10px 0 0 10px;
+    }
+
+    .logo-block {
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .team-logo {
+      width: 65px;
+      height: 65px;
+      object-fit: contain;
+      filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.836));
+    }
+
+    .info-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .headline {
+      font-size: 25px;
+      font-weight: 400;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .subline {
+      font-size: 30px;
+      font-weight: 400;
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div id="widget"></div>
+
+
+  <script>
+  let currentScore = { left: null, right: null };
+  let currentMatchId = null;
+  let hideTimeout;
+  let winWidgetTimeout;
+  let lastWinMapNumber = null;
+  let lastWinType = null;
+  let lastMapNumber = null;
+  let lastWinTeam = null;
+  let winWidgetActive = false;
+  let lastConsumedWinKey = null;
+  let widgetCooldown = false; // Prevents repeated activation during 30s cooldown
+  let hasShownWidgetThisSession = false; // Ensures widget is shown once on initial load
+  
+  // Force show widget without cooldown
+  function forceShowWidget() {
+    const widget = document.getElementById('widget');
+    widget.classList.add('show');
+    console.log('[WIDGET] Forced show - widget class list:', widget.classList);
+    hasShownWidgetThisSession = true;
+    updateDebugInfo();
+  }
+  
+  // Update debug info
+  function updateDebugInfo() {
+    const widget = document.getElementById('widget');
+    const isVisible = widget.classList.contains('show');
+    const debugElement = document.getElementById('debug-info');
+    if (debugElement) {
+      debugElement.textContent = `Widget state: ${isVisible ? 'visible' : 'hidden'}, Cooldown: ${widgetCooldown}`;
+    }
+  }
+  
+  const urlParams = new URLSearchParams(window.location.search);
+  const forcedVariant = urlParams.get('variant'); // 'map-win' or 'match-win'
+
+  function showWidgetTemporarily() {
+  hasShownWidgetThisSession = true;
+  const widget = document.getElementById('widget');
+
+  // Clear any existing hide timeout
+  clearTimeout(hideTimeout);
+
+  // Add show class and set cooldown
+  widget.classList.add('show');
+  widgetCooldown = true;
+
+  console.log('[WIDGET] Timer set for 10s');
+  console.log('[WIDGET] Widget class list after show:', widget.classList);
+  console.log('[WIDGET] Widget HTML content:', widget.innerHTML);
+
+  // Update debug info
+  updateDebugInfo();
+
+  // Set a new hide timeout
+  hideTimeout = setTimeout(() => {
+    console.log('[WIDGET] Timer expired, hiding widget');
+    // Always hide the widget and reset cooldown when timer expires
+    widget.classList.remove('show');
+    widgetCooldown = false;
+    console.log('[WIDGET] Widget class list after hide:', widget.classList);
+    updateDebugInfo();
+  }, 10000);
+}
+
+  function showWinWidget(teamName, logo, line1, line2, winKey) {
+    const widget = document.getElementById('widget');
+    widget.innerHTML = buildWinWidget(teamName, logo, line1, line2);
+    widget.classList.add('show');
+    winWidgetActive = true;
+    clearTimeout(winWidgetTimeout);
+    winWidgetTimeout = setTimeout(() => {
+      widget.classList.remove('show');
+      winWidgetActive = false;
+      // Do NOT reset lastConsumedWinKey here; prevent re-showing for same event
+    }, 10000); // 60 seconds
+    lastConsumedWinKey = winKey;
+  }
+
+  function hideWinWidget() {
+  if (winWidgetActive) {
+    const widget = document.getElementById('widget');
+    // Always hide the widget regardless of cooldown
+    widget.classList.remove('show');
+    console.log('[DEBUG] Win widget hidden, removed show class');
+    winWidgetActive = false;
+    clearTimeout(winWidgetTimeout);
+  }
+}
+
+  function buildMainWidget(data) {
+    return `
+      <div class="grid-container">
+        <div class="team team1">
+          <img src="/logos/${data.team1Logo || 'default.png'}" class="team-logo">
+          <div class="team-name">${data.teamName1 || ''}</div>
+        </div>
+        <div class="center-column">
+          <div class="map-info">${data.mapInfo || ''}</div>
+          <div class="divider"></div>
+          <div class="score">
+            <div class="score-left">${data.scoreLeft ?? ''}</div>
+            <div class="score-divider">:</div>
+            <div class="score-right">${data.scoreRight ?? ''}</div>
+          </div>
+          <div class="map-count-wrapper">
+            <div class="map-count">(${data.mapCount1 ?? ''})</div>
+            <div class="map-divider">&nbsp;</div>
+            <div class="map-count">(${data.mapCount2 ?? ''})</div>
+          </div>
+        </div>
+        <div class="team team2">
+          <img src="/logos/${data.team2Logo || 'default.png'}" class="team-logo">
+          <div class="team-name">${data.teamName2 || ''}</div>
+        </div>
+      </div>`;
+  }
+
+  function buildWinWidget(teamName, logo, line1, line2) {
+    // Use a fallback image if the logo fails to load
+    const fallbackLogo = 'default.png'; // Place a default.png in /public/logos/
+    return `
+      <div class="variant-win">
+        <div class="logo-block">
+          <img src="/logos/${logo}" alt="${teamName} logo" class="team-logo" onerror="this.onerror=null;this.src='/logos/${fallbackLogo}';console.log('[WIN WIDGET] Logo failed for: ${logo}, fallback used.');">
+        </div>
+        <div class="info-block">
+          <div class="headline" style="text-align: center;">${line1}</div>
+          <div class="subline" style="text-align: center;">${line2}</div>
+        </div>
+      </div>`;
+  }
+
+  async function fetchMatchData() {
+    let data = {};
+    let liveOk = false;
+    let winState = {};
+    
+    try {
+      // Fetch live score (for main widget)
+      const res = await fetch('/api/display/live');
+      if (res.ok) {
+        data = await res.json();
+        liveOk = true;
+        console.log('[DEBUG] Fetched live data:', data);
+        
+        // Store team data in localStorage for fallback
+        if (data.teamName1 && data.team1Logo) {
+          localStorage.setItem('lastTeamName1', data.teamName1);
+          localStorage.setItem('lastTeam1Logo', data.team1Logo);
+        }
+        if (data.teamName2 && data.team2Logo) {
+          localStorage.setItem('lastTeamName2', data.teamName2);
+          localStorage.setItem('lastTeam2Logo', data.team2Logo);
+        }
+      } else {
+        // Use stored team data as fallback if live data fetch fails
+        data = {
+          teamName1: localStorage.getItem('lastTeamName1') || '',
+          teamName2: localStorage.getItem('lastTeamName2') || '',
+          team1Logo: localStorage.getItem('lastTeam1Logo') || 'default.png',
+          team2Logo: localStorage.getItem('lastTeam2Logo') || 'default.png'
+        };
+        console.log('[DEBUG] Using fallback team data from localStorage:', data);
+      }
+      
+      // Fetch win state for win widget (ALWAYS do this)
+      try {
+        const winRes = await fetch('/api/display/win-state');
+        if (winRes.ok) winState = await winRes.json();
+      } catch {}
+
+
+      // Use dummy values if live data not available
+      const left = parseInt(data.scoreLeft, 10) || 0;
+      const right = parseInt(data.scoreRight, 10) || 0;
+      const mapNumber = data.mapNumber || 1;
+      // Fallback for matchId if missing
+      if (!data.matchId) {
+        data.matchId = `${data.teamName1 || ''}-${data.teamName2 || ''}-map${mapNumber}`;
+        console.log('[DEBUG] Fallback matchId used:', data.matchId);
+      }
+      console.log('[DEBUG] matchId:', data.matchId, 'currentMatchId:', currentMatchId, 'left:', left, 'right:', right);
+
+      // --- Win widget logic using winState ---
+
+      // Forced variant for testing (keep only for test/dev, not prod)
+      if (forcedVariant === 'match-win' && data.teamName1 && data.team1Logo) {
+        const winner = left > right ? data.teamName1 : data.teamName2;
+        const logo = left > right ? data.team1Logo : data.team2Logo;
+        showWinWidget(winner, logo, 'MATCH WINNER', winner, `${forcedVariant}-${mapNumber}-${winner}`);
+        lastWinMapNumber = mapNumber;
+        lastWinType = 'match';
+        lastWinTeam = winner;
+        return;
+      }
+
+      if ((!!winState.map_win || !!winState.match_win) && typeof winState.winning_team === 'string' && winState.winning_team.trim().length > 0) {
+        let logo = null;
+        // Make comparison case-insensitive and trim whitespace
+        const winningTeam = winState.winning_team.trim().toLowerCase();
+        const team1 = data.teamName1 ? data.teamName1.trim().toLowerCase() : '';
+        const team2 = data.teamName2 ? data.teamName2.trim().toLowerCase() : '';
+        
+        console.log('[DEBUG] Comparing team names:', { winningTeam, team1, team2 });
+        
+        // Try to find logo in current data
+        if (winningTeam === team1) logo = data.team1Logo;
+        else if (winningTeam === team2) logo = data.team2Logo;
+        
+        // If logo is still null, try to find it in localStorage
+        if (!logo) {
+          console.log('[DEBUG] Logo not found in current data, checking localStorage...');
+          // Get stored team names for comparison
+          const storedTeam1 = localStorage.getItem('lastTeamName1');
+          const storedTeam2 = localStorage.getItem('lastTeamName2');
+          
+          if (storedTeam1 && winningTeam === storedTeam1.trim().toLowerCase()) {
+            logo = localStorage.getItem('lastTeam1Logo');
+            console.log('[DEBUG] Found logo in localStorage for team1:', logo);
+          } else if (storedTeam2 && winningTeam === storedTeam2.trim().toLowerCase()) {
+            logo = localStorage.getItem('lastTeam2Logo');
+            console.log('[DEBUG] Found logo in localStorage for team2:', logo);
+          }
+          
+          // If still no logo, use the team name as the logo filename
+          if (!logo) {
+            logo = `${winState.winning_team.trim()}.png`;
+            console.log('[DEBUG] Using team name as logo filename:', logo);
+          }
+        }
+
+        let line1 = '';
+        let line2 = '';
+        if (winState.map_win) {
+          // Map win: "TeamName wins map X - BOY", score line
+          const mapNum = data.mapNumber || 1;
+          const bo = data.matchFormat || 'BO3';
+          line1 = `${winState.winning_team} wins map ${mapNum} - ${bo}`;
+          line2 = winState.winning_score ? winState.winning_score.replace(/\s*:\s*/, ' : ') : '';
+        } else if (winState.match_win) {
+          // Match win: "TeamName wins the match", map count line
+          line1 = `${winState.winning_team} wins the match`;
+          line2 = winState.map_counts ? winState.map_counts.replace(/\s*:\s*/, ' : ') : '';
+        }
+
+        const winKey = `${winState.match_win ? 'match' : 'map'}-${mapNumber}-${winState.winning_team}`;
+        if (lastConsumedWinKey !== winKey) {
+          showWinWidget(winState.winning_team, logo, line1, line2, winKey);
+          lastWinType = winState.match_win ? 'match' : 'map';
+          lastWinMapNumber = mapNumber;
+          lastWinTeam = winState.winning_team;
+        }
+        return;
+      }
+
+      // Hide win widget if no win event
+    // Always hide the win widget when there's no win event
+    hideWinWidget();
+    console.log('[DEBUG] Win widget hidden');
+    lastWinType = null;
+    lastWinMapNumber = null;
+    lastWinTeam = null;
+
+      // Only show the main widget if live data is available
+      if (liveOk) {
+        const isWidgetVisible = widget.classList.contains('show');
+        // Always update the widget HTML first
+        widget.innerHTML = buildMainWidget(data);
+        console.log('[DEBUG] Current scores:', left, right, 'Tracked scores:', currentScore.left, currentScore.right);
+        
+        // If the matchId changed, update tracking but don't show widget if scores are 0-0 (new map)
+        if (data.matchId !== currentMatchId) {
+          console.log('[DEBUG] Match ID changed from', currentMatchId, 'to', data.matchId);
+          currentMatchId = data.matchId;
+          
+          // Check if this is likely a new map (scores are 0-0)
+          const isNewMap = left === 0 && right === 0;
+          
+          // Update current score tracking
+          currentScore = { left, right };
+          
+          if (!widgetCooldown && !isNewMap) {
+            // Only show widget if this isn't a new map (scores not 0-0)
+            console.log('[DEBUG] Match ID changed with non-zero scores, showing widget');
+            showWidgetTemporarily();
+          } else if (isNewMap) {
+            console.log('[DEBUG] New map detected (0-0 scores), not showing widget');
+          }
+        } else {
+          // Score change detection - explicitly convert to numbers for comparison
+          const scoreChanged = (Number(left) !== Number(currentScore.left) || Number(right) !== Number(currentScore.right));
+          
+          if (scoreChanged) {
+            console.log('[DEBUG] Score changed from', currentScore.left, '-', currentScore.right, 'to', left, '-', right);
+            // Update current score BEFORE showing widget
+            currentScore = { left, right };
+            
+            if (!widgetCooldown) {
+              showWidgetTemporarily(); // Show for 30s on score change
+            } else {
+              console.log('[DEBUG] Widget in cooldown, not showing despite score change');
+            }
+          }
+          
+          // On initial load, if widget hasn't been shown yet and there is a live match, show it
+          if (!hasShownWidgetThisSession && !widgetCooldown) {
+            console.log('[DEBUG] First load of session, showing widget');
+            showWidgetTemporarily();
+          }
+        }
+        
+        // Always update debug info
+        updateDebugInfo();
+      }
+    } catch (e) {
+      console.error('Failed to fetch match data:', e);
+    }
+  }
+
+  fetchMatchData();
+  setInterval(fetchMatchData, 3000);
+// Initialize
+fetchMatchData();
+setInterval(fetchMatchData, 3000);
+
+// Update debug info on page load
+setTimeout(updateDebugInfo, 500);
+
+// Ensure visibility in iframes
+if (window !== window.parent) {
+  const style = document.createElement('style');
+  style.textContent = `
+    #widget {
+      position: static !important;
+      margin: 0 auto !important;
+      right: auto !important;
+      top: auto !important;
+      transform: none !important;
+    }`;
+  document.head.appendChild(style);
+  window.addEventListener('DOMContentLoaded', () => {
+    console.log('[DEBUG] In iframe, forcing widget to show');
+    const widget = document.getElementById('widget');
+    widget.classList.add('show');
+    // Prevent any code from hiding the widget in iframe mode
+    const originalRemove = widget.classList.remove;
+    widget.classList.remove = function(className) {
+      if (className === 'show') {
+        console.log('[DEBUG] Prevented removal of show class in iframe');
+        return;
+      }
+      return originalRemove.apply(this, arguments);
+    };
+  });
+}
+</script>
+</body>
+</html>
+
