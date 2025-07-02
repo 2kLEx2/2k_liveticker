@@ -1,10 +1,34 @@
 // live_scraper.js
 
-const puppeteer = require('puppeteer-extra');
+const puppeteerExtra = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const Database = require('better-sqlite3');
 
+// Use puppeteer-extra with StealthPlugin
+const puppeteer = puppeteerExtra.default;
 puppeteer.use(StealthPlugin());
+
+// Import browser configuration
+let browserConfig;
+try {
+  browserConfig = require('./browser-config');
+  console.log('Using browser configuration from browser-config.js');
+} catch (err) {
+  console.log('No browser-config.js found, using default configuration');
+  browserConfig = {
+    headless: 'new',
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process',
+      '--disable-gpu'
+    ]
+  };
+}
 
 // Graceful shutdown
 process.stdin.resume();
@@ -31,19 +55,8 @@ const fetch = require('node-fetch'); // For backend HTTP requests
 
 async function launchBrowser() {
   if (!browser) {
-    browser = await puppeteer.launch({ 
-      headless: 'new', 
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process',
-        '--disable-gpu'
-      ] 
-    });
+    console.log('Launching browser with options:', JSON.stringify(browserConfig, null, 2));
+    browser = await puppeteer.launch(browserConfig);
   }
   return browser;
 }
