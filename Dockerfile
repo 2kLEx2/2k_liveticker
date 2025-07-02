@@ -31,6 +31,7 @@ RUN npm install express@4.18.2 \
 COPY server.js ./
 COPY admin.html ./
 COPY login.html ./
+COPY display.html ./
 COPY add_match_check.js ./
 COPY live_scraper.js ./
 COPY create_cs_match_tracker_db.js ./
@@ -39,5 +40,9 @@ COPY public ./public
 # Expose port
 EXPOSE 3000
 
-# Start the app
-CMD ["node", "server.js"]
+# Create a startup script to initialize the database and start the server
+RUN echo '#!/bin/sh\nnode create_cs_match_tracker_db.js\nexec node server.js' > /app/startup.sh && \
+    chmod +x /app/startup.sh
+
+# Start the app with the startup script
+CMD ["/app/startup.sh"]

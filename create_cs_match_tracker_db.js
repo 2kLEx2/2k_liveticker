@@ -1,11 +1,12 @@
 // create_cs_match_tracker_db.js
-const Database = require('better-sqlite3');
-const db = new Database('cs_match_tracker.db');
+console.log('🔧 Initializing database tables...');
 
-// Enable foreign key constraints
-db.exec('PRAGMA foreign_keys = ON;');
+// Set database path based on environment
+const dbPath = process.env.NODE_ENV === 'production' ? '/tmp/cs_match_tracker.db' : 'cs_match_tracker.db';
+console.log(`📂 Using database at: ${dbPath}`);
 
-db.exec(`
+// SQL statements to create tables
+const createTablesSql = `
 CREATE TABLE IF NOT EXISTS matches (
   match_id TEXT PRIMARY KEY,
   match_url TEXT NOT NULL,
@@ -62,15 +63,63 @@ CREATE TABLE IF NOT EXISTS win_state (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (match_id) REFERENCES matches(match_id) ON DELETE CASCADE
 );
-`);
 
-const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
-console.log("Tables:", tables.map(t => t.name));
+CREATE TABLE IF NOT EXISTS admin_users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+`;
 
-for (const { name } of tables) {
-  console.log(`\nSchema for ${name}:`);
-  const info = db.prepare(`PRAGMA table_info(${name})`).all();
-  info.forEach(col => console.log(col));
+// Try to use better-sqlite3 first, fall back to sqlite3 if not available
+try {
+  const Database = require('better-sqlite3');
+  console.log('✅ Using better-sqlite3 for database initialization');
+  const db = new Database(dbPath);
+  
+  // Enable foreign key constraints
+  db.exec('PRAGMA foreign_keys = ON;');
+  
+  // Create tables
+  db.exec(createTablesSql);
+  
+  // List tables for verification
+  const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
+  console.log("✅ Tables created:", tables.map(t => t.name).join(', '));
+  
+  db.close();
+} catch (err) {
+  console.log(`⚠️ better-sqlite3 not available: ${err.message}`);
+  console.log('🔄 Falling back to sqlite3...');
+  
+  try {
+    const sqlite3 = require('sqlite3').verbose();
+    const db = new sqlite3.Database(dbPath);
+    
+    // Enable foreign key constraints
+    db.run('PRAGMA foreign_keys = ON;');
+    
+    // Create tables
+    db.exec(createTablesSql, (err) => {
+      if (err) {
+        console.error('❌ Error creating tables:', err.message);
+        process.exit(1);
+      }
+      
+      // List tables for verification
+      db.all("SELECT name FROM sqlite_master WHERE type='table'", [], (err, tables) => {
+        if (err) {
+          console.error('❌ Error listing tables:', err.message);
+        } else {
+          console.log("✅ Tables created:", tables.map(t => t.name).join(', '));
+        }
+        
+        db.close();
+      });
+    });
+  } catch (err) {
+    console.error('❌ Failed to initialize database:', err.message);
+    process.exit(1);
+  }
 }
-
-db.close();
