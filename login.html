@@ -160,9 +160,14 @@
         },
         body: JSON.stringify({ username, password })
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Login failed');
+        }
+        return response.json();
+      })
       .then(data => {
-        if (data.success && data.token) {
+        if (data.token) {
           // Store token and redirect
           localStorage.setItem('adminToken', data.token);
           window.location.href = 'admin.html';
