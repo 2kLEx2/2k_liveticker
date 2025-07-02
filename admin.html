@@ -264,7 +264,7 @@
     };
     
     // Verify token on page load
-    fetch('/api/auth/verify')
+    fetch('/api/verify')
       .then(response => {
         if (!response.ok) {
           throw new Error('Invalid token');
