@@ -876,8 +876,8 @@ app.get('/api/display/win-state', (req, res) => {
   }
 });
 
-// Health check endpoint for Railway
-app.get('/health', (req, res) => {
+// Health check function
+function performHealthCheck(req, res) {
   try {
     // Simple query to verify database connection
     if (isUsingSqlite3) {
@@ -897,6 +897,20 @@ app.get('/health', (req, res) => {
     console.error('Health check failed:', err.message);
     res.status(500).json({ status: 'error', message: err.message });
   }
+}
+
+// Health check endpoints for Railway
+app.get('/health', performHealthCheck);
+
+// Also respond to root path for Railway's default health check
+app.get('/', (req, res) => {
+  // If request is from Railway health check (no user agent or specific headers)
+  if (!req.headers['user-agent'] || req.headers['user-agent'].includes('Railway')) {
+    return performHealthCheck(req, res);
+  }
+  
+  // Otherwise redirect to admin page
+  res.redirect('/admin');
 });
 
 // Create a single server instance
