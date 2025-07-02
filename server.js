@@ -439,12 +439,27 @@ app.post('/api/add-match', (req, res) => {
   const { hltvUrl } = req.body;
   if (!hltvUrl) return res.status(400).json({ error: 'No URL provided' });
 
-  const matchIdMatch = hltvUrl.match(/matches\/(\d+)/);
+  console.log(`🔍 Processing match URL: ${hltvUrl}`);
+  
+  // Extract match ID from URL - handle both /matches/2378952/team-vs-team and /match/2378952/team-vs-team formats
+  const matchIdMatch = hltvUrl.match(/(?:matches|match)\/([0-9]+)/);
   if (!matchIdMatch) return res.status(400).json({ error: 'Malformed HLTV URL' });
   const matchId = matchIdMatch[1];
 
-  const exists = db.prepare('SELECT 1 FROM matches WHERE match_id = ?').get(matchId);
-  if (exists) return res.status(409).json({ error: 'Match already exists' });
+  try {
+    console.log(`🔍 Checking if match ID ${matchId} already exists in database...`);
+    const exists = db.prepare('SELECT * FROM matches WHERE match_id = ?').get(matchId);
+    
+    if (exists) {
+      console.log(`⚠️ Match ${matchId} already exists in database:`, exists);
+      return res.status(409).json({ error: 'Match already exists', matchDetails: { id: matchId, team1: exists.team1_name, team2: exists.team2_name } });
+    }
+    
+    console.log(`✅ Match ${matchId} does not exist in database, proceeding...`);
+  } catch (err) {
+    console.error(`❌ Error checking if match exists:`, err.message);
+    // Continue anyway - it's better to try adding the match
+  }
 
   const child = spawn('node', ['add_match_check.js', hltvUrl, matchId], { cwd: __dirname });
 
