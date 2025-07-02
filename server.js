@@ -106,36 +106,87 @@ function initializeDatabase() {
       // Enable foreign keys
       db.run('PRAGMA foreign_keys = ON');
       
-      // Initialize tables
+      // Initialize tables - using the same schema as create_cs_match_tracker_db.js
       db.serialize(() => {
+        // matches table
+        db.run(`
+          CREATE TABLE IF NOT EXISTS matches (
+            match_id TEXT PRIMARY KEY,
+            match_url TEXT NOT NULL,
+            team1_name TEXT NOT NULL,
+            team2_name TEXT NOT NULL,
+            match_format TEXT CHECK (match_format IN ('BO1', 'BO3', 'BO5')) NOT NULL,
+            winner TEXT,
+            is_finished BOOLEAN DEFAULT 0,
+            added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        
+        // live_scores table
+        db.run(`
+          CREATE TABLE IF NOT EXISTS live_scores (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            match_id TEXT NOT NULL,
+            map_number INTEGER NOT NULL,
+            current_round INTEGER DEFAULT 1,
+            ct_team TEXT NOT NULL,
+            t_team TEXT NOT NULL,
+            ct_score INTEGER DEFAULT 0,
+            t_score INTEGER DEFAULT 0,
+            status TEXT DEFAULT 'live',
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (match_id) REFERENCES matches(match_id) ON DELETE CASCADE
+          )
+        `);
+        
+        // match_maps table
+        db.run(`
+          CREATE TABLE IF NOT EXISTS match_maps (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            match_id TEXT NOT NULL,
+            map_number INTEGER NOT NULL,
+            status TEXT CHECK (status IN ('not_started', 'running', 'finished')) NOT NULL DEFAULT 'not_started',
+            winning_team TEXT,
+            ct_score INTEGER,
+            t_score INTEGER,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (match_id) REFERENCES matches(match_id) ON DELETE CASCADE,
+            UNIQUE (match_id, map_number)
+          )
+        `);
+        
+        // match_queue table
+        db.run(`
+          CREATE TABLE IF NOT EXISTS match_queue (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            match_id TEXT NOT NULL,
+            priority INTEGER DEFAULT 0,
+            status TEXT CHECK (status IN ('queued', 'not_started', 'running', 'finished')) NOT NULL DEFAULT 'queued',
+            FOREIGN KEY (match_id) REFERENCES matches(match_id) ON DELETE CASCADE
+          )
+        `);
+        
+        // win_state table
+        db.run(`
+          CREATE TABLE IF NOT EXISTS win_state (
+            match_id TEXT PRIMARY KEY,
+            map_win BOOLEAN DEFAULT 0,
+            match_win BOOLEAN DEFAULT 0,
+            winning_team TEXT,
+            winning_score TEXT,
+            map_counts TEXT,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (match_id) REFERENCES matches(match_id) ON DELETE CASCADE
+          )
+        `);
+        
+        // admin_users table
         db.run(`
           CREATE TABLE IF NOT EXISTS admin_users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          )
-        `);
-        
-        db.run(`
-          CREATE TABLE IF NOT EXISTS match_queue (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            match_id TEXT UNIQUE NOT NULL,
-            team1 TEXT NOT NULL,
-            team2 TEXT NOT NULL,
-            status TEXT DEFAULT 'queued',
-            last_checked TIMESTAMP,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          )
-        `);
-        
-        db.run(`
-          CREATE TABLE IF NOT EXISTS match_data (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            match_id TEXT NOT NULL,
-            data TEXT NOT NULL,
-            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            UNIQUE(match_id)
           )
         `);
         
@@ -711,20 +762,31 @@ app.get('/api/display/live', (req, res) => {
     const liveScore = db.prepare(`SELECT * FROM live_scores WHERE match_id = ?`).get(match.match_id);
     if (!liveScore) return res.status(404).json({ error: 'No live score available' });
 
-    const mapWins = db.prepare(`
-      SELECT winning_team, COUNT(*) as win_count
-      FROM match_maps
-      WHERE match_id = ? AND status = 'finished' AND winning_team IS NOT NULL
-      GROUP BY winning_team
-    `).all(match.match_id);
+    // Get map wins with proper error handling
+    let mapWins = [];
+    try {
+      mapWins = db.prepare(`
+        SELECT winning_team, COUNT(*) as win_count
+        FROM match_maps
+        WHERE match_id = ? AND status = 'finished' AND winning_team IS NOT NULL
+        GROUP BY winning_team
+      `).all(match.match_id) || [];
+    } catch (err) {
+      console.error('Error getting map wins:', err.message);
+      // Continue with empty mapWins array
+    }
 
     const mapCount = {
       [match.team1_name]: 0,
       [match.team2_name]: 0,
     };
-    for (const row of mapWins) {
-      if (row.winning_team in mapCount) {
-        mapCount[row.winning_team] = row.win_count;
+    
+    // Only iterate if mapWins is an array and not empty
+    if (Array.isArray(mapWins) && mapWins.length > 0) {
+      for (const row of mapWins) {
+        if (row && row.winning_team && row.winning_team in mapCount) {
+          mapCount[row.winning_team] = row.win_count;
+        }
       }
     }
 
@@ -737,15 +799,22 @@ app.get('/api/display/live', (req, res) => {
     const matchWinner = match.winner;
     const isMatchWin = !!matchWinner;
 
-    const latestMap = db.prepare(`
-      SELECT winning_team, map_number
-      FROM match_maps
-      WHERE match_id = ? AND status = 'finished'
-      ORDER BY updated_at DESC
-      LIMIT 1
-    `).get(match.match_id);
+    // Get latest map with proper error handling
+    let latestMap = null;
+    try {
+      latestMap = db.prepare(`
+        SELECT winning_team, map_number
+        FROM match_maps
+        WHERE match_id = ? AND status = 'finished'
+        ORDER BY updated_at DESC
+        LIMIT 1
+      `).get(match.match_id) || null;
+    } catch (err) {
+      console.error('Error getting latest map:', err.message);
+      // Continue with latestMap as null
+    }
 
-        res.json({
+    res.json({
       matchId: match.match_id,
       teamName1: match.team1_name,
       teamName2: match.team2_name,
