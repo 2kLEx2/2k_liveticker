@@ -12,8 +12,22 @@ WORKDIR /app
 # Create browser config file
 RUN echo "module.exports = { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
 
-# Copy only necessary files
+# Copy package.json first
 COPY package.json ./
+
+# Install dependencies individually to identify any problematic packages
+RUN npm install express@4.18.2 \
+    cors@2.8.5 \
+    jsonwebtoken@9.0.2 \
+    bcrypt@5.1.1 \
+    sqlite3@5.1.7 \
+    ws@8.18.2 \
+    node-fetch@2.7.0 \
+    puppeteer-core@21.11.0 \
+    puppeteer-extra@3.3.6 \
+    puppeteer-extra-plugin-stealth@2.11.2
+
+# Copy application files
 COPY server.js ./
 COPY admin.html ./
 COPY login.html ./
@@ -21,9 +35,6 @@ COPY add_match_check.js ./
 COPY live_scraper.js ./
 COPY create_cs_match_tracker_db.js ./
 COPY public ./public
-
-# Install dependencies with minimal output
-RUN npm install --only=production --no-audit --no-fund --prefer-offline --silent
 
 # Expose port
 EXPOSE 3000
