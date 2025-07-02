@@ -3,14 +3,37 @@ const path = require('path');
 let Database;
 let sqlite3;
 let isUsingSqlite3 = false;
+let db;
 
-try {
-  Database = require('better-sqlite3');
-  console.log('✅ Using better-sqlite3');
-} catch (err) {
-  console.log('⚠️ better-sqlite3 failed to load, falling back to sqlite3:', err.message);
-  sqlite3 = require('sqlite3').verbose();
-  isUsingSqlite3 = true;
+// Set database path based on environment
+const dbPath = process.env.NODE_ENV === 'production' ? '/tmp/cs_match_tracker.db' : 'cs_match_tracker.db';
+
+// In production, prioritize sqlite3 to avoid build issues
+if (process.env.NODE_ENV === 'production') {
+  try {
+    console.log('🔌 Production environment detected, using sqlite3...');
+    sqlite3 = require('sqlite3').verbose();
+    isUsingSqlite3 = true;
+  } catch (err) {
+    console.error('❌ Failed to load sqlite3:', err.message);
+    process.exit(1);
+  }
+} else {
+  // In development, try better-sqlite3 first
+  try {
+    Database = require('better-sqlite3');
+    console.log('✅ Using better-sqlite3');
+  } catch (err) {
+    console.log('⚠️ better-sqlite3 failed to load, falling back to sqlite3:', err.message);
+    try {
+      sqlite3 = require('sqlite3').verbose();
+      isUsingSqlite3 = true;
+      console.log('✅ Successfully loaded sqlite3 as fallback');
+    } catch (sqlite3Err) {
+      console.error('❌ Failed to load sqlite3 fallback:', sqlite3Err.message);
+      process.exit(1);
+    }
+  }
 }
 
 const puppeteer = require('puppeteer-extra');
@@ -57,230 +80,135 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// Database
-let db;
-let dbPath;
-
-// Use a path that's guaranteed to be writable in Railway
-dbPath = process.env.NODE_ENV === 'production' ? '/tmp/cs_match_tracker.db' : 'cs_match_tracker.db';
-console.log(`📂 Using database at: ${dbPath}`);
-
-// Function to initialize database tables
-function initializeTables() {
-  return new Promise((resolve, reject) => {
-    const createTables = () => {
-      // Create admin users table if it doesn't exist
-      const createAdminTable = `
+// Initialize database connection
+function initializeDatabase() {
+  console.log(`📂 Using database at: ${dbPath}`);
+  
+  if (isUsingSqlite3) {
+    // Using sqlite3
+    try {
+      // Create a new database connection
+      db = new sqlite3.Database(dbPath, (err) => {
+        if (err) {
+          console.error('❌ Failed to connect with sqlite3:', err.message);
+          process.exit(1);
+        }
+        console.log('✅ Connected to database with sqlite3');
+      });
+      
+      // Enable foreign keys
+      db.run('PRAGMA foreign_keys = ON');
+      
+      // Initialize tables
+      db.serialize(() => {
+        db.run(`
+          CREATE TABLE IF NOT EXISTS admin_users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        
+        db.run(`
+          CREATE TABLE IF NOT EXISTS match_queue (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            match_id TEXT UNIQUE NOT NULL,
+            team1 TEXT NOT NULL,
+            team2 TEXT NOT NULL,
+            status TEXT DEFAULT 'queued',
+            last_checked TIMESTAMP,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        
+        db.run(`
+          CREATE TABLE IF NOT EXISTS match_data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            match_id TEXT NOT NULL,
+            data TEXT NOT NULL,
+            timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE(match_id)
+          )
+        `);
+        
+        // Check if admin user exists
+        db.get('SELECT COUNT(*) as count FROM admin_users', (err, row) => {
+          if (err) {
+            console.error('❌ Error checking admin users:', err.message);
+            return;
+          }
+          
+          if (row && row.count === 0) {
+            // Create default admin user
+            const hashedPassword = bcrypt.hashSync('admin', 10);
+            db.run('INSERT INTO admin_users (username, password) VALUES (?, ?)', ['admin', hashedPassword], function(err) {
+              if (err) {
+                console.error('❌ Error creating default admin user:', err.message);
+                return;
+              }
+              console.log('👤 Created default admin user (username: admin, password: admin)');
+            });
+          }
+        });
+      });
+    } catch (err) {
+      console.error('❌ Failed to initialize sqlite3 database:', err.message);
+      process.exit(1);
+    }
+  } else {
+    // Using better-sqlite3
+    try {
+      db = new Database(dbPath);
+      db.pragma('foreign_keys = ON');
+      console.log('✅ Connected to database with better-sqlite3');
+      
+      // Initialize tables
+      db.exec(`
         CREATE TABLE IF NOT EXISTS admin_users (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           username TEXT UNIQUE NOT NULL,
           password TEXT NOT NULL,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-      `;
-      
-      // Create other required tables if they don't exist
-      const createMatchesTable = `
-        CREATE TABLE IF NOT EXISTS matches (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          match_id TEXT UNIQUE,
-          team1 TEXT,
-          team2 TEXT,
-          team1_logo TEXT,
-          team2_logo TEXT,
-          url TEXT,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-      `;
-      
-      const createMatchQueueTable = `
+        );
+        
         CREATE TABLE IF NOT EXISTS match_queue (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          match_id TEXT UNIQUE,
-          team1 TEXT,
-          team2 TEXT,
-          team1_logo TEXT,
-          team2_logo TEXT,
-          url TEXT,
+          match_id TEXT UNIQUE NOT NULL,
+          team1 TEXT NOT NULL,
+          team2 TEXT NOT NULL,
+          status TEXT DEFAULT 'queued',
+          last_checked TIMESTAMP,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-      `;
-      
-      const createLiveScoresTable = `
-        CREATE TABLE IF NOT EXISTS live_scores (
+        );
+        
+        CREATE TABLE IF NOT EXISTS match_data (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          match_id TEXT,
-          map_number INTEGER,
-          score_left INTEGER,
-          score_right INTEGER,
-          map_name TEXT,
-          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-      `;
+          match_id TEXT NOT NULL,
+          data TEXT NOT NULL,
+          timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          UNIQUE(match_id)
+        );
+      `);
       
-      const createWinStateTable = `
-        CREATE TABLE IF NOT EXISTS win_state (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          match_id TEXT,
-          map_win INTEGER DEFAULT 0,
-          match_win INTEGER DEFAULT 0,
-          winning_team TEXT,
-          winning_score TEXT,
-          map_counts TEXT,
-          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-      `;
-      
-      const createMatchMapsTable = `
-        CREATE TABLE IF NOT EXISTS match_maps (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          match_id TEXT,
-          map_number INTEGER,
-          map_name TEXT,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-      `;
-      
-      if (isUsingSqlite3) {
-        // Using sqlite3 - execute statements sequentially
-        db.serialize(() => {
-          db.run('PRAGMA foreign_keys = ON');
-          db.run(createAdminTable, (err) => {
-            if (err) console.error('❌ Failed to create admin_users table:', err.message);
-          });
-          db.run(createMatchesTable, (err) => {
-            if (err) console.error('❌ Failed to create matches table:', err.message);
-          });
-          db.run(createMatchQueueTable, (err) => {
-            if (err) console.error('❌ Failed to create match_queue table:', err.message);
-          });
-          db.run(createLiveScoresTable, (err) => {
-            if (err) console.error('❌ Failed to create live_scores table:', err.message);
-          });
-          db.run(createWinStateTable, (err) => {
-            if (err) console.error('❌ Failed to create win_state table:', err.message);
-          });
-          db.run(createMatchMapsTable, (err) => {
-            if (err) console.error('❌ Failed to create match_maps table:', err.message);
-          });
-          
-          // Check if admin user exists, if not create default one
-          db.get('SELECT COUNT(*) as count FROM admin_users WHERE username = ?', ['admin'], (err, row) => {
-            if (err) {
-              console.error('❌ Failed to check admin user:', err.message);
-              return resolve();
-            }
-            
-            if (row.count === 0) {
-              // Default password is - change this immediately in production
-              const hashedPassword = bcrypt.hashSync('alex666', 10);
-              db.run('INSERT INTO admin_users (username, password) VALUES (?, ?)', ['admin', hashedPassword], (err) => {
-                if (err) console.error('❌ Failed to create default admin user:', err.message);
-                else console.log('✅ Default admin user created');
-                resolve();
-              });
-            } else {
-              resolve();
-            }
-          });
-        });
-      } else {
-        // Using better-sqlite3 - execute statements directly
-        try {
-          db.pragma('foreign_keys = ON');
-          db.exec(createAdminTable);
-          db.exec(createMatchesTable);
-          db.exec(createMatchQueueTable);
-          db.exec(createLiveScoresTable);
-          db.exec(createWinStateTable);
-          db.exec(createMatchMapsTable);
-          
-          // Check if admin user exists, if not create default one
-          const adminExists = db.prepare('SELECT COUNT(*) as count FROM admin_users WHERE username = ?').get('admin');
-          if (adminExists.count === 0) {
-            // Default password is - change this immediately in production
-            const hashedPassword = bcrypt.hashSync('alex666', 10);
-            db.prepare('INSERT INTO admin_users (username, password) VALUES (?, ?)').run('admin', hashedPassword);
-            console.log('✅ Default admin user created');
-          }
-          resolve();
-        } catch (e) {
-          console.error('❌ Failed to setup tables:', e.message);
-          reject(e);
-        }
+      // Create default admin user if none exists
+      const adminCount = db.prepare('SELECT COUNT(*) as count FROM admin_users').get().count;
+      if (adminCount === 0) {
+        const hashedPassword = bcrypt.hashSync('admin', 10);
+        db.prepare('INSERT INTO admin_users (username, password) VALUES (?, ?)').run('admin', hashedPassword);
+        console.log('👤 Created default admin user (username: admin, password: admin)');
       }
-    };
-    
-    createTables();
-  });
-}
-
-// Connect to database
-try {
-  if (isUsingSqlite3) {
-    // Using sqlite3
-    db = new sqlite3.Database(dbPath, (err) => {
-      if (err) {
-        console.error('❌ Failed to connect to DB with sqlite3:', err.message);
-        process.exit(1);
-      }
-      console.log('✅ Database connected using sqlite3');
-      
-      // Initialize tables
-      initializeTables()
-        .then(() => {
-          // Log DB summary
-          db.get('SELECT COUNT(*) AS count FROM matches', [], (err, row) => {
-            if (err) {
-              console.error('❌ Failed to get matches count:', err.message);
-              return;
-            }
-            const matchCount = row.count;
-            
-            db.get('SELECT COUNT(*) AS count FROM match_queue', [], (err, row) => {
-              if (err) {
-                console.error('❌ Failed to get queue count:', err.message);
-                return;
-              }
-              const queueCount = row.count;
-              
-              console.log(`📊 DB Startup Summary: matches=${matchCount}, queue=${queueCount}`);
-            });
-          });
-        })
-        .catch(err => {
-          console.error('❌ Failed to initialize tables:', err.message);
-        });
-    });
-  } else {
-    // Using better-sqlite3
-    db = new Database(dbPath);
-    db.pragma('foreign_keys = ON');
-    console.log('✅ Database connected using better-sqlite3');
-
-    // Initialize tables
-    initializeTables()
-      .then(() => {
-        // Log DB summary on startup
-        try {
-          const matchCount = db.prepare('SELECT COUNT(*) AS count FROM matches').get().count;
-          const queueCount = db.prepare('SELECT COUNT(*) AS count FROM match_queue').get().count;
-          const mapCount = db.prepare('SELECT COUNT(*) AS count FROM match_maps').get().count;
-          const scoreCount = db.prepare('SELECT COUNT(*) AS count FROM live_scores').get().count;
-          const summary = `📊 DB Startup Summary: matches=${matchCount}, queue=${queueCount}, maps=${mapCount}, live_scores=${scoreCount}`;
-          console.log(summary);
-        } catch (e) {
-          console.error('❌ Failed to log DB summary:', e.message);
-        }
-      })
-      .catch(err => {
-        console.error('❌ Failed to initialize tables:', err.message);
-      });
+    } catch (err) {
+      console.error('❌ Failed to initialize better-sqlite3 database:', err.message);
+      process.exit(1);
+    }
   }
-} catch (err) {
-  console.error('❌ Failed to connect to DB:', err.message);
-  process.exit(1);
 }
+
+// Initialize the database when the server starts
+initializeDatabase();
+
+// Express routes and middleware setup
 
 // Extract match ID from HLTV URL
 function extractMatchId(url) {
@@ -897,6 +825,6 @@ app.get('/api/display/win-state', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}/admin`);
   console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔐 Authentication: JWT (${JWT_SECRET === 'your-secret-key-change-this-in-production' ? 'using default secret - NOT SECURE' : 'using custom secret'})`); 
+  console.log(`🔐 Authentication: JWT (${JWT_SECRET === 'your-secret-key-change-this-in-production' ? 'using default secret - NOT SECURE' : 'using custom secret'})`);
   console.log(`💾 Database: ${isUsingSqlite3 ? 'sqlite3' : 'better-sqlite3'} at ${dbPath}`);
 });
