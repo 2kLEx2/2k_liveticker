@@ -1,31 +1,31 @@
-FROM node:18-slim
+FROM node:18-alpine
 
-# Install Chromium and its dependencies
-RUN apt-get update && apt-get install -y \
+# Install Chromium and minimal dependencies
+RUN apk add --no-cache \
     chromium \
-    fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf \
-    --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
+    nss \
+    ca-certificates \
+    ttf-freefont
 
 # Set environment variables
 ENV NODE_ENV=production
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 # Create app directory
 WORKDIR /app
 
+# Create the browser config file pointing to the pre-installed Chromium
+RUN echo "module.exports = { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
+
 # Copy package files first for better caching
 COPY package*.json ./
 
-# Install dependencies with minimal output
-RUN npm install --omit=dev --no-optional --no-audit --no-fund --prefer-offline --no-package-lock
+# Install only production dependencies with minimal output
+RUN npm ci --only=production --no-audit --no-fund --prefer-offline --silent --no-optional
 
 # Copy app source
 COPY . .
-
-# Create the browser config file
-RUN echo "module.exports = { executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
 
 # Expose port
 EXPOSE 3000
