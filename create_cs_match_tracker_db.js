@@ -70,6 +70,13 @@ CREATE TABLE IF NOT EXISTS admin_users (
   password TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS team_logos (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  team_name TEXT UNIQUE NOT NULL,
+  logo_filename TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 `;
 
 // In production, always use sqlite3

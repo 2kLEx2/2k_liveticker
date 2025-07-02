@@ -190,6 +190,16 @@ function initializeDatabase() {
           )
         `);
         
+        // team_logos table
+        db.run(`
+          CREATE TABLE IF NOT EXISTS team_logos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            team_name TEXT UNIQUE NOT NULL,
+            logo_filename TEXT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        
         // Check if admin user exists
         db.get('SELECT COUNT(*) as count FROM admin_users', (err, row) => {
           if (err) {
@@ -561,24 +571,33 @@ app.post('/api/add-match', (req, res) => {
 // API: Get match queue with match info
 app.get('/api/match-queue', (req, res) => {
   try {
-    const rows = db.prepare(`
-      SELECT
-        mq.id,
-        mq.match_id,
-        m.team1_name,
-        m.team2_name,
-        m.match_format,
-        mq.priority,
-        mq.status
-      FROM match_queue mq
-      JOIN matches m ON mq.match_id = m.match_id
-      ORDER BY mq.priority ASC, mq.id ASC
-    `).all();
-    res.json({ success: true, queue: rows });
+    let rows = [];
+    try {
+      rows = db.prepare(`
+        SELECT
+          mq.id,
+          mq.match_id,
+          m.team1_name,
+          m.team2_name,
+          m.match_format,
+          mq.priority,
+          mq.status
+        FROM match_queue mq
+        JOIN matches m ON mq.match_id = m.match_id
+        ORDER BY mq.priority ASC, mq.id ASC
+      `).all() || [];
+    } catch (dbErr) {
+      console.error('Error fetching match queue:', dbErr.message);
+      // Continue with empty rows array
+    }
+    
+    // Always return an array, even if empty
+    res.json({ success: true, queue: Array.isArray(rows) ? rows : [] });
   } catch (err) {
+    console.error('API /api/match-queue error:', err.message);
     res.status(500).json({ error: 'Failed to fetch match queue', details: err.message });
   }
-  });
+});
 
 // Remove match from queue and matches by queue row id
 app.delete('/api/match-queue/:id', authenticateToken, (req, res) => {
@@ -726,10 +745,15 @@ app.post('/api/stop-scraper', (req, res) => {
 });
 
 function findLogo(teamName) {
-  const row = db.prepare(`
-    SELECT logo_filename FROM team_logos WHERE team_name = ?
-  `).get(teamName);
-  return row ? row.logo_filename : '';
+  try {
+    const row = db.prepare(`
+      SELECT logo_filename FROM team_logos WHERE team_name = ?
+    `).get(teamName);
+    return row ? row.logo_filename : '';
+  } catch (err) {
+    console.error(`Error finding logo for team ${teamName}:`, err.message);
+    return ''; // Return empty string on error
+  }
 }
 
 // Debug endpoint to inspect live matches and queue state
