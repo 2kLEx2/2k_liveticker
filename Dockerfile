@@ -15,9 +15,6 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 # Create app directory
 WORKDIR /app
 
-# Create the browser config file pointing to the pre-installed Chromium
-RUN echo "module.exports = { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
-
 # Copy package files first for better caching
 COPY package*.json ./
 
@@ -26,6 +23,9 @@ RUN npm ci --only=production --no-audit --no-fund --prefer-offline --silent --no
 
 # Copy app source
 COPY . .
+
+# Create the browser config file pointing to the pre-installed Chromium
+RUN echo "module.exports = { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
 
 # Expose port
 EXPOSE 3000
