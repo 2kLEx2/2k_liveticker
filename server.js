@@ -65,8 +65,13 @@ process.on('unhandledRejection', err => console.error('Unhandled Rejection:', er
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
-// Serve logos directory
-app.use('/logos', express.static(path.join(__dirname, 'public', 'logos')));
+// Serve logos directory based on environment
+const logoDir = process.env.NODE_ENV === 'production' 
+  ? path.join('/tmp', 'logos') // Use /tmp in production (Railway)
+  : path.join(__dirname, 'public', 'logos'); // Use local directory in development
+
+console.log(`🖼️ Serving team logos from: ${logoDir}`);
+app.use('/logos', express.static(logoDir));
 
 app.use(cors()); // NOT for production
 
@@ -568,10 +573,17 @@ app.post('/api/add-match', (req, res) => {
             }
 
             try {
-              // Create logos directory if it doesn't exist
-              const logoDir = path.join(__dirname, 'public', 'logos');
+              // Determine the appropriate directory based on environment
+              const isProduction = process.env.NODE_ENV === 'production';
+              const logoDir = isProduction
+                ? path.join('/tmp', 'logos') // Use /tmp in production (Railway)
+                : path.join(__dirname, 'public', 'logos'); // Use local directory in development
+              
+              console.log(`📁 Using logo directory: ${logoDir}`);
+              
               if (!fs.existsSync(logoDir)) {
                 fs.mkdirSync(logoDir, { recursive: true });
+                console.log(`✅ Created logo directory: ${logoDir}`);
               }
 
               // Download logo
@@ -594,19 +606,10 @@ app.post('/api/add-match', (req, res) => {
           // Download team logos if needed
           (async () => {
             try {
-              const browserConfig = {
-                headless: 'new',
-                args: [
-                  '--no-sandbox',
-                  '--disable-setuid-sandbox',
-                  '--disable-dev-shm-usage',
-                  '--disable-accelerated-2d-canvas',
-                  '--no-first-run',
-                  '--no-zygote',
-                  '--single-process',
-                  '--disable-gpu'
-                ]
-              };
+              // Use the global browserConfig that's already imported at the top of the file
+              console.log('Launching browser for logo download with options:', JSON.stringify(browserConfig, null, 2));
+              
+              // Make sure we're using puppeteer-extra, not puppeteer-core
               const browser = await puppeteer.launch(browserConfig);
               const page = await browser.newPage();
               await page.setViewport({ width: 100, height: 100 });
