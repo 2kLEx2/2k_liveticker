@@ -4,13 +4,14 @@ FROM ghcr.io/puppeteer/puppeteer:21.11.0
 # Set environment variables
 ENV NODE_ENV=production
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+# The correct Chrome path in the puppeteer Docker image
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
 
 # Create app directory
 WORKDIR /app
 
 # Create browser config file
-RUN echo "module.exports = { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
+RUN echo "module.exports = { executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
 
 # Copy package.json first
 COPY package.json ./
