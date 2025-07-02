@@ -63,16 +63,22 @@ console.log(`💾 Using database at: ${dbPath}`);
 let db;
 if (isProduction) {
   db = new Database(dbPath);
+  
+  // Store the original prepare method
+  const originalPrepare = db.prepare;
+  
   // For sqlite3 in production, we need to promisify and prepare methods
   db.prepare = function(sql) {
-    const stmt = this.prepare(sql, function(err) {
+    // Use the original prepare method to avoid recursion
+    const stmt = originalPrepare.call(db, sql, function(err) {
       if (err) throw err;
     });
     
     // Add .all() method to statement
+    const originalAll = stmt.all;
     stmt.all = function(params) {
       return new Promise((resolve, reject) => {
-        stmt.all(params, function(err, rows) {
+        originalAll.call(stmt, params, function(err, rows) {
           if (err) reject(err);
           else resolve(rows);
         });
@@ -80,9 +86,10 @@ if (isProduction) {
     };
     
     // Add .get() method to statement
+    const originalGet = stmt.get;
     stmt.get = function(params) {
       return new Promise((resolve, reject) => {
-        stmt.get(params, function(err, row) {
+        originalGet.call(stmt, params, function(err, row) {
           if (err) reject(err);
           else resolve(row);
         });
@@ -90,9 +97,10 @@ if (isProduction) {
     };
     
     // Add .run() method to statement
+    const originalRun = stmt.run;
     stmt.run = function(params) {
       return new Promise((resolve, reject) => {
-        stmt.run(params, function(err) {
+        originalRun.call(stmt, params, function(err) {
           if (err) reject(err);
           else resolve(this);
         });
