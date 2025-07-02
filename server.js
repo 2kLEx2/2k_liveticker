@@ -37,12 +37,18 @@ if (process.env.NODE_ENV === 'production') {
   }
 }
 
-const puppeteer = require('puppeteer-extra');
+const puppeteerExtra = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const fs = require('fs');
 
+// Use puppeteer-core instead of puppeteer to avoid downloading Chromium
+const puppeteer = puppeteerExtra.default;
+const browserConfig = require('./browser-config');
+
+// Apply stealth plugin
 puppeteer.use(StealthPlugin());
 
 const app = express();
@@ -210,6 +216,29 @@ function initializeDatabase() {
 initializeDatabase();
 
 // Express routes and middleware setup
+
+// Health check endpoint for Railway
+app.get('/health', (req, res) => {
+  try {
+    // Check if database is accessible
+    if (isUsingSqlite3) {
+      db.get('SELECT 1', (err) => {
+        if (err) {
+          console.error('❌ Health check failed - Database error:', err.message);
+          return res.status(500).json({ status: 'error', message: 'Database connection failed' });
+        }
+        res.json({ status: 'ok', database: 'sqlite3', timestamp: new Date().toISOString() });
+      });
+    } else {
+      // Using better-sqlite3
+      db.prepare('SELECT 1').get();
+      res.json({ status: 'ok', database: 'better-sqlite3', timestamp: new Date().toISOString() });
+    }
+  } catch (err) {
+    console.error('❌ Health check failed:', err.message);
+    res.status(500).json({ status: 'error', message: err.message });
+  }
+});
 
 // Extract match ID from HLTV URL
 function extractMatchId(url) {

@@ -1,18 +1,19 @@
-const puppeteer = require('puppeteer-extra');
+const puppeteerExtra = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const path = require('path');
 
+// Use puppeteer-core to avoid downloading Chromium
+const puppeteer = puppeteerExtra.default;
 puppeteer.use(StealthPlugin());
 
-const [,, url, matchId] = process.argv;
-
-if (!url || !matchId) {
-  console.error('❌ Usage: node add_match_check.js <HLTV_URL> <matchId>');
-  process.exit(1);
-}
-
-(async () => {
-  const browser = await puppeteer.launch({
-    headless: 'new',
+// Import browser configuration
+let browserConfig;
+try {
+  browserConfig = require('./browser-config');
+  console.log('Using browser configuration from browser-config.js');
+} catch (err) {
+  console.log('No browser-config.js found, using default configuration');
+  browserConfig = {
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -23,7 +24,25 @@ if (!url || !matchId) {
       '--single-process',
       '--disable-gpu'
     ]
-  });
+  };
+}
+
+const [,, url, matchId] = process.argv;
+
+if (!url || !matchId) {
+  console.error('❌ Usage: node add_match_check.js <HLTV_URL> <matchId>');
+  process.exit(1);
+}
+
+(async () => {
+  // Use the browser configuration with puppeteer-core
+  const launchOptions = {
+    headless: 'new',
+    ...browserConfig
+  };
+  
+  console.log('Launching browser with options:', JSON.stringify(launchOptions, null, 2));
+  const browser = await puppeteer.launch(launchOptions);
 
   try {
     const page = await browser.newPage();
