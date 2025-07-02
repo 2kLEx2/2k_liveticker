@@ -12,7 +12,7 @@ const bcrypt = require('bcrypt');
 puppeteer.use(StealthPlugin());
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Stay open even if nothing keeps the event loop alive
 process.stdin.resume();
@@ -30,8 +30,8 @@ app.use('/logos', express.static(path.join(__dirname, 'public', 'logos')));
 
 app.use(cors()); // NOT for production
 
-// JWT Secret Key - in production, this should be in environment variables
-const JWT_SECRET = 'your-secret-key-change-this-in-production';
+// JWT Secret Key from environment variables
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production';
 
 // Authentication middleware
 function authenticateToken(req, res, next) {
@@ -50,7 +50,11 @@ function authenticateToken(req, res, next) {
 // Database
 let db;
 try {
-  db = new Database('cs_match_tracker.db');
+  // Use a path that's guaranteed to be writable in Railway
+  const dbPath = process.env.NODE_ENV === 'production' ? '/tmp/cs_match_tracker.db' : 'cs_match_tracker.db';
+  console.log(`📂 Using database at: ${dbPath}`);
+  
+  db = new Database(dbPath);
   db.pragma('foreign_keys = ON');
   console.log('✅ Database connected');
 
@@ -281,7 +285,19 @@ app.post('/api/add-match', (req, res) => {
             .run(teamName, filename, logoUrl);
         }
 
-        const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
+        const browser = await puppeteer.launch({ 
+          headless: 'new', 
+          args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-accelerated-2d-canvas',
+            '--no-first-run',
+            '--no-zygote',
+            '--single-process',
+            '--disable-gpu'
+          ] 
+        });
         const page = await browser.newPage();
 
         try {

@@ -1905,3 +1905,17 @@
 [2025-07-02T07:42:29.535Z] [INFO] 🎯 [9999921] BO3 match finished. Winner: kuku (match win)
 [2025-07-02T07:42:49.560Z] [INFO] 🕒 [9999921] Scraper cleanup after match win (20s delay)
 [2025-07-02T07:43:29.591Z] [ERROR] ❌ [9999921] API DELETE request failed with status 401
+[2025-07-02T08:46:12.469Z] [INFO] 🗑️ Deleted match_id 9999921 from queue ID 102 and matches table.
+[2025-07-02T08:46:19.212Z] [INFO] 🛑 Live scraper stopped
+[2025-07-02T08:46:19.213Z] [INFO] 🤖 Twitch bot stopped
+[2025-07-02T08:46:19.221Z] [INFO] 🛑 Live scraper exited with code null
+[2025-07-02T08:46:19.222Z] [INFO] [TwitchBot] exited with code null
+[2025-07-02T08:46:20.732Z] [INFO] ✅ Match 2383400 successfully added to database and queue: {"team1_name":"TPuDCATb TPu","team2_name":"QMISTRY","match_format":"BO3","team1_logo":"https://www.hltv.org/dynamic-svg/teamplaceholder?letter=T","team2_logo":"https://img-cdn.hltv.org/teamlogo/k5QWIiojBlpQO880JHRS94.png?ixlib=java-2.1.0&w=100&s=81212440ee8802e0ab690e1b1b5ead59","match_id":"2383400","match_url":"https://www.hltv.org/matches/2383400/tpudcatb-tpu-vs-qmistry-exort-the-proving-grounds-season-2","winner":null,"is_finished":0}
+[2025-07-02T08:46:21.095Z] [INFO] ✅ Logo saved for QMISTRY: qmistry.png
+[2025-07-02T08:46:25.218Z] [INFO] 🤖 Twitch bot started
+[2025-07-02T08:46:25.218Z] [INFO] 🚀 Live scraper started
+[2025-07-02T08:46:25.380Z] [INFO] 🚀 Scraper started
+[2025-07-02T08:46:28.285Z] [INFO] ✅ Found live match: 2383400
+[2025-07-02T08:46:30.268Z] [INFO] 📊 [2383400] TPuDCATb TPu 11 : 9 QMISTRY
+[2025-07-02T08:48:50.566Z] [INFO] 📊 [2383400] TPuDCATb TPu 11 : 10 QMISTRY
+[2025-07-02T08:50:50.845Z] [INFO] 📊 [2383400] TPuDCATb TPu 12 : 10 QMISTRY

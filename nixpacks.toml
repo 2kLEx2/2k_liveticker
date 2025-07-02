@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["python3", "gcc", "sqlite", "pkg-config", "openssl", "nodejs", "nodejs.pkgs.npm"]
+
+[phases.install]
+cmds = ["npm install --build-from-source"]
+
+[phases.build]
+cmds = ["npm rebuild better-sqlite3 --build-from-source"]
+
+[start]
+cmd = "npm start"
