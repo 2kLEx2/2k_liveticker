@@ -2,12 +2,14 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "DOCKERFILE",
-    "dockerfilePath": "Dockerfile"
+    "dockerfilePath": "Dockerfile",
+    "buildCommand": "docker build --no-cache --progress=plain -t app ."
   },
   "deploy": {
+    "numReplicas": 1,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10,
-    "healthcheckPath": "/health",
-    "healthcheckTimeout": 60
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 90
   }
 }

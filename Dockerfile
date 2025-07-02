@@ -1,39 +1,31 @@
-# Stage 1: Install dependencies
-FROM ghcr.io/puppeteer/puppeteer:21.11.0 AS deps
-WORKDIR /app
+# Use the official Puppeteer image which already has Chromium installed
+FROM ghcr.io/puppeteer/puppeteer:21.11.0
 
 # Set environment variables
 ENV NODE_ENV=production
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-# Copy only package files first for better caching
-COPY package*.json ./
+# Create app directory
+WORKDIR /app
 
-# Create browser config before npm install to improve caching
+# Create browser config file
 RUN echo "module.exports = { executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
 
-# Install dependencies with specific options to reduce output and time
-RUN npm ci --only=production --no-audit --no-fund --prefer-offline --silent --no-optional
+# Copy only necessary files
+COPY package.json ./
+COPY server.js ./
+COPY admin.html ./
+COPY login.html ./
+COPY add_match_check.js ./
+COPY match_scraper.js ./
+COPY public ./public
 
-# Stage 2: Create production image with minimal files
-FROM ghcr.io/puppeteer/puppeteer:21.11.0
-WORKDIR /app
-
-# Set environment variables
-ENV NODE_ENV=production
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
-
-# Copy browser config and node_modules from deps stage
-COPY --from=deps /app/browser-config.js ./
-COPY --from=deps /app/node_modules ./node_modules
-
-# Copy application code (will use .dockerignore to exclude unnecessary files)
-COPY . .
+# Install dependencies with minimal output
+RUN npm install --only=production --no-audit --no-fund --prefer-offline --silent
 
 # Expose port
 EXPOSE 3000
 
-# Start the app directly with node instead of npm
+# Start the app
 CMD ["node", "server.js"]
