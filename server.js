@@ -370,7 +370,7 @@ app.get('/api/match-queue', (req, res) => {
           }
           
           console.log(`✅ Found ${rows ? rows.length : 0} matches in queue`);
-          res.json({ success: true, matches: rows || [] });
+          res.json({ success: true, queue: rows || [] });
         });
       });
     } else {
@@ -386,7 +386,7 @@ app.get('/api/match-queue', (req, res) => {
         `).all();
         
         console.log(`✅ Found ${matches.length} matches in queue`);
-        res.json({ success: true, matches });
+        res.json({ success: true, queue: matches });
       } catch (schemaErr) {
         // If that fails, try the development schema
         try {
@@ -399,7 +399,7 @@ app.get('/api/match-queue', (req, res) => {
           `).all();
           
           console.log(`✅ Found ${matches.length} matches in queue`);
-          res.json({ success: true, matches });
+          res.json({ success: true, queue: matches });
         } catch (devSchemaErr) {
           console.error('❌ Error fetching match queue with development schema:', devSchemaErr.message);
           res.status(500).json({ success: false, error: 'Database schema error' });
