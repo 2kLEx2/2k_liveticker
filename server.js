@@ -446,141 +446,191 @@ app.post('/api/add-match', (req, res) => {
   if (!matchIdMatch) return res.status(400).json({ error: 'Malformed HLTV URL' });
   const matchId = matchIdMatch[1];
 
-  try {
-    console.log(`🔍 Checking if match ID ${matchId} already exists in database...`);
-    const exists = db.prepare('SELECT * FROM matches WHERE match_id = ?').get(matchId);
-    
-    if (exists) {
-      console.log(`⚠️ Match ${matchId} already exists in database:`, exists);
-      return res.status(409).json({ error: 'Match already exists', matchDetails: { id: matchId, team1: exists.team1_name, team2: exists.team2_name } });
-    }
-    
-    console.log(`✅ Match ${matchId} does not exist in database, proceeding...`);
-  } catch (err) {
-    console.error(`❌ Error checking if match exists:`, err.message);
-    // Continue anyway - it's better to try adding the match
-  }
-
-  const child = spawn('node', ['add_match_check.js', hltvUrl, matchId], { cwd: __dirname });
-
-  let output = '';
-  let errorOutput = '';
-
-  child.stdout.on('data', (data) => {
-    output += data.toString();
-    process.stdout.write(data);
-  });
-  child.stderr.on('data', (data) => {
-    errorOutput += data.toString();
-    process.stderr.write(data);
-  });
-
-  child.on('close', async (code) => {
-    if (code === 0 && !errorOutput) {
-      const matchInfo = {};
-      const lines = output.split('\n');
-      for (const line of lines) {
-        if (line.startsWith('Team 1 Name:')) matchInfo.team1_name = line.replace('Team 1 Name:', '').trim();
-        if (line.startsWith('Team 2 Name:')) matchInfo.team2_name = line.replace('Team 2 Name:', '').trim();
-        if (line.startsWith('Match Format:')) matchInfo.match_format = line.replace('Match Format:', '').trim();
-        if (line.startsWith('Team 1 Logo:')) matchInfo.team1_logo = line.replace('Team 1 Logo:', '').trim();
-        if (line.startsWith('Team 2 Logo:')) matchInfo.team2_logo = line.replace('Team 2 Logo:', '').trim();
-      }
-      matchInfo.match_id = matchId;
-      matchInfo.match_url = hltvUrl;
-      matchInfo.winner = null;
-      matchInfo.is_finished = 0;
-
-      if (!matchInfo.team1_name || !matchInfo.team2_name || !['BO1', 'BO3', 'BO5'].includes(matchInfo.match_format)) {
-        return res.status(500).json({ error: 'Scraped data invalid or incomplete', matchInfo });
-      }
-
-      try {
-        db.prepare(`INSERT INTO matches (match_id, match_url, team1_name, team2_name, match_format, winner, is_finished) VALUES (?, ?, ?, ?, ?, ?, ?);`)
-          .run(matchInfo.match_id, matchInfo.match_url, matchInfo.team1_name, matchInfo.team2_name, matchInfo.match_format, matchInfo.winner, matchInfo.is_finished);
-        db.prepare(`INSERT INTO match_queue (match_id, priority, status) VALUES (?, (SELECT IFNULL(MAX(priority), 0) + 1 FROM match_queue), 'queued');`).run(matchInfo.match_id);
-        console.log(`✅ Match ${matchId} successfully added to database and queue:`, matchInfo);
-
-        const fs = require('fs');
-        const path = require('path');
-        const puppeteer = require('puppeteer-extra');
-        const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-        puppeteer.use(StealthPlugin());
-
-        async function ensureTeamLogo(teamName, logoUrl, page) {
-          const existing = db.prepare('SELECT 1 FROM team_logos WHERE team_name = ?').get(teamName);
-          if (existing) {
-            console.log(`⏭ Logo already exists for ${teamName}`);
-            return;
-          }
-
-          // Skip dynamic placeholder logos
-          if (logoUrl && logoUrl.includes('/dynamic-svg/teamplaceholder')) {
-            console.warn(`⏭ Skipping dynamic placeholder logo for ${teamName}`);
-            return;
-          }
-
-          if (!logoUrl || !logoUrl.startsWith('http')) {
-            console.warn(`⚠️ No valid logo URL for ${teamName}`);
-            return;
-          }
-
-          const ext = path.extname(logoUrl.split('?')[0]) || '.png';
-          const safeName = teamName.toLowerCase().replace(/[^a-z0-9]/gi, '_');
-          const filename = `${safeName}${ext}`;
-          const logoPath = path.join(__dirname, 'public', 'logos', filename);
-
-          if (!fs.existsSync(logoPath)) {
-            try {
-              const response = await page.goto(logoUrl, { timeout: 30000 });
-              const buffer = await response.buffer();
-              fs.writeFileSync(logoPath, buffer);
-              console.log(`✅ Logo saved for ${teamName}: ${filename}`);
-            } catch (err) {
-              console.error(`❌ Failed to download logo for ${teamName}: ${err.message}`);
-              return;
-            }
-          } else {
-            console.log(`⏭ Already downloaded: ${filename}`);
-          }
-
-          db.prepare('INSERT INTO team_logos (team_name, logo_filename, source_url) VALUES (?, ?, ?)')
-            .run(teamName, filename, logoUrl);
-        }
-
-        const browser = await puppeteer.launch({ 
-          headless: 'new', 
-          args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-dev-shm-usage',
-            '--disable-accelerated-2d-canvas',
-            '--no-first-run',
-            '--no-zygote',
-            '--single-process',
-            '--disable-gpu'
-          ] 
+  console.log(`🔍 Checking if match ID ${matchId} already exists in database...`);
+  
+  // Handle different database types
+  if (isUsingSqlite3) {
+    // Using sqlite3
+    db.get('SELECT * FROM matches WHERE match_id = ?', [matchId], (err, row) => {
+      if (err) {
+        console.error(`❌ Error checking if match exists:`, err.message);
+        // Continue with match addition
+        proceedWithMatchAddition();
+      } else if (row) {
+        console.log(`⚠️ Match ${matchId} already exists in database:`, row);
+        return res.status(409).json({ 
+          error: 'Match already exists', 
+          matchDetails: { 
+            id: matchId, 
+            team1: row.team1_name, 
+            team2: row.team2_name 
+          } 
         });
-        const page = await browser.newPage();
+      } else {
+        console.log(`✅ Match ${matchId} does not exist in database, proceeding...`);
+        proceedWithMatchAddition();
+      }
+    });
+  } else {
+    // Using better-sqlite3
+    try {
+      const exists = db.prepare('SELECT * FROM matches WHERE match_id = ?').get(matchId);
+      
+      if (exists) {
+        console.log(`⚠️ Match ${matchId} already exists in database:`, exists);
+        return res.status(409).json({ 
+          error: 'Match already exists', 
+          matchDetails: { 
+            id: matchId, 
+            team1: exists.team1_name, 
+            team2: exists.team2_name 
+          } 
+        });
+      }
+      
+      console.log(`✅ Match ${matchId} does not exist in database, proceeding...`);
+      proceedWithMatchAddition();
+    } catch (err) {
+      console.error(`❌ Error checking if match exists:`, err.message);
+      // Continue anyway - it's better to try adding the match
+      proceedWithMatchAddition();
+    }
+  }
+  
+  // Return early as we'll handle the response in the callbacks
+  return;
+  
+  // Function to proceed with match addition
+  function proceedWithMatchAddition() {
+    const child = spawn('node', ['add_match_check.js', hltvUrl, matchId], { cwd: __dirname });
+
+    let output = '';
+    let errorOutput = '';
+
+    child.stdout.on('data', (data) => {
+      output += data.toString();
+      process.stdout.write(data);
+    });
+    child.stderr.on('data', (data) => {
+      errorOutput += data.toString();
+      process.stderr.write(data);
+    });
+
+    child.on('close', async (code) => {
+      if (code === 0 && !errorOutput) {
+        const matchInfo = {};
+        const lines = output.split('\n');
+        for (const line of lines) {
+          if (line.startsWith('Team 1 Name:')) matchInfo.team1_name = line.replace('Team 1 Name:', '').trim();
+          if (line.startsWith('Team 2 Name:')) matchInfo.team2_name = line.replace('Team 2 Name:', '').trim();
+          if (line.startsWith('Match Format:')) matchInfo.match_format = line.replace('Match Format:', '').trim();
+          if (line.startsWith('Team 1 Logo:')) matchInfo.team1_logo = line.replace('Team 1 Logo:', '').trim();
+          if (line.startsWith('Team 2 Logo:')) matchInfo.team2_logo = line.replace('Team 2 Logo:', '').trim();
+        }
+        matchInfo.match_id = matchId;
+        matchInfo.match_url = hltvUrl;
+        matchInfo.winner = null;
+        matchInfo.is_finished = 0;
+
+        if (!matchInfo.team1_name || !matchInfo.team2_name || !['BO1', 'BO3', 'BO5'].includes(matchInfo.match_format)) {
+          return res.status(500).json({ error: 'Scraped data invalid or incomplete', matchInfo });
+        }
 
         try {
-          await ensureTeamLogo(matchInfo.team1_name, matchInfo.team1_logo, page);
-          await ensureTeamLogo(matchInfo.team2_name, matchInfo.team2_logo, page);
-        } catch (e) {
-          console.error('❌ Logo fetch failed:', e.message);
-        } finally {
-          await browser.close();
-        }
+          db.prepare(`INSERT INTO matches (match_id, match_url, team1_name, team2_name, match_format, winner, is_finished) VALUES (?, ?, ?, ?, ?, ?, ?);`)
+            .run(matchInfo.match_id, matchInfo.match_url, matchInfo.team1_name, matchInfo.team2_name, matchInfo.match_format, matchInfo.winner, matchInfo.is_finished);
+          db.prepare(`INSERT INTO match_queue (match_id, priority, status) VALUES (?, (SELECT IFNULL(MAX(priority), 0) + 1 FROM match_queue), 'queued');`).run(matchInfo.match_id);
+          console.log(`✅ Match ${matchId} successfully added to database and queue:`, matchInfo);
 
-        res.json({ success: true, match_id: matchId, matchInfo });
-      } catch (err) {
-        console.error('❌ DB insert failed:', err.message, matchInfo);
-        res.status(500).json({ error: 'Database error', details: err.message });
+          const fs = require('fs');
+          const path = require('path');
+          const puppeteer = require('puppeteer-extra');
+          const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+          puppeteer.use(StealthPlugin());
+
+          // Define helper function for team logo handling
+          async function ensureTeamLogo(teamName, logoUrl, page) {
+            const existing = db.prepare('SELECT 1 FROM team_logos WHERE team_name = ?').get(teamName);
+            if (existing) {
+              console.log(`⏭ Logo already exists for ${teamName}`);
+              return;
+            }
+
+            // Skip dynamic placeholder logos
+            if (logoUrl && logoUrl.includes('/dynamic-svg/teamplaceholder')) {
+              console.log(`⏭ Skipping dynamic placeholder logo for ${teamName}`);
+              return;
+            }
+
+            if (!logoUrl) {
+              console.log(`No logo URL for ${teamName}, skipping logo download`);
+              return;
+            }
+
+            try {
+              // Create logos directory if it doesn't exist
+              const logoDir = path.join(__dirname, 'public', 'logos');
+              if (!fs.existsSync(logoDir)) {
+                fs.mkdirSync(logoDir, { recursive: true });
+              }
+
+              // Download logo
+              const logoName = `${teamName.toLowerCase().replace(/\s+/g, '_')}.png`;
+              const logoPath = path.join(logoDir, logoName);
+
+              // Use page to download image
+              await page.goto(logoUrl, { waitUntil: 'networkidle0' });
+              const imageBuffer = await page.screenshot();
+              fs.writeFileSync(logoPath, imageBuffer);
+
+              // Insert into database
+              db.prepare('INSERT INTO team_logos (team_name, logo_filename) VALUES (?, ?)').run(teamName, logoName);
+              console.log(`✅ Downloaded logo for ${teamName}`);
+            } catch (err) {
+              console.error(`❌ Failed to download logo for ${teamName}:`, err.message);
+            }
+          }
+
+          // Download team logos if needed
+          (async () => {
+            try {
+              const browserConfig = {
+                headless: 'new',
+                args: [
+                  '--no-sandbox',
+                  '--disable-setuid-sandbox',
+                  '--disable-dev-shm-usage',
+                  '--disable-accelerated-2d-canvas',
+                  '--no-first-run',
+                  '--no-zygote',
+                  '--single-process',
+                  '--disable-gpu'
+                ]
+              };
+              const browser = await puppeteer.launch(browserConfig);
+              const page = await browser.newPage();
+              await page.setViewport({ width: 100, height: 100 });
+
+              await ensureTeamLogo(matchInfo.team1_name, matchInfo.team1_logo, page);
+              await ensureTeamLogo(matchInfo.team2_name, matchInfo.team2_logo, page);
+
+              await browser.close();
+            } catch (err) {
+              console.error('❌ Error downloading team logos:', err.message);
+            }
+          })();
+
+          res.json({ success: true, message: 'Match added successfully', match: matchInfo });
+        } catch (err) {
+          console.error(`❌ Error adding match ${matchId} to database:`, err.message);
+          res.status(500).json({ error: 'Failed to add match to database', details: err.message });
+        }
+      } else {
+        console.error(`❌ Match check script failed with code ${code}`);
+        res.status(500).json({ error: 'Failed to check match', output, errorOutput });
       }
-    } else {
-      res.status(500).json({ error: 'Scraper failed', details: errorOutput || output });
-    }
-  });
+    });
+  }
 });
 
 // API: Get match queue with match info
