@@ -1,0 +1,12 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm install"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
+
+[nixpacks]
+aptPkgs = ["python3", "build-essential", "libsqlite3-dev", "sqlite3"]

@@ -487,16 +487,27 @@
             // Update current score BEFORE showing widget
             currentScore = { left, right };
             
-            if (!widgetCooldown) {
-              showWidgetTemporarily(); // Show for 30s on score change
+            // Important score changes should override cooldown
+            const significantScoreChange = Math.abs(Number(left) - Number(currentScore.left)) >= 1 || 
+                                           Math.abs(Number(right) - Number(currentScore.right)) >= 1;
+            
+            if (!widgetCooldown || significantScoreChange) {
+              // Reset cooldown for significant score changes
+              if (significantScoreChange && widgetCooldown) {
+                console.log('[DEBUG] Significant score change detected, overriding cooldown');
+                widgetCooldown = false;
+              }
+              showWidgetTemporarily(); // Show widget on score change
             } else {
               console.log('[DEBUG] Widget in cooldown, not showing despite score change');
             }
           }
           
           // On initial load, if widget hasn't been shown yet and there is a live match, show it
-          if (!hasShownWidgetThisSession && !widgetCooldown) {
+          if (!hasShownWidgetThisSession) {
             console.log('[DEBUG] First load of session, showing widget');
+            // Reset cooldown flag if it's preventing initial display
+            widgetCooldown = false;
             showWidgetTemporarily();
           }
         }
