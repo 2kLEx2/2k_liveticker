@@ -306,6 +306,92 @@ app.get('/health', (req, res) => {
   }
 });
 
+// Match queue API endpoint
+app.get('/api/match-queue', (req, res) => {
+  try {
+    console.log('📋 Fetching match queue...');
+    
+    if (isUsingSqlite3) {
+      // Using sqlite3 in production
+      // First check if we're using the production schema
+      db.get("PRAGMA table_info(match_queue)", (err, tableInfo) => {
+        if (err) {
+          console.error('❌ Error checking match_queue schema:', err.message);
+          return res.status(500).json({ success: false, error: 'Database error' });
+        }
+        
+        // Determine which query to use based on the schema
+        let query;
+        if (tableInfo && tableInfo.name === 'priority') {
+          // Production schema with priority field
+          query = `
+            SELECT m.match_id, m.team1_name, m.team2_name, m.match_format, m.match_url, 
+                   q.status, m.is_finished, m.winner
+            FROM matches m
+            JOIN match_queue q ON m.match_id = q.match_id
+            ORDER BY q.priority DESC, q.id ASC
+          `;
+        } else {
+          // Development schema with team1/team2 fields
+          query = `
+            SELECT m.match_id, m.team1_name, m.team2_name, m.match_format, m.match_url, 
+                   q.status, m.is_finished, m.winner
+            FROM matches m
+            JOIN match_queue q ON m.match_id = q.match_id
+            ORDER BY q.id ASC
+          `;
+        }
+        
+        // Execute the appropriate query
+        db.all(query, (err, rows) => {
+          if (err) {
+            console.error('❌ Error fetching match queue:', err.message);
+            return res.status(500).json({ success: false, error: 'Database error' });
+          }
+          
+          console.log(`✅ Found ${rows ? rows.length : 0} matches in queue`);
+          res.json({ success: true, matches: rows || [] });
+        });
+      });
+    } else {
+      // Using better-sqlite3 in development
+      try {
+        // First try the production schema
+        const matches = db.prepare(`
+          SELECT m.match_id, m.team1_name, m.team2_name, m.match_format, m.match_url, 
+                 q.status, m.is_finished, m.winner
+          FROM matches m
+          JOIN match_queue q ON m.match_id = q.match_id
+          ORDER BY q.priority DESC, q.id ASC
+        `).all();
+        
+        console.log(`✅ Found ${matches.length} matches in queue`);
+        res.json({ success: true, matches });
+      } catch (schemaErr) {
+        // If that fails, try the development schema
+        try {
+          const matches = db.prepare(`
+            SELECT m.match_id, m.team1_name, m.team2_name, m.match_format, m.match_url, 
+                   q.status, m.is_finished, m.winner
+            FROM matches m
+            JOIN match_queue q ON m.match_id = q.match_id
+            ORDER BY q.id ASC
+          `).all();
+          
+          console.log(`✅ Found ${matches.length} matches in queue`);
+          res.json({ success: true, matches });
+        } catch (devSchemaErr) {
+          console.error('❌ Error fetching match queue with development schema:', devSchemaErr.message);
+          res.status(500).json({ success: false, error: 'Database schema error' });
+        }
+      }
+    }
+  } catch (err) {
+    console.error('❌ Error fetching match queue:', err.message);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
+
 // Extract match ID from HLTV URL
 function extractMatchId(url) {
   const match = url.match(/hltv\.org\/matches\/(\d+)/);
