@@ -18,7 +18,8 @@ COPY server.js ./
 COPY admin.html ./
 COPY login.html ./
 COPY add_match_check.js ./
-COPY match_scraper.js ./
+COPY live_scraper.js ./
+COPY create_cs_match_tracker_db.js ./
 COPY public ./public
 
 # Install dependencies with minimal output
