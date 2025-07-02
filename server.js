@@ -314,7 +314,7 @@ app.get('/api/match-queue', (req, res) => {
     if (isUsingSqlite3) {
       // Using sqlite3 in production
       // First check if we're using the production schema
-      db.get("PRAGMA table_info(match_queue)", (err, tableInfo) => {
+      db.all("PRAGMA table_info(match_queue)", (err, tableInfoRows) => {
         if (err) {
           console.error('❌ Error checking match_queue schema:', err.message);
           return res.status(500).json({ success: false, error: 'Database error' });
@@ -322,7 +322,18 @@ app.get('/api/match-queue', (req, res) => {
         
         // Determine which query to use based on the schema
         let query;
-        if (tableInfo && tableInfo.name === 'priority') {
+        
+        // Check if priority column exists in the table schema
+        const hasPriorityColumn = Array.isArray(tableInfoRows) && 
+          tableInfoRows.some(column => column.name === 'priority');
+        
+        // Check if team1 column exists in the table schema
+        const hasTeamColumns = Array.isArray(tableInfoRows) && 
+          tableInfoRows.some(column => column.name === 'team1');
+          
+        console.log(`✅ Match queue schema check: hasPriorityColumn=${hasPriorityColumn}, hasTeamColumns=${hasTeamColumns}`);
+        
+        if (hasPriorityColumn) {
           // Production schema with priority field
           query = `
             SELECT m.match_id, m.team1_name, m.team2_name, m.match_format, m.match_url, 
@@ -331,8 +342,17 @@ app.get('/api/match-queue', (req, res) => {
             JOIN match_queue q ON m.match_id = q.match_id
             ORDER BY q.priority DESC, q.id ASC
           `;
-        } else {
+        } else if (hasTeamColumns) {
           // Development schema with team1/team2 fields
+          query = `
+            SELECT m.match_id, m.team1_name, m.team2_name, m.match_format, m.match_url, 
+                   q.status, m.is_finished, m.winner
+            FROM matches m
+            JOIN match_queue q ON m.match_id = q.match_id
+            ORDER BY q.id ASC
+          `;
+        } else {
+          // Fallback query with minimal assumptions about schema
           query = `
             SELECT m.match_id, m.team1_name, m.team2_name, m.match_format, m.match_url, 
                    q.status, m.is_finished, m.winner
