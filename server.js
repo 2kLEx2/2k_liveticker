@@ -789,12 +789,19 @@ app.get('/api/display/win-state', (req, res) => {
 });
 
 // LOGGING TO FILE
-const LOG_FILE = path.join(__dirname, 'serverlog.txt');
+const LOG_FILE = process.env.NODE_ENV === 'production' 
+  ? path.join('/tmp', 'serverlog.txt')  // Use /tmp in production (Railway)
+  : path.join(__dirname, 'serverlog.txt'); // Use local directory in development
 
 function writeLogLine(type, message) {
-  const timestamp = new Date().toISOString();
-  const line = `[${timestamp}] [${type}] ${message}\n`;
-  fs.appendFileSync(LOG_FILE, line, 'utf8');
+  try {
+    const timestamp = new Date().toISOString();
+    const line = `[${timestamp}] [${type}] ${message}\n`;
+    fs.appendFileSync(LOG_FILE, line, 'utf8');
+  } catch (err) {
+    // If writing to log fails, just output to console without recursion
+    process.stderr.write(`Error writing to log: ${err.message}\n`);
+  }
 }
 
 // Save original log functions
@@ -815,18 +822,38 @@ console.error = (...args) => {
 
 // API to get log file
 app.get('/api/server-log', (req, res) => {
-  fs.readFile(LOG_FILE, 'utf8', (err, data) => {
-    if (err) return res.status(500).json({ error: 'Failed to read log file' });
-    res.json({ success: true, log: data });
-  });
+  try {
+    // Check if log file exists first
+    if (!fs.existsSync(LOG_FILE)) {
+      return res.json({ success: true, log: '-- No logs available --' });
+    }
+    
+    fs.readFile(LOG_FILE, 'utf8', (err, data) => {
+      if (err) return res.status(500).json({ error: 'Failed to read log file', details: err.message });
+      res.json({ success: true, log: data });
+    });
+  } catch (err) {
+    console.error('Error accessing log file:', err.message);
+    res.json({ success: true, log: '-- Error accessing logs --' });
+  }
 });
 
 // API to clear log file
 app.delete('/api/server-log', (req, res) => {
-  fs.writeFile(LOG_FILE, '', (err) => {
-    if (err) return res.status(500).json({ error: 'Failed to clear log file' });
-    res.json({ success: true, message: 'Log cleared' });
-  });
+  try {
+    // Check if log file exists first
+    if (!fs.existsSync(LOG_FILE)) {
+      return res.json({ success: true, message: 'No log file to clear' });
+    }
+    
+    fs.writeFile(LOG_FILE, '', (err) => {
+      if (err) return res.status(500).json({ error: 'Failed to clear log file', details: err.message });
+      res.json({ success: true, message: 'Log cleared' });
+    });
+  } catch (err) {
+    console.error('Error clearing log file:', err.message);
+    res.json({ success: true, message: 'Error clearing logs, but continuing operation' });
+  }
 });
 
 // --- WIN STATE API for frontend widget ---
@@ -846,6 +873,29 @@ app.get('/api/display/win-state', (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch win state', details: err.message });
+  }
+});
+
+// Health check endpoint for Railway
+app.get('/health', (req, res) => {
+  try {
+    // Simple query to verify database connection
+    if (isUsingSqlite3) {
+      db.get('SELECT 1', (err) => {
+        if (err) {
+          console.error('Health check failed - Database error:', err.message);
+          return res.status(500).json({ status: 'error', message: 'Database connection failed' });
+        }
+        res.json({ status: 'ok', message: 'Service is healthy' });
+      });
+    } else {
+      // For better-sqlite3
+      db.prepare('SELECT 1').get();
+      res.json({ status: 'ok', message: 'Service is healthy' });
+    }
+  } catch (err) {
+    console.error('Health check failed:', err.message);
+    res.status(500).json({ status: 'error', message: err.message });
   }
 });
 
