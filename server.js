@@ -1655,11 +1655,82 @@ app.get('/', (req, res) => {
     return performHealthCheck(req, res);
   }
   
-  // Otherwise redirect to admin page
-  res.redirect('/admin');
 });
 
 // Create a single server instance
+// Add a new endpoint to view database tables (protected by authentication)
+app.get('/api/view-database', authenticateToken, (req, res) => {
+  try {
+    const tables = {};
+    
+    // Get all matches
+    if (isUsingSqlite3) {
+      db.all('SELECT * FROM matches', [], (err, rows) => {
+        if (err) {
+          console.error('Error fetching matches:', err.message);
+          tables.matches = { error: err.message };
+        } else {
+          tables.matches = rows || [];
+        }
+        
+        // Get team_logos table
+        db.all('SELECT * FROM team_logos', [], (err, rows) => {
+          if (err) {
+            console.error('Error fetching team_logos:', err.message);
+            tables.team_logos = { error: err.message };
+          } else {
+            tables.team_logos = rows || [];
+          }
+          
+          // Get match_queue table
+          db.all('SELECT * FROM match_queue', [], (err, rows) => {
+            if (err) {
+              console.error('Error fetching match_queue:', err.message);
+              tables.match_queue = { error: err.message };
+            } else {
+              tables.match_queue = rows || [];
+            }
+            
+            res.json(tables);
+          });
+        });
+      });
+    } else {
+      // Using better-sqlite3
+      try {
+        tables.matches = db.prepare('SELECT * FROM matches').all();
+      } catch (err) {
+        console.error('Error fetching matches:', err.message);
+        tables.matches = { error: err.message };
+      }
+      
+      try {
+        tables.team_logos = db.prepare('SELECT * FROM team_logos').all();
+      } catch (err) {
+        console.error('Error fetching team_logos:', err.message);
+        tables.team_logos = { error: err.message };
+      }
+      
+      try {
+        tables.match_queue = db.prepare('SELECT * FROM match_queue').all();
+      } catch (err) {
+        console.error('Error fetching match_queue:', err.message);
+        tables.match_queue = { error: err.message };
+      }
+      
+      res.json(tables);
+    }
+  } catch (err) {
+    console.error('Error in view-database endpoint:', err.message);
+    res.status(500).json({ error: 'Server error', message: err.message });
+  }
+});
+
+// Serve the database viewer HTML page
+app.get('/db-viewer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'db_viewer.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}/admin`);
   console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);

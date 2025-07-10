@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS Match Tracker - Database Viewer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom right, #121212, #1e1e1e);
+      color: #eaeaea;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2 {
+      color: #facc15;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 32px;
+      background: rgba(40, 40, 40, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+    }
+
+    button {
+      cursor: pointer;
+      background: #facc15;
+      color: #1a1a1a;
+      font-weight: 700;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      transition: background 0.2s ease-in-out;
+      margin-bottom: 20px;
+    }
+
+    button:hover {
+      background: #fbbf24;
+    }
+
+    .nav-tabs {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-bottom: 1px solid #333;
+    }
+
+    .nav-item {
+      margin-right: 5px;
+    }
+
+    .nav-link {
+      display: block;
+      padding: 10px 15px;
+      background-color: #1a1a1a;
+      color: #eaeaea;
+      text-decoration: none;
+      border-radius: 5px 5px 0 0;
+      border: 1px solid #333;
+      border-bottom: none;
+      cursor: pointer;
+    }
+
+    .nav-link.active {
+      background-color: #2a2a2a;
+      color: #facc15;
+      border-bottom: 1px solid #2a2a2a;
+      margin-bottom: -1px;
+    }
+
+    .tab-content {
+      padding: 20px;
+      background-color: #2a2a2a;
+      border: 1px solid #333;
+      border-top: none;
+      border-radius: 0 0 5px 5px;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #444;
+      text-align: left;
+    }
+
+    th {
+      background: #1c1c1c;
+      color: #facc15;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #facc15;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .logo-preview {
+      max-height: 30px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .status-message {
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .status-success {
+      background-color: rgba(34, 197, 94, 0.2);
+      border: 1px solid #22c55e;
+    }
+
+    .status-error {
+      background-color: rgba(239, 68, 68, 0.2);
+      border: 1px solid #ef4444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h1>CS Match Tracker - Database Viewer</h1>
+      <a href="/admin" class="back-link">← Back to Admin Panel</a>
+    </div>
+
+    <div id="statusMessage" style="display: none;"></div>
+
+    <button id="refreshButton">Refresh Database Data</button>
+    
+    <div id="databaseViewer">
+      <ul class="nav-tabs" id="databaseTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="matches-tab" data-target="matches">Matches</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="team-logos-tab" data-target="team-logos">Team Logos</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="match-queue-tab" data-target="match-queue">Match Queue</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="databaseTabsContent">
+        <div class="tab-pane active" id="matches">
+          <div class="table-responsive">
+            <table class="table">
+              <thead id="matches-thead"></thead>
+              <tbody id="matches-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane" id="team-logos">
+          <div class="table-responsive">
+            <table class="table">
+              <thead id="team-logos-thead"></thead>
+              <tbody id="team-logos-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tab-pane" id="match-queue">
+          <div class="table-responsive">
+            <table class="table">
+              <thead id="match-queue-thead"></thead>
+              <tbody id="match-queue-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Authentication check
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      window.location.href = 'login.html';
+      throw new Error('Authentication required');
+    }
+
+    // Tab switching functionality
+    document.querySelectorAll('.nav-link').forEach(tab => {
+      tab.addEventListener('click', function() {
+        // Remove active class from all tabs and panes
+        document.querySelectorAll('.nav-link').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        this.classList.add('active');
+        
+        // Show corresponding pane
+        const target = this.getAttribute('data-target');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    // Function to show status message
+    function showStatusMessage(message, isError = false) {
+      const statusDiv = document.getElementById('statusMessage');
+      statusDiv.textContent = message;
+      statusDiv.className = isError ? 'status-message status-error' : 'status-message status-success';
+      statusDiv.style.display = 'block';
+      
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        statusDiv.style.display = 'none';
+      }, 5000);
+    }
+
+    // Function to fetch database data
+    async function fetchDatabaseData() {
+      try {
+        showStatusMessage('Loading database data...');
+        
+        const response = await fetch('/api/view-database', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Populate tables
+        populateTable('matches', data.matches);
+        populateTable('team-logos', data.team_logos);
+        populateTable('match-queue', data.match_queue);
+        
+        showStatusMessage('Database data loaded successfully');
+      } catch (error) {
+        console.error('Error fetching database:', error);
+        showStatusMessage(`Error fetching database: ${error.message}`, true);
+      }
+    }
+    
+    // Function to populate table with data
+    function populateTable(tableId, data) {
+      if (!data || data.length === 0) {
+        document.getElementById(`${tableId}-tbody`).innerHTML = '<tr><td colspan="100%" class="text-center">No data available</td></tr>';
+        document.getElementById(`${tableId}-thead`).innerHTML = '';
+        return;
+      }
+      
+      if (data.error) {
+        document.getElementById(`${tableId}-tbody`).innerHTML = `<tr><td class="text-danger">Error: ${data.error}</td></tr>`;
+        document.getElementById(`${tableId}-thead`).innerHTML = '<tr><th>Error</th></tr>';
+        return;
+      }
+      
+      // Create table headers
+      const headers = Object.keys(data[0]);
+      let headerHTML = '<tr>';
+      headers.forEach(header => {
+        headerHTML += `<th>${header}</th>`;
+      });
+      headerHTML += '</tr>';
+      document.getElementById(`${tableId}-thead`).innerHTML = headerHTML;
+      
+      // Create table rows
+      let rowsHTML = '';
+      data.forEach(row => {
+        rowsHTML += '<tr>';
+        headers.forEach(header => {
+          let cellValue = row[header];
+          
+          // Special handling for logo filenames - show the image
+          if (tableId === 'team-logos' && header === 'logo_filename' && cellValue) {
+            rowsHTML += `<td><img src="/logos/${cellValue}" alt="Logo" class="logo-preview"> ${cellValue}</td>`;
+          } else {
+            // For all other cells, just show the value
+            rowsHTML += `<td>${cellValue !== null ? cellValue : ''}</td>`;
+          }
+        });
+        rowsHTML += '</tr>';
+      });
+      document.getElementById(`${tableId}-tbody`).innerHTML = rowsHTML;
+    }
+
+    // Fetch data on page load
+    fetchDatabaseData();
+
+    // Add refresh button handler
+    document.getElementById('refreshButton').addEventListener('click', fetchDatabaseData);
+  </script>
+</body>
+</html>
