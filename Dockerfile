@@ -10,6 +10,9 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome
 # Create app directory
 WORKDIR /app
 
+# Create tmp directories that will be needed
+RUN mkdir -p /tmp/logos && chmod 777 /tmp/logos
+
 # Create browser config file
 RUN echo "module.exports = { executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] };" > browser-config.js
 

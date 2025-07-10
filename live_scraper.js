@@ -408,7 +408,15 @@ if (topTeam) {
           // Find the queue row ID for this matchId
           const row = db.prepare('SELECT id FROM match_queue WHERE match_id = ?').get(matchId);
           if (row && row.id) {
-            const res = await fetch(`http://localhost:3000/api/match-queue/${row.id}`, { method: 'DELETE' });
+            // Use localhost in both environments since this is a server-to-server call
+          // In production, the server calls itself on localhost
+          const baseUrl = 'http://localhost:3000';
+          const res = await fetch(`${baseUrl}/api/match-queue/${row.id}`, { 
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${process.env.JWT_SECRET || 'your-secret-key-change-this-in-production'}`
+            }
+          });
             if (res.ok) {
               const data = await res.json();
               if (data.success) {

@@ -75,6 +75,39 @@ app.use('/logos', express.static(logoDir));
 
 app.use(cors()); // NOT for production
 
+// Health check endpoints for Railway
+function performHealthCheck(req, res) {
+  try {
+    // Check database connection
+    if (isUsingSqlite3) {
+      db.get('SELECT 1', (err) => {
+        if (err) {
+          console.error('❌ Health check failed - Database error:', err.message);
+          return res.status(500).json({ status: 'error', message: 'Database connection failed' });
+        }
+        res.json({ status: 'ok', message: 'Server is healthy' });
+      });
+    } else {
+      try {
+        db.prepare('SELECT 1').get();
+        res.json({ status: 'ok', message: 'Server is healthy' });
+      } catch (err) {
+        console.error('❌ Health check failed - Database error:', err.message);
+        res.status(500).json({ status: 'error', message: 'Database connection failed' });
+      }
+    }
+  } catch (err) {
+    console.error('❌ Health check failed:', err.message);
+    res.status(500).json({ status: 'error', message: 'Server error' });
+  }
+}
+
+// Root path health check for Railway
+app.get('/', performHealthCheck);
+
+// Explicit health check endpoint
+app.get('/health', performHealthCheck);
+
 // JWT Secret Key from environment variables
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production';
 
@@ -306,6 +339,296 @@ app.get('/health', (req, res) => {
   }
 });
 
+// Add match API endpoint
+app.post('/api/add-match', authenticateToken, async (req, res) => {
+  try {
+    const { hltvUrl } = req.body;
+    
+    if (!hltvUrl) {
+      return res.status(400).json({ success: false, error: 'HLTV URL is required' });
+    }
+    
+    // Extract match ID from URL
+    const matchId = extractMatchId(hltvUrl);
+    if (!matchId) {
+      return res.status(400).json({ success: false, error: 'Invalid HLTV URL format' });
+    }
+    
+    console.log(`🔍 Adding match from URL: ${hltvUrl} (ID: ${matchId})`);
+    
+    // Check if match already exists
+    if (isUsingSqlite3) {
+      db.get('SELECT 1 FROM matches WHERE match_id = ?', [matchId], async (err, row) => {
+        if (err) {
+          console.error('❌ Database error checking match existence:', err.message);
+          return res.status(500).json({ success: false, error: 'Database error' });
+        }
+        
+        if (row) {
+          console.log(`⚠️ Match ${matchId} already exists in database`);
+          return res.status(400).json({ success: false, error: 'Match already exists' });
+        }
+        
+        // Run the add_match_check.js script to get match details
+        const { spawn } = require('child_process');
+        const addMatchProcess = spawn('node', ['add_match_check.js', hltvUrl, matchId]);
+        
+        let matchData = '';
+        let matchError = '';
+        
+        addMatchProcess.stdout.on('data', (data) => {
+          matchData += data.toString();
+        });
+        
+        addMatchProcess.stderr.on('data', (data) => {
+          matchError += data.toString();
+        });
+        
+        addMatchProcess.on('close', (code) => {
+          if (code !== 0) {
+            console.error(`❌ add_match_check.js exited with code ${code}:`, matchError);
+            return res.status(500).json({ success: false, error: 'Failed to scrape match data' });
+          }
+          
+          // Parse the output to extract team names and match format
+          const team1Match = matchData.match(/Team 1 Name:\s+(.+)/);
+          const team2Match = matchData.match(/Team 2 Name:\s+(.+)/);
+          const formatMatch = matchData.match(/Match Format:\s+(BO[135])/);
+          const team1LogoMatch = matchData.match(/Team 1 Logo:\s+(.+)/);
+          const team2LogoMatch = matchData.match(/Team 2 Logo:\s+(.+)/);
+          
+          const team1 = team1Match ? team1Match[1] : 'Unknown Team 1';
+          const team2 = team2Match ? team2Match[1] : 'Unknown Team 2';
+          const format = formatMatch ? formatMatch[1] : 'BO3';
+          const team1Logo = team1LogoMatch ? team1LogoMatch[1] : null;
+          const team2Logo = team2LogoMatch ? team2LogoMatch[1] : null;
+          
+          // Insert match into database
+          db.run(
+            'INSERT INTO matches (match_id, match_url, team1_name, team2_name, match_format) VALUES (?, ?, ?, ?, ?)',
+            [matchId, hltvUrl, team1, team2, format],
+            function(err) {
+              if (err) {
+                console.error('❌ Error inserting match:', err.message);
+                return res.status(500).json({ success: false, error: 'Failed to add match to database' });
+              }
+              
+              // Add to match queue
+              db.run(
+                'INSERT INTO match_queue (match_id, priority, status) VALUES (?, ?, ?)',
+                [matchId, 0, 'queued'],
+                function(err) {
+                  if (err) {
+                    console.error('❌ Error adding match to queue:', err.message);
+                    return res.status(500).json({ success: false, error: 'Failed to add match to queue' });
+                  }
+                  
+                  // Download team logos if available
+                  if (team1Logo || team2Logo) {
+                    const puppeteer = require('puppeteer-extra').default;
+                    const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+                    const fs = require('fs');
+                    const path = require('path');
+                    
+                    puppeteer.use(StealthPlugin());
+                    
+                    // Use browser-config.js for consistent Puppeteer configuration
+                    const browserConfig = require('./browser-config');
+                    
+                    (async () => {
+                      try {
+                        const browser = await puppeteer.launch(browserConfig);
+                        const page = await browser.newPage();
+                        
+                        // Determine logo directory based on environment
+                        const logoDir = process.env.NODE_ENV === 'production' 
+                          ? '/tmp/logos'
+                          : path.join(__dirname, 'public', 'logos');
+                        
+                        // Ensure logo directory exists
+                        if (!fs.existsSync(logoDir)) {
+                          fs.mkdirSync(logoDir, { recursive: true });
+                        }
+                        
+                        // Download team1 logo
+                        if (team1Logo) {
+                          await page.goto(team1Logo, { waitUntil: 'networkidle2' });
+                          const logoFilename = `${team1.toLowerCase().replace(/\s+/g, '_')}.png`;
+                          const logoPath = path.join(logoDir, logoFilename);
+                          const imageBuffer = await page.screenshot();
+                          fs.writeFileSync(logoPath, imageBuffer);
+                          
+                          // Add to team_logos table
+                          db.run(
+                            'INSERT OR IGNORE INTO team_logos (team_name, logo_filename) VALUES (?, ?)',
+                            [team1, logoFilename]
+                          );
+                          console.log(`✅ Downloaded logo for ${team1}`);
+                        }
+                        
+                        // Download team2 logo
+                        if (team2Logo) {
+                          await page.goto(team2Logo, { waitUntil: 'networkidle2' });
+                          const logoFilename = `${team2.toLowerCase().replace(/\s+/g, '_')}.png`;
+                          const logoPath = path.join(logoDir, logoFilename);
+                          const imageBuffer = await page.screenshot();
+                          fs.writeFileSync(logoPath, imageBuffer);
+                          
+                          // Add to team_logos table
+                          db.run(
+                            'INSERT OR IGNORE INTO team_logos (team_name, logo_filename) VALUES (?, ?)',
+                            [team2, logoFilename]
+                          );
+                          console.log(`✅ Downloaded logo for ${team2}`);
+                        }
+                        
+                        await browser.close();
+                      } catch (err) {
+                        console.error('❌ Error downloading team logos:', err.message);
+                      }
+                    })();
+                  }
+                  
+                  console.log(`✅ Match ${matchId} (${team1} vs ${team2}) added to queue`);
+                  res.json({ success: true, matchId, team1, team2, format });
+                }
+              );
+            }
+          );
+        });
+      });
+    } else {
+      // Using better-sqlite3 in development
+      const existingMatch = db.prepare('SELECT 1 FROM matches WHERE match_id = ?').get(matchId);
+      
+      if (existingMatch) {
+        console.log(`⚠️ Match ${matchId} already exists in database`);
+        return res.status(400).json({ success: false, error: 'Match already exists' });
+      }
+      
+      // Run the add_match_check.js script to get match details
+      const { spawn } = require('child_process');
+      const addMatchProcess = spawn('node', ['add_match_check.js', hltvUrl, matchId]);
+      
+      let matchData = '';
+      let matchError = '';
+      
+      addMatchProcess.stdout.on('data', (data) => {
+        matchData += data.toString();
+      });
+      
+      addMatchProcess.stderr.on('data', (data) => {
+        matchError += data.toString();
+      });
+      
+      addMatchProcess.on('close', (code) => {
+        if (code !== 0) {
+          console.error(`❌ add_match_check.js exited with code ${code}:`, matchError);
+          return res.status(500).json({ success: false, error: 'Failed to scrape match data' });
+        }
+        
+        // Parse the output to extract team names and match format
+        const team1Match = matchData.match(/Team 1 Name:\s+(.+)/);
+        const team2Match = matchData.match(/Team 2 Name:\s+(.+)/);
+        const formatMatch = matchData.match(/Match Format:\s+(BO[135])/);
+        const team1LogoMatch = matchData.match(/Team 1 Logo:\s+(.+)/);
+        const team2LogoMatch = matchData.match(/Team 2 Logo:\s+(.+)/);
+        
+        const team1 = team1Match ? team1Match[1] : 'Unknown Team 1';
+        const team2 = team2Match ? team2Match[1] : 'Unknown Team 2';
+        const format = formatMatch ? formatMatch[1] : 'BO3';
+        const team1Logo = team1LogoMatch ? team1LogoMatch[1] : null;
+        const team2Logo = team2LogoMatch ? team2LogoMatch[1] : null;
+        
+        try {
+          // Insert match into database
+          db.prepare(
+            'INSERT INTO matches (match_id, match_url, team1_name, team2_name, match_format) VALUES (?, ?, ?, ?, ?)'
+          ).run(matchId, hltvUrl, team1, team2, format);
+          
+          // Add to match queue
+          db.prepare(
+            'INSERT INTO match_queue (match_id, priority, status) VALUES (?, ?, ?)'
+          ).run(matchId, 0, 'queued');
+          
+          // Download team logos if available
+          if (team1Logo || team2Logo) {
+            const puppeteer = require('puppeteer-extra').default;
+            const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+            const fs = require('fs');
+            const path = require('path');
+            
+            puppeteer.use(StealthPlugin());
+            
+            // Use browser-config.js for consistent Puppeteer configuration
+            const browserConfig = require('./browser-config');
+            
+            (async () => {
+              try {
+                const browser = await puppeteer.launch(browserConfig);
+                const page = await browser.newPage();
+                
+                // Determine logo directory based on environment
+                const logoDir = process.env.NODE_ENV === 'production' 
+                  ? '/tmp/logos'
+                  : path.join(__dirname, 'public', 'logos');
+                
+                // Ensure logo directory exists
+                if (!fs.existsSync(logoDir)) {
+                  fs.mkdirSync(logoDir, { recursive: true });
+                }
+                
+                // Download team1 logo
+                if (team1Logo) {
+                  await page.goto(team1Logo, { waitUntil: 'networkidle2' });
+                  const logoFilename = `${team1.toLowerCase().replace(/\s+/g, '_')}.png`;
+                  const logoPath = path.join(logoDir, logoFilename);
+                  const imageBuffer = await page.screenshot();
+                  fs.writeFileSync(logoPath, imageBuffer);
+                  
+                  // Add to team_logos table
+                  db.prepare(
+                    'INSERT OR IGNORE INTO team_logos (team_name, logo_filename) VALUES (?, ?)'
+                  ).run(team1, logoFilename);
+                  console.log(`✅ Downloaded logo for ${team1}`);
+                }
+                
+                // Download team2 logo
+                if (team2Logo) {
+                  await page.goto(team2Logo, { waitUntil: 'networkidle2' });
+                  const logoFilename = `${team2.toLowerCase().replace(/\s+/g, '_')}.png`;
+                  const logoPath = path.join(logoDir, logoFilename);
+                  const imageBuffer = await page.screenshot();
+                  fs.writeFileSync(logoPath, imageBuffer);
+                  
+                  // Add to team_logos table
+                  db.prepare(
+                    'INSERT OR IGNORE INTO team_logos (team_name, logo_filename) VALUES (?, ?)'
+                  ).run(team2, logoFilename);
+                  console.log(`✅ Downloaded logo for ${team2}`);
+                }
+                
+                await browser.close();
+              } catch (err) {
+                console.error('❌ Error downloading team logos:', err.message);
+              }
+            })();
+          }
+          
+          console.log(`✅ Match ${matchId} (${team1} vs ${team2}) added to queue`);
+          res.json({ success: true, matchId, team1, team2, format });
+        } catch (err) {
+          console.error('❌ Error adding match:', err.message);
+          res.status(500).json({ success: false, error: 'Failed to add match to database' });
+        }
+      });
+    }
+  } catch (err) {
+    console.error('❌ Error in add-match endpoint:', err.message);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
+
 // Match queue API endpoint
 app.get('/api/match-queue', (req, res) => {
   try {
@@ -414,19 +737,97 @@ app.get('/api/match-queue', (req, res) => {
 
 // Extract match ID from HLTV URL
 function extractMatchId(url) {
-  const match = url.match(/hltv\.org\/matches\/(\d+)/);
-  return match ? match[1] : null;
+  // Handle both /matches/ID and /match/ID formats
+  const match = url.match(/hltv\.org\/match(?:es)?\/(\d+)/);
+  
+  if (match && match[1]) {
+    console.log(`✅ Successfully extracted match ID: ${match[1]} from URL: ${url}`);
+    return match[1];
+  } else {
+    console.error(`❌ Failed to extract match ID from URL: ${url}`);
+    return null;
+  }
 }
+
+// Login endpoint
+app.post('/api/login', (req, res) => {
+  const { username, password } = req.body;
+  
+  if (!username || !password) {
+    return res.status(400).json({ success: false, error: 'Username and password are required' });
+  }
+  
+  try {
+    let user;
+    
+    if (isUsingSqlite3) {
+      // Using sqlite3 in production
+      db.get('SELECT * FROM admin_users WHERE username = ?', [username], (err, row) => {
+        if (err) {
+          console.error('❌ Database error during login:', err.message);
+          return res.status(500).json({ success: false, error: 'Server error' });
+        }
+        
+        if (!row) {
+          return res.status(401).json({ success: false, error: 'Invalid credentials' });
+        }
+        
+        // Compare password
+        bcrypt.compare(password, row.password, (err, isMatch) => {
+          if (err) {
+            console.error('❌ Password comparison error:', err.message);
+            return res.status(500).json({ success: false, error: 'Server error' });
+          }
+          
+          if (!isMatch) {
+            return res.status(401).json({ success: false, error: 'Invalid credentials' });
+          }
+          
+          // Generate JWT token
+          const token = jwt.sign({ id: row.id, username: row.username }, JWT_SECRET, { expiresIn: '24h' });
+          
+          // Return token with success flag
+          res.json({ success: true, token });
+        });
+      });
+    } else {
+      // Using better-sqlite3 in development
+      try {
+        user = db.prepare('SELECT * FROM admin_users WHERE username = ?').get(username);
+        
+        if (!user) {
+          return res.status(401).json({ success: false, error: 'Invalid credentials' });
+        }
+        
+        // Compare password
+        const isMatch = bcrypt.compareSync(password, user.password);
+        
+        if (!isMatch) {
+          return res.status(401).json({ success: false, error: 'Invalid credentials' });
+        }
+        
+        // Generate JWT token
+        const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '24h' });
+        
+        // Return token with success flag
+        res.json({ success: true, token });
+      } catch (err) {
+        console.error('❌ Database error during login:', err.message);
+        res.status(500).json({ success: false, error: 'Server error' });
+      }
+    }
+  } catch (err) {
+    console.error('❌ Login error:', err.message);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
 
 // Token verification endpoint
 app.get('/api/verify', authenticateToken, (req, res) => {
   // If the middleware passes, the token is valid
   res.json({
     valid: true,
-    user: {
-      id: req.user.id,
-      username: req.user.username
-    }
+    user: req.user
   });
 });
 
@@ -701,9 +1102,21 @@ app.post('/api/add-match', (req, res) => {
               const imageBuffer = await page.screenshot();
               fs.writeFileSync(logoPath, imageBuffer);
 
-              // Insert into database
-              db.prepare('INSERT INTO team_logos (team_name, logo_filename) VALUES (?, ?)').run(teamName, logoName);
-              console.log(`✅ Downloaded logo for ${teamName}`);
+              // Insert into database with environment-aware approach
+              if (isUsingSqlite3) {
+                // Using sqlite3 in production
+                db.run('INSERT INTO team_logos (team_name, logo_filename) VALUES (?, ?)', [teamName, logoName], function(err) {
+                  if (err) {
+                    console.error(`❌ Error inserting logo for ${teamName} into database:`, err.message);
+                  } else {
+                    console.log(`✅ Downloaded logo for ${teamName} and inserted into database`);
+                  }
+                });
+              } else {
+                // Using better-sqlite3 in development
+                db.prepare('INSERT INTO team_logos (team_name, logo_filename) VALUES (?, ?)').run(teamName, logoName);
+                console.log(`✅ Downloaded logo for ${teamName} and inserted into database`);
+              }
             } catch (err) {
               console.error(`❌ Failed to download logo for ${teamName}:`, err.message);
             }
@@ -773,79 +1186,8 @@ app.get('/api/match-queue', (req, res) => {
   }
 });
 
-// Remove match from queue and matches by queue row id
-app.delete('/api/match-queue/:id', authenticateToken, (req, res) => {
-  const id = req.params.id;
-  try {
-    const row = db.prepare('SELECT match_id FROM match_queue WHERE id = ?').get(id);
-    if (!row) return res.status(404).json({ error: 'Queue row not found' });
-
-    const t = db.transaction(() => {
-      db.prepare('DELETE FROM match_queue WHERE id = ?').run(id);
-      db.prepare('DELETE FROM matches WHERE match_id = ?').run(row.match_id);
-      db.prepare('DELETE FROM win_state WHERE match_id = ?').run(row.match_id);
-    });
-    t();
-
-    console.log(`🗑️ Deleted match_id ${row.match_id} from queue ID ${id} and matches table.`);
-    res.json({ success: true });
-  } catch (err) {
-    console.error('❌ Failed to delete match from queue and matches:', err.message);
-    res.status(500).json({ error: 'Failed to remove from queue', details: err.message });
-  }
-});
-
-// Reorder match in queue (up/down)
-  app.post('/api/match-queue/:id/reorder', (req, res) => {
-  const id = parseInt(req.params.id, 10);
-  const { direction } = req.body;
-
-  console.log(`📥 Reorder request: ID=${id}, direction=${direction}`);
-
-  if (!['up', 'down'].includes(direction)) {
-    console.warn('⚠️ Invalid direction:', direction);
-    return res.status(400).json({ error: 'Invalid direction' });
-  }
-
-  try {
-    const row = db.prepare('SELECT id, priority FROM match_queue WHERE id = ?').get(id);
-    if (!row) {
-      console.warn(`❌ No queue row found for ID ${id}`);
-      return res.status(404).json({ error: 'Queue row not found' });
-    }
-
-    console.log(`🔍 Current row: ID=${row.id}, priority=${row.priority}`);
-
-    // Find the neighbor row to swap with
-    const neighbor = db.prepare(`
-      SELECT id, priority FROM match_queue
-      WHERE priority ${direction === 'up' ? '<' : '>'} ?
-      ORDER BY priority ${direction === 'up' ? 'DESC' : 'ASC'}
-      LIMIT 1
-    `).get(row.priority);
-
-    if (!neighbor) {
-      console.warn(`↕️ Cannot move ${direction} from priority ${row.priority}`);
-      return res.status(400).json({ error: `Cannot move ${direction}` });
-    }
-
-    console.log(`🔁 Swapping with neighbor: ID=${neighbor.id}, priority=${neighbor.priority}`);
-
-    // Swap priorities in transaction 
-    const t = db.transaction(() => {
-      db.prepare('UPDATE match_queue SET priority = ? WHERE id = ?').run(neighbor.priority, row.id);
-      db.prepare('UPDATE match_queue SET priority = ? WHERE id = ?').run(row.priority, neighbor.id);
-    });
-    t();
-
-    console.log(`✅ Reordered match ID ${id} ${direction}, priorities swapped`);
-
-    res.json({ success: true });
-  } catch (err) {
-    console.error('❌ Reorder error:', err.message);
-    res.status(500).json({ error: 'Failed to reorder queue', details: err.message });
-  }
-});
+// This section was removed to eliminate duplicate endpoints
+// The authenticated versions of these endpoints are implemented above
 
 let scraperProcess = null;
 let twitchBotProcess = null;
@@ -1102,6 +1444,143 @@ app.get('/api/server-log', (req, res) => {
   } catch (err) {
     console.error('Error accessing log file:', err.message);
     res.json({ success: true, log: '-- Error accessing logs --' });
+  }
+});
+
+// API to reorder a match in the queue
+app.post('/api/match-queue/:id/reorder', authenticateToken, (req, res) => {
+  try {
+    const queueId = req.params.id;
+    const { direction } = req.body;
+    
+    if (!queueId) {
+      return res.status(400).json({ success: false, error: 'Queue ID is required' });
+    }
+    
+    if (!direction || (direction !== 'up' && direction !== 'down')) {
+      return res.status(400).json({ success: false, error: 'Valid direction (up/down) is required' });
+    }
+    
+    console.log(`🔄 Reordering match in queue with ID: ${queueId} direction: ${direction}`);
+    
+    if (isUsingSqlite3) {
+      // Using sqlite3 in production
+      db.get('SELECT id, priority FROM match_queue WHERE id = ?', [queueId], (err, row) => {
+        if (err) {
+          console.error('❌ Error finding match in queue:', err.message);
+          return res.status(500).json({ success: false, error: 'Database error' });
+        }
+        
+        if (!row) {
+          return res.status(404).json({ success: false, error: 'Match not found in queue' });
+        }
+        
+        const currentPriority = row.priority || 0;
+        const newPriority = direction === 'up' ? currentPriority + 1 : Math.max(0, currentPriority - 1);
+        
+        db.run('UPDATE match_queue SET priority = ? WHERE id = ?', [newPriority, queueId], function(err) {
+          if (err) {
+            console.error('❌ Error updating match priority:', err.message);
+            return res.status(500).json({ success: false, error: 'Failed to update match priority' });
+          }
+          
+          console.log(`✅ Match ${queueId} priority updated to ${newPriority}`);
+          res.json({ success: true, message: 'Match priority updated' });
+        });
+      });
+    } else {
+      // Using better-sqlite3 in development
+      try {
+        const row = db.prepare('SELECT id, priority FROM match_queue WHERE id = ?').get(queueId);
+        
+        if (!row) {
+          return res.status(404).json({ success: false, error: 'Match not found in queue' });
+        }
+        
+        const currentPriority = row.priority || 0;
+        const newPriority = direction === 'up' ? currentPriority + 1 : Math.max(0, currentPriority - 1);
+        
+        db.prepare('UPDATE match_queue SET priority = ? WHERE id = ?').run(newPriority, queueId);
+        
+        console.log(`✅ Match ${queueId} priority updated to ${newPriority}`);
+        res.json({ success: true, message: 'Match priority updated' });
+      } catch (err) {
+        console.error('❌ Error updating match priority:', err.message);
+        res.status(500).json({ success: false, error: 'Database error' });
+      }
+    }
+  } catch (err) {
+    console.error('❌ Error in reorder-match endpoint:', err.message);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
+
+// API to remove a match from the queue
+app.delete('/api/match-queue/:id', authenticateToken, (req, res) => {
+  try {
+    const queueId = req.params.id;
+    
+    if (!queueId) {
+      return res.status(400).json({ success: false, error: 'Queue ID is required' });
+    }
+    
+    console.log(`🗑️ Removing match from queue with ID: ${queueId}`);
+    
+    if (isUsingSqlite3) {
+      // Using sqlite3 in production
+      db.get('SELECT match_id FROM match_queue WHERE id = ?', [queueId], (err, row) => {
+        if (err) {
+          console.error('❌ Error finding match in queue:', err.message);
+          return res.status(500).json({ success: false, error: 'Database error' });
+        }
+        
+        if (!row) {
+          return res.status(404).json({ success: false, error: 'Match not found in queue' });
+        }
+        
+        const matchId = row.match_id;
+        
+        db.run('DELETE FROM match_queue WHERE id = ?', [queueId], function(err) {
+          if (err) {
+            console.error('❌ Error removing match from queue:', err.message);
+            return res.status(500).json({ success: false, error: 'Failed to remove match from queue' });
+          }
+          
+          if (this.changes === 0) {
+            return res.status(404).json({ success: false, error: 'Match not found in queue' });
+          }
+          
+          console.log(`✅ Match ${matchId} removed from queue`);
+          res.json({ success: true, message: 'Match removed from queue' });
+        });
+      });
+    } else {
+      // Using better-sqlite3 in development
+      try {
+        const row = db.prepare('SELECT match_id FROM match_queue WHERE id = ?').get(queueId);
+        
+        if (!row) {
+          return res.status(404).json({ success: false, error: 'Match not found in queue' });
+        }
+        
+        const matchId = row.match_id;
+        
+        const result = db.prepare('DELETE FROM match_queue WHERE id = ?').run(queueId);
+        
+        if (result.changes === 0) {
+          return res.status(404).json({ success: false, error: 'Match not found in queue' });
+        }
+        
+        console.log(`✅ Match ${matchId} removed from queue`);
+        res.json({ success: true, message: 'Match removed from queue' });
+      } catch (err) {
+        console.error('❌ Error removing match from queue:', err.message);
+        res.status(500).json({ success: false, error: 'Database error' });
+      }
+    }
+  } catch (err) {
+    console.error('❌ Error in remove-match endpoint:', err.message);
+    res.status(500).json({ success: false, error: 'Server error' });
   }
 });
 
